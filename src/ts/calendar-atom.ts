@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { todoItemType } from "../components/calendar/todoItems/ts/todoItemType";
+import { todoItemType } from "../components/schedule/todoItems/ts/todoItemType";
 
 const todoMemoItemsDefault: todoItemType = {
     todoID: '',

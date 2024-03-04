@@ -7,7 +7,6 @@ import { PrevNextMonthBtns } from "./PrevNextMonthBtns";
 import { Todo } from "../todoItems/Todo";
 import { useGetMonthDays } from "./hooks/useGetMonthDays";
 import { TodoList } from "../todoItems/TodoList";
-import { NavigationBar } from "../../../utils/NavigationBar";
 
 type todaySignal = {
     thisYear: number;
@@ -71,7 +70,6 @@ export const Calendar = () => {
 
     return (
         <div className={calendarStyle.wrapper}>
-            <NavigationBar classNameStr="scheduleCalendar" />
             <h1>{ctrlYear}年{ctrlMonth}月</h1>
             <button className={calendarStyle.resetBtn} type="button" onClick={resetAllSchedule}>予定を全削除</button>
             <PrevNextMonthBtns
