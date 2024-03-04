@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import { memo } from 'react';
 import { Calendar } from '../components/schedule/calendar/Calendar';
 import { KorekauBased } from '../components/korekau/KorekauBased';
@@ -18,18 +19,57 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 
 export const SwiperLibs = memo(() => {
+    const navListsLable = ['買うものリスト', 'カレンダー'];
+    const renderBullet = (index: number) => {
+        return `<button type="button" class="swiper-pagination-bullet">${navListsLable[index]}</button>`;
+    }
+
     return (
-        <Swiper
-            slidesPerView={1}
-            initialSlide={1} // スライダー2枚目から表示
-            centeredSlides={true}
-            speed={1500}
-            grabCursor={true}
-            className="useSwiper"
-            modules={[Pagination]}
-        >
-            <SwiperSlide><Calendar /></SwiperSlide>
-            <SwiperSlide><KorekauBased /></SwiperSlide>
-        </Swiper>
+        <SwiperLibsWrapper>
+            <Swiper
+                slidesPerView={1}
+                centeredSlides={true}
+                speed={1500}
+                grabCursor={true}
+                className="useSwiper"
+                modules={[Pagination]}
+                pagination={{ renderBullet, clickable: true }}
+            >
+                <SwiperSlide><KorekauBased /></SwiperSlide>
+                <SwiperSlide><Calendar /></SwiperSlide>
+            </Swiper>
+        </SwiperLibsWrapper>
     );
 });
+
+const SwiperLibsWrapper = styled.div`
+    & .swiper-pagination {
+        top: 0;
+        display: flex;
+        gap: 2%;
+        justify-content: flex-start;
+        align-items: flex-start;
+        height: fit-content;
+
+        & button {
+            appearance: none;
+            background: none;
+            border-radius: 0;
+            border-bottom:  3px solid transparent;
+            display: block;
+            text-align: left;
+            width: fit-content;
+            padding: 0 0 1.5em 0;
+            margin: 0!important;
+
+            &.swiper-pagination-bullet-active {
+                color: #1d8ed4;
+                border-color: #1d8ed4;
+            }
+        }
+    }
+
+    & .swiper-wrapper {
+        padding-top: 2.5em;
+    }
+`;

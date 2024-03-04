@@ -1,6 +1,6 @@
+import styled from "styled-components";
 import { memo } from "react";
 import { SwiperLibs } from "./libs/SwiperLibs";
-import styled from "styled-components";
 
 export const GlobalWrapper = memo(() => {
     return (
