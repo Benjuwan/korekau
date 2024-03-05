@@ -70,7 +70,7 @@ export const Calendar = () => {
 
     return (
         <div className={calendarStyle.wrapper}>
-            <h1>{ctrlYear}年{ctrlMonth}月</h1>
+            <h2>{ctrlYear}年{ctrlMonth}月</h2>
             <button className={calendarStyle.resetBtn} type="button" onClick={resetAllSchedule}>予定を全削除</button>
             <PrevNextMonthBtns
                 className={calendarStyle.btns}

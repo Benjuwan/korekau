@@ -29,7 +29,7 @@ export const SwiperLibs = memo(() => {
             <Swiper
                 slidesPerView={1}
                 centeredSlides={true}
-                speed={1500}
+                speed={1000}
                 grabCursor={true}
                 className="useSwiper"
                 modules={[Pagination]}
@@ -63,8 +63,8 @@ const SwiperLibsWrapper = styled.div`
             margin: 0!important;
 
             &.swiper-pagination-bullet-active {
-                color: #1d8ed4;
-                border-color: #1d8ed4;
+                color: #1e6cd4;
+                border-color: #1e6cd4;
             }
         }
     }
