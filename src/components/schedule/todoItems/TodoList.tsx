@@ -3,9 +3,12 @@ import { Fragment, SyntheticEvent } from "react";
 import { useAtom } from "jotai";
 import { todoMemoAtom } from "../../../ts/calendar-atom";
 import { TodoItems } from "./TodoItems";
+import { useScrollTop } from "../../../hooks/useScrollTop";
 
 export const TodoList = ({ todoID }: { todoID: string }) => {
     const [todoMemo] = useAtom(todoMemoAtom);
+
+    const { scrollTop } = useScrollTop();
 
     /* モーダル表示関連（ToDoの詳細表示オン・オフ）*/
     const OnViewModalWindow: (viewerParentElm: HTMLElement) => void = (viewerParentElm: HTMLElement) => {
@@ -24,6 +27,7 @@ export const TodoList = ({ todoID }: { todoID: string }) => {
                             {todoItem.todoID === todoID ?
                                 <li onClick={(liElm: SyntheticEvent<HTMLLIElement>) => {
                                     OnViewModalWindow(liElm.currentTarget);
+                                    scrollTop();
                                 }}>
                                     <div className={todoStyle.editTargetContent}>
                                         <p className={todoStyle.editTargetStr}>{todoItem.todoContent}</p>

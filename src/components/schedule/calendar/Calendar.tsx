@@ -1,12 +1,15 @@
 import { SyntheticEvent, useEffect, useState } from "react";
 import calendarStyle from "./css/calendarStyle.module.css";
+import todoStyle from "../todoItems/css/todoStyle.module.css";
 import { calendarItemType } from "./ts/calendarItemType";
 import { useAtom } from "jotai";
 import { isDesktopViewAtom, todoMemoLocalStorageAtom } from "../../../ts/calendar-atom";
 import { PrevNextMonthBtns } from "./PrevNextMonthBtns";
 import { Todo } from "../todoItems/Todo";
-import { useGetMonthDays } from "./hooks/useGetMonthDays";
 import { TodoList } from "../todoItems/TodoList";
+import { useGetMonthDays } from "./hooks/useGetMonthDays";
+import { useViewTodoCtrl } from "../todoItems/hooks/useViewTodoCtrl";
+import { useScrollTop } from "../../../hooks/useScrollTop";
 
 type todaySignal = {
     thisYear: number;
@@ -16,6 +19,13 @@ type todaySignal = {
 
 export const Calendar = () => {
     const { getMonthDays } = useGetMonthDays();
+
+    const { scrollTop } = useScrollTop();
+    const { viewTodoCtrl } = useViewTodoCtrl();
+    const handleOpenClosedBtnClicked: (btnEl: HTMLButtonElement) => void = (btnEl: HTMLButtonElement) => {
+        viewTodoCtrl(btnEl);
+        scrollTop();
+    }
 
     const [, setLocalstorage] = useAtom(todoMemoLocalStorageAtom); // 更新関数のみ使用（全てのスケジュールリセット）
     const [desktopView, setDesktopView] = useAtom(isDesktopViewAtom);
@@ -35,7 +45,7 @@ export const Calendar = () => {
         }
         setCtrlToday((_prevCtrlToday) => today);
 
-        if (window.matchMedia("(min-width: 960px)").matches) setDesktopView(true);
+        if (window.matchMedia("(min-width: 1025px)").matches) setDesktopView(true);
     }, []);
 
     const jumpThisMonth: () => void = () => {
@@ -55,15 +65,6 @@ export const Calendar = () => {
             alert('全てのスケジュールが削除されました');
             location.reload();
         }
-    }
-
-    const viewTodoCtrl: (btnElm: HTMLButtonElement) => void = (btnElm: HTMLButtonElement) => {
-        const parentTodoViewElm: HTMLDivElement | null = btnElm.closest(`.${calendarStyle.todoView}`);
-        if (parentTodoViewElm?.classList.contains(calendarStyle.OnView)) {
-            parentTodoViewElm.classList.remove(calendarStyle.OnView);
-            return;
-        }
-        parentTodoViewElm?.classList.add(calendarStyle.OnView);
     }
 
     useEffect(() => getMonthDays(ctrlYear, ctrlMonth, setDays), [ctrlMonth]);
@@ -96,10 +97,10 @@ export const Calendar = () => {
                             <>
                                 {desktopView ?
                                     <Todo todoID={`${day.year}/${day.month}/${day.day}`} /> :
-                                    <div className={`${calendarStyle.todoView}`}>
-                                        <button className={`${calendarStyle.openBtn} todoCtrlOpen`} onClick={(btnEl: SyntheticEvent<HTMLButtonElement>) => viewTodoCtrl(btnEl.currentTarget)}><span className="material-symbols-outlined">add_circle</span></button>
-                                        <div className={`${calendarStyle.todoCtrlElm}`}>
-                                            <button className={`${calendarStyle.closeBtn} todoCtrlClose`} onClick={(btnEl: SyntheticEvent<HTMLButtonElement>) => viewTodoCtrl(btnEl.currentTarget)}><span className="material-symbols-outlined">close</span></button>
+                                    <div className={`${todoStyle.todoView}`}>
+                                        <button className={`${todoStyle.openBtn} todoCtrlOpen`} onClick={(btnEl: SyntheticEvent<HTMLButtonElement>) => handleOpenClosedBtnClicked(btnEl.currentTarget)}><span className="material-symbols-outlined">add_circle</span></button>
+                                        <div className={`${todoStyle.todoCtrlElm}`}>
+                                            <button className={`${todoStyle.closeBtn} todoCtrlClose`} onClick={(btnEl: SyntheticEvent<HTMLButtonElement>) => handleOpenClosedBtnClicked(btnEl.currentTarget)}><span className="material-symbols-outlined">close</span></button>
                                             <p style={{ 'fontWeight': 'bold' }}>{day.month}/{day.day}（{day.dayDate}）</p>
                                             <Todo todoID={`${day.year}/${day.month}/${day.day}`} />
                                         </div>

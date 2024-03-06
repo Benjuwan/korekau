@@ -19,13 +19,19 @@ margin: 2.5em auto 0;
 padding: 0 1em;
 
     & h1 {
-        padding: 1em 2.5em;
         max-width: 48rem;
-        margin: 0 auto 2.5em;
+        margin: 2.5em auto;
+        text-align: center;
+
+        & figure {
+            & img {
+                width: 20em;
+            }
+        }
     }
 
-@media screen and (min-width: 960px) {
-    width: clamp(300px, 100%, 600px);
+@media screen and (min-width: 1025px) {
+    width: clamp(300px, 100%, 960px);
 
     & h1 {
         max-width: 480px;

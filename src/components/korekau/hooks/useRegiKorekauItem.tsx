@@ -5,23 +5,21 @@ import { korekauItemsType } from "../ts/korekau";
 export const useRegiKorekauItem = () => {
     const [korekauLists, setKorekauLists] = useAtom(korekauAtom);
 
-    const regiKorekauItem: (itemName: string, itemNumber: number, itemCategory: string, setItemName: React.Dispatch<React.SetStateAction<string>>, setItemNumber: React.Dispatch<React.SetStateAction<number>>) => void = (
+    const regiKorekauItem: (itemName: string, itemNumber: number, itemCategory: string, itemPriority: boolean) => void = (
         itemName: string,
         itemNumber: number,
         itemCategory: string,
-        setItemName: React.Dispatch<React.SetStateAction<string>>,
-        setItemNumber: React.Dispatch<React.SetStateAction<number>>
+        itemPriority: boolean
     ) => {
         const newKorekauItems: korekauItemsType = {
             itemName: itemName,
             itemNumber: itemNumber,
-            itemCategory: itemCategory
+            itemCategory: itemCategory,
+            itemPriority: itemPriority
         }
 
         if (itemName.length > 0) {
             setKorekauLists((_prevKorekauLists) => [...korekauLists, newKorekauItems]);
-            setItemName('');
-            setItemNumber(1);
         }
     }
 
