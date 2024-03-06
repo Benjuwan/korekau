@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import { Calendar } from '../components/schedule/calendar/Calendar';
 import { KorekauBased } from '../components/korekau/KorekauBased';
 
@@ -24,13 +24,30 @@ export const SwiperLibs = memo(() => {
         return `<button type="button" class="swiper-pagination-bullet">${navListsLable[index]}</button>`;
     }
 
+    useEffect(() => {
+        const swiperPagination = document.querySelector('.swiper-pagination') as HTMLDivElement;
+        const childrennavLists: HTMLCollection = swiperPagination.children;
+
+        const swiperPaginationChildren: HTMLDivElement = document.createElement("div");
+        swiperPaginationChildren.className = 'swiperPaginationChildrenWrapper swiperPaginationNavLists';
+        swiperPaginationChildren.id = 'swiperPaginationNav';
+
+        let targetWidth: number = 0;
+        Array.from(childrennavLists).forEach(childrennavList => {
+            targetWidth += childrennavList.clientWidth;
+            swiperPaginationChildren.appendChild(childrennavList);
+        });
+        if (navListsLable.length >= 5) swiperPaginationChildren.style.setProperty('width', `${targetWidth * 1.5}px`);
+
+        swiperPagination.appendChild(swiperPaginationChildren);
+    }, []);
+
     return (
         <SwiperLibsWrapper>
             <Swiper
                 slidesPerView={1}
                 centeredSlides={true}
                 speed={1000}
-                grabCursor={true}
                 className="useSwiper"
                 modules={[Pagination]}
                 pagination={{ renderBullet, clickable: true }}
@@ -45,11 +62,15 @@ export const SwiperLibs = memo(() => {
 const SwiperLibsWrapper = styled.div`
     & .swiper-pagination {
         top: 0;
-        display: flex;
-        gap: 2%;
-        justify-content: flex-start;
-        align-items: flex-start;
         height: fit-content;
+        overflow-x: scroll;
+        
+        & .swiperPaginationChildrenWrapper {
+            display: flex;
+            gap: 2%;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
 
         & button {
             appearance: none;
@@ -60,6 +81,7 @@ const SwiperLibsWrapper = styled.div`
             text-align: left;
             width: fit-content;
             padding: 0 0 1.5em 0;
+            letter-spacing: 0.25em;
             margin: 0!important;
 
             &.swiper-pagination-bullet-active {

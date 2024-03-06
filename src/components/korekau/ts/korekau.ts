@@ -3,4 +3,5 @@ export type korekauItemsType = {
     itemNumber: number;
     itemCategory: string;
     itemImg?: string;
+    itemPriority?: boolean;
 }

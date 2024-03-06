@@ -2,10 +2,6 @@
 
 form {
     width: clamp(280px, calc(100vw/2), 320px);
-
-    @media screen and (min-width:960px) {
-        width: 100%;
-    }
 }
 
 form,
@@ -13,6 +9,78 @@ ul,
 .formBtns {
     font-size: 1.4rem;
     line-height: 1.8;
+}
+
+& .todoView {
+    & form {
+        margin: auto;
+    }
+
+    & button {
+
+        &.openBtn,
+        &.closeBtn {
+            appearance: none;
+            background-color: transparent;
+            border: 1px solid transparent;
+            cursor: pointer;
+            padding: 0;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            width: 4.4rem;
+            height: 4.4rem;
+
+            & span {
+                font-size: 1.6rem;
+                padding: 0;
+                color: #767676;
+            }
+        }
+
+        & span {
+            vertical-align: middle;
+        }
+
+        &.openBtn {
+            box-shadow: 0 0 8px rgba(0, 0, 0, .25) inset;
+            background-color: #fff;
+        }
+
+        &.closeBtn {
+            font-weight: bold;
+            background-color: #333;
+            border-radius: 50%;
+            margin: 0 auto 2.5em;
+            padding: .5em 1em;
+
+            & span {
+                color: #fff;
+            }
+        }
+    }
+
+    & .todoCtrlElm {
+        opacity: 0;
+        visibility: hidden;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        padding: 1em;
+        transform: translate(-50%, -50%);
+        background-color: rgba(255, 255, 255, .5);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        transition: all .25s;
+    }
+
+    &.todoView.OnView {
+        & .todoCtrlElm {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
 }
 
 .formBtns {
@@ -67,10 +135,6 @@ form {
 
             &[type="time"] {
                 width: 50%;
-
-                @media screen and (min-width:960px) {
-                    width: auto;
-                }
             }
         }
 
@@ -83,6 +147,7 @@ form {
 }
 
 ul.todoLists {
+    margin-top: 1em;
     list-style: none;
     padding: 0;
 
@@ -107,7 +172,7 @@ ul.todoLists {
         }
 
         & p {
-            margin: 0
+            margin: 0;
         }
 
         & div.editTargetContent {
@@ -125,7 +190,7 @@ ul.todoLists {
             position: fixed;
             width: 100%;
             height: 100%;
-            padding: calc(100vw/8) 1em;
+            padding: 1em;
             inset: 0;
             margin: auto;
             background-color: rgba(255, 255, 255, .5);
@@ -161,6 +226,17 @@ ul.todoLists {
 }
 
 @media screen and (min-width:1025px) {
+    form {
+        width: 100%;
+
+        & label {
+            & input {
+                &[type="time"] {
+                    width: auto;
+                }
+            }
+        }
+    }
 
     form,
     ul,
@@ -168,9 +244,30 @@ ul.todoLists {
         font-size: 14px;
     }
 
+    & .todoView {
+        & button {
+            
+            &.openBtn,
+            &.closeBtn {
+                width: 44px;
+                height: 44px;
+                
+                & span {
+                    font-size: 16px;
+                }
+            }
+        }
+        
+        & .todoCtrlElm {
+            padding: calc(100vw/8) 1em;
+        }
+    }
+    
     ul.todoLists {
         & li {
             & .modalWindow {
+                padding: calc(100vw/8) 1em;
+
                 & .modalWindowChild {
                     width: clamp(320px, 100%, 560px);
                     gap: 5%;

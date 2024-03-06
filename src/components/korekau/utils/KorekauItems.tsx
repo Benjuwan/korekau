@@ -4,13 +4,15 @@ import { korekauItemsType } from "../ts/korekau";
 import { useAtom } from "jotai";
 import { korekauAtom } from "../../../ts/korekau-atom";
 import { KorekauItemIcons } from "./KorekauItemIcons";
-import { useDeleteItem } from "../hooks/useDeleteItem";
 import { KorekauItemEditer } from "./KorekauItemEditer";
+import { useDeleteItem } from "../hooks/useDeleteItem";
+import { useScrollTop } from "../../../hooks/useScrollTop";
 
 export const KorekauItems = memo(({ category }: { category: string }) => {
     const [korekauLists] = useAtom(korekauAtom);
 
     const { deleteItem } = useDeleteItem();
+    const { scrollTop } = useScrollTop();
 
     const [filteredItems, setFilteredItems] = useState<korekauItemsType[]>([]);
     useEffect(() => {
@@ -30,20 +32,27 @@ export const KorekauItems = memo(({ category }: { category: string }) => {
             {filteredItems.length > 0 &&
                 <KorekauItemLists>
                     <ul>
-                        <li className="headingElm flexBox"><h2 className="flexBox"><KorekauItemIcons category={category} />
-                            {category === 'food_drink' && '食料品'}
-                            {category === 'utils' && '日用品'}
-                            {category === 'family' && '家族'}
-                            {category === 'others' && 'その他'}
-                        </h2></li>
+                        <li className="headingElm flexBox">
+                            <KorekauItemIcons category={category} />
+                            <h2 className="flexBox">
+                                {category === 'food_drink' && '食料品'}
+                                {category === 'utils' && '日用品'}
+                                {category === 'family' && '家族'}
+                                {category === 'myself' && '自分'}
+                                {category === 'others' && 'その他'}
+                            </h2>
+                        </li>
                         {filteredItems.map((korekauList, i) => (
-                            <li className="korekauList flexBox" key={i}>
+                            <li className={`${korekauList.itemPriority && 'priority'} korekauList flexBox`} key={i}>
                                 <div className="listItem flexBox">
-                                    <p>{korekauList.itemName}<span>【{korekauList.itemNumber}】</span></p>
+                                    <p>{korekauList.itemName}<span>×{korekauList.itemNumber}</span></p>
                                 </div>
                                 <div className="ctrlZone flexBox">
                                     <div className="editerView">
-                                        <button type="button" className="editBtn" onClick={(btnElm) => editerView(btnElm.currentTarget)}><figure><span className="material-symbols-outlined">edit</span></figure></button>
+                                        <button type="button" className="editBtn" onClick={(btnElm: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+                                            editerView(btnElm.currentTarget);
+                                            scrollTop();
+                                        }}><figure><span className="material-symbols-outlined">edit</span></figure></button>
                                         <KorekauItemEditer props={{
                                             classNameStr: 'itemEditer',
                                             category: category,
@@ -82,7 +91,7 @@ const KorekauItemLists = styled.section`
             & figure {
                 span {
                     vertical-align: middle;
-                    box-shadow: 0 0 8px rgba(0, 0, 0, .5) inset;
+                    box-shadow: 0 0 8px rgba(0, 0, 0, .25) inset;
                     background-color: #fff;
                     aspect-ratio: 1 / 1;
                     border-radius: 50%;
@@ -91,15 +100,17 @@ const KorekauItemLists = styled.section`
             }
             
             &.headingElm {
-                padding: 1em;
-                box-shadow: 0 0 16px rgba(160, 160, 160, 0.25) inset;
                 margin-bottom: 1em;
-                border-radius: 5rem;
-
+                flex-wrap: nowrap;
+                
                 & h2 {
-                    font-size: 1.6rem;
+                    width: 100%;
+                    padding: .5em 1em;
+                    box-shadow: 0 0 16px rgba(160, 160, 160, 0.25) inset;
                     font-weight: normal;
                     letter-spacing: 0.25em;
+                    border-radius: 5rem;
+                    font-size: 1.6rem;
                 }
             }
 
@@ -107,18 +118,22 @@ const KorekauItemLists = styled.section`
                 padding: 1em;
                 background-color: #f2f2f2;
                 border-radius: .8rem;
-                font-size: 1.4rem;
+                font-size: 1.6rem;
                 gap: 2%;
+
+                &.priority {
+                    background-color: #f3e0ab;
+                }
 
                 & .listItem {
                     width: clamp(16rem, 68%, 56rem);
 
                     & p {
                         width: 100%;
-                        overflow-wrap: break-word; // 区切りがないとブラウザは一文として処理するので改行指定のスタイルを指定しておく
+                        overflow-wrap: anywhere; // 区切りがないとブラウザは一文として処理するので改行指定のスタイルを指定しておく
 
                         & span {
-                            text-align: right;
+                            margin-left: 1em;
                             color: #59b835;
                         }
                     }
@@ -195,20 +210,19 @@ const KorekauItemLists = styled.section`
                 }
             }
 
-            @media screen and (min-width: 960px) {
+            @media screen and (min-width: 1025px) {
                 & ul {
                     & li {
                         &.headingElm {
-                            border-radius: 50px;
-
                             & h2 {
+                                border-radius: 50px;
                                 font-size: 16px;
                             }
                         }
 
                         &.korekauList {
                             border-radius: 8px;
-                            font-size: 14px;
+                            font-size: 16px;
 
                             & button {
                                 & figure {

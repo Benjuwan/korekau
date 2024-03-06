@@ -9,18 +9,20 @@ export const useUpdateKorekauItems = () => {
     const { getTargetIndexForCtrlItems } = useGetTargetIndexForCtrlItems();
     const { targetElsRemoveClass } = useTargetElsRemoveClass();
 
-    const updateKorekauItems: (KorekauItemList: korekauItemsType, updateItemName: string, updateItemNumber: number, updateItemCategory: string) => void = (
+    const updateKorekauItems: (KorekauItemList: korekauItemsType, updateItemName: string, updateItemNumber: number, updateItemCategory: string, updateItemPriority: boolean) => void = (
         KorekauItemList: korekauItemsType,
         updateItemName: string,
         updateItemNumber: number,
-        updateItemCategory: string
+        updateItemCategory: string,
+        updateItemPriority: boolean
     ) => {
         const targetIndex: number = getTargetIndexForCtrlItems(KorekauItemList.itemName);
 
         const updateKorekauItem: korekauItemsType = {
             itemName: updateItemName,
             itemNumber: updateItemNumber,
-            itemCategory: updateItemCategory
+            itemCategory: updateItemCategory,
+            itemPriority: updateItemPriority
         }
 
         const shallowCopy: korekauItemsType[] = [...korekauLists];
