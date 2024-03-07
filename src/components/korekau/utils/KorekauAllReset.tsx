@@ -1,16 +1,19 @@
-import { useAtom } from "jotai";
-import { memo } from "react";
-import { korekauAtom } from "../../../ts/korekau-atom";
 import styled from "styled-components";
+import { memo } from "react";
+import { useAtom } from "jotai";
+import { korekauItemsLocalStorageAtom } from "../../../ts/korekau-atom";
+import { localstorageLabel_KorekauItems } from "../../../ts/korekau-localstorageLabel";
 
 export const KorekauAllReset = memo(() => {
-    const [, setKorekauLists] = useAtom(korekauAtom);
+    const [, setLocalstorage] = useAtom(korekauItemsLocalStorageAtom);
+
+    const localstorageLabelKorekauItems: string = localstorageLabel_KorekauItems;
+
     const handleAllReset: () => void = () => {
         const result: boolean = confirm('リストを全削除してもよろしいですか？');
         if (result) {
-            // localStorage.removeItem('korekauItems');
-            // setLocalstorage((_prevLocalstorage) => []);
-            setKorekauLists((_prevKorekauLists) => []);
+            localStorage.removeItem(localstorageLabelKorekauItems);
+            setLocalstorage((_prevLocalstorage) => []);
             alert('リストを全削除しました');
             location.reload();
         }

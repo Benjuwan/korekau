@@ -16,7 +16,6 @@ export const GlobalWrapper = memo(() => {
 const GlobalWrapperElm = styled.main`
 width: clamp(30rem, 100%, 60rem);
 margin: 2.5em auto 0;
-padding: 0 1em;
 
     & h1 {
         max-width: 48rem;

@@ -1,9 +1,13 @@
 import { useAtom } from "jotai";
-import { korekauAtom } from "../../../ts/korekau-atom";
+import { korekauAtom, korekauItemsLocalStorageAtom } from "../../../ts/korekau-atom";
 import { korekauItemsType } from "../ts/korekau";
+import { localstorageLabel_KorekauItems } from "../../../ts/korekau-localstorageLabel";
 
 export const useRegiKorekauItem = () => {
     const [korekauLists, setKorekauLists] = useAtom(korekauAtom);
+    const [, setLocalstorage] = useAtom(korekauItemsLocalStorageAtom);
+
+    const localstorageLabelKorekauItems: string = localstorageLabel_KorekauItems;
 
     const regiKorekauItem: (itemName: string, itemNumber: number, itemCategory: string, itemPriority: boolean) => void = (
         itemName: string,
@@ -20,6 +24,9 @@ export const useRegiKorekauItem = () => {
 
         if (itemName.length > 0) {
             setKorekauLists((_prevKorekauLists) => [...korekauLists, newKorekauItems]);
+            /* ---------------- localStorage 関連の処理（登録）---------------- */
+            setLocalstorage((_prevLocalStorage) => [...korekauLists, newKorekauItems]);
+            localStorage.setItem(localstorageLabelKorekauItems, JSON.stringify([...korekauLists, newKorekauItems]));
         }
     }
 
