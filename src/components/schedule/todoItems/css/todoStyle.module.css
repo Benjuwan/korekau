@@ -84,16 +84,19 @@ ul,
 }
 
 .formBtns {
-    &#editBtn {
-        background-color: #1a1abe;
+    letter-spacing: 0.25em;
+
+    &.editBtn {
+        background-color: #59b835;
     }
 
     &#deleteBtn {
-        background-color: #aa0b0b;
+        background-color: #cc3226;
     }
 
     &#closeBtn {
-        background-color: #0baa0b;
+        background-color: #f0b20e;
+        color: #333;
         margin-top: .5em;
     }
 
@@ -166,7 +169,7 @@ ul.todoLists {
 
             & p {
                 &.editTargetStr {
-                    color: #0baa0b;
+                    color: #59b835;
                 }
             }
         }
@@ -204,7 +207,7 @@ ul.todoLists {
                 display: flex;
                 flex-flow: row wrap;
                 justify-content: center;
-                gap: 2%;
+                gap: 1em;
                 width: clamp(32rem, 100%, 56rem);
                 margin: auto;
                 background-color: #fff;
@@ -214,6 +217,22 @@ ul.todoLists {
 
                 & div.editTargetContent {
                     text-align: left;
+                }
+
+                & form {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1em;
+                }
+
+                & .editerIntoCtrlBtns {
+                    display: flex;
+                    gap: 1em;
+                    width: clamp(280px, calc(100vw/2), 320px);
+
+                    & button {
+                        width: 50%;
+                    }
                 }
             }
         }
@@ -230,6 +249,8 @@ ul.todoLists {
         width: 100%;
 
         & label {
+            margin: 0;
+
             & input {
                 &[type="time"] {
                     width: auto;
@@ -246,23 +267,23 @@ ul.todoLists {
 
     & .todoView {
         & button {
-            
+
             &.openBtn,
             &.closeBtn {
                 width: 44px;
                 height: 44px;
-                
+
                 & span {
                     font-size: 16px;
                 }
             }
         }
-        
+
         & .todoCtrlElm {
             padding: calc(100vw/8) 1em;
         }
     }
-    
+
     ul.todoLists {
         & li {
             & .modalWindow {
@@ -270,7 +291,28 @@ ul.todoLists {
 
                 & .modalWindowChild {
                     width: clamp(320px, 100%, 560px);
-                    gap: 5%;
+                    gap: 2em;
+
+                    & .editerIntoCtrlBtns {
+                        width: 100%;
+                    }
+
+                    & form {
+                        & .timeSchedule {
+                            display: flex;
+                            justify-content: flex-start;
+                            gap: 1em;
+
+                            & label {
+                                width: 100%;
+                                text-align: left;
+
+                                & input {
+                                    width: 70%;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

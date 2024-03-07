@@ -1,10 +1,13 @@
 import { todoItemType } from "../ts/todoItemType";
 import { useAtom } from "jotai";
 import { todoMemoAtom, todoMemoLocalStorageAtom } from "../../../../ts/calendar-atom";
+import { localstorageLabelName } from "../../../../ts/calendar-localstorageLabel";
 
 export const useUpdateTodoItem = () => {
     const [, setLocalstorage] = useAtom(todoMemoLocalStorageAtom); // 更新関数のみ使用
     const [todoMemo, setTodoMemo] = useAtom(todoMemoAtom);
+
+    const localstorageLabel = localstorageLabelName;
 
     /* ToDo の更新 */
     const updateTodoItem: (todoID: string, todoContent: string, startTime: string, finishTime: string, index: number) => void = (
@@ -32,7 +35,7 @@ export const useUpdateTodoItem = () => {
             setTodoMemo((_prevTodoMemo) => shallowCopy);
             /* ---------------- localStorage 関連の処理（更新）---------------- */
             setLocalstorage((_prevLocalStorage) => shallowCopy);
-            localStorage.setItem('todoMemos', JSON.stringify([...shallowCopy]));
+            localStorage.setItem(localstorageLabel, JSON.stringify([...shallowCopy]));
         }
     }
 

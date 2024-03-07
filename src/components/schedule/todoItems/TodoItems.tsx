@@ -3,6 +3,7 @@ import todoStyle from "./css/todoStyle.module.css";
 import { todoItemType } from "./ts/todoItemType";
 import { useAtom } from "jotai";
 import { todoMemoAtom, todoMemoLocalStorageAtom } from "../../../ts/calendar-atom";
+import { localstorageLabelName } from "../../../ts/calendar-localstorageLabel";
 import { TodoForm } from "./TodoForm";
 import { useCloseModalWindow } from "./hooks/useCloseModalWindow";
 import { useScrollTop } from "../../../hooks/useScrollTop";
@@ -19,8 +20,15 @@ export const TodoItems: FC<TodoItemsType> = (props) => {
     const [, setLocalstorage] = useAtom(todoMemoLocalStorageAtom); // 更新関数のみ使用
     const [todoMemo, setTodoMemo] = useAtom(todoMemoAtom);
 
+    const localstorageLabel = localstorageLabelName;
+
     const { closeModalWindow } = useCloseModalWindow();
     const { scrollTop } = useScrollTop();
+    const handleCloseModalWindowBtnClicked = (btnEl: SyntheticEvent<HTMLButtonElement>) => {
+        btnEl.stopPropagation(); // 親要素のクリックイベント（OnViewModalWindow）発生を防止
+        closeModalWindow(btnEl.currentTarget);
+        scrollTop();
+    }
 
     const changeMode: (todiItem: todoItemType, index: number, editMode: boolean) => void = (todiItem: todoItemType, index: number, editMode: boolean) => {
         let editState: boolean | null = null;
@@ -49,7 +57,7 @@ export const TodoItems: FC<TodoItemsType> = (props) => {
         setTodoMemo((_prevTodoList) => shallowCopy);
         /* ---------------- localStorage 関連の処理（更新）---------------- */
         setLocalstorage((_prevLocalStorage) => shallowCopy);
-        localStorage.setItem('todoMemos', JSON.stringify([...shallowCopy]));
+        localStorage.setItem(localstorageLabel, JSON.stringify([...shallowCopy]));
     }
 
     return (
@@ -68,24 +76,25 @@ export const TodoItems: FC<TodoItemsType> = (props) => {
                             index={index}
                             edit={todoItem.edit}
                         />
-                        <button id={todoStyle["deleteBtn"]} className={todoStyle.formBtns} type="button" onClick={(deleteBtn: SyntheticEvent<HTMLButtonElement>) => {
-                            deleteBtn.stopPropagation(); // 親要素のクリックイベント（OnViewModalWindow）発生を防止
-                            closeModalWindow(deleteBtn.currentTarget, 'li');
-                            removeTodoItem(index);
-                            scrollTop();
-                        }}>削除</button>
+                        <div className={todoStyle.editerIntoCtrlBtns}>
+                            <button id={todoStyle["deleteBtn"]} className={todoStyle.formBtns} type="button" onClick={(deleteBtn: SyntheticEvent<HTMLButtonElement>) => {
+                                handleCloseModalWindowBtnClicked(deleteBtn);
+                                removeTodoItem(index);
+                            }}>削除</button>
+                            <button className={`${todoStyle.formBtns} ${todoStyle.editBtn}`} type="button" onClick={() => {
+                                changeMode(todoItem, index, todoItem.edit);
+                            }}>戻る</button>
+                        </div>
                     </> :
-                    <p>{todoItem.todoContent}</p>
+                    <>
+                        <p>{todoItem.todoContent}</p>
+                        <button className={`${todoStyle.formBtns} ${todoStyle.editBtn}`} type="button" onClick={() => {
+                            changeMode(todoItem, index, todoItem.edit);
+                        }}>編集</button>
+                    </>
                 }
-                <button id={todoStyle["editBtn"]} className={todoStyle.formBtns} type="button" onClick={() => {
-                    changeMode(todoItem, index, todoItem.edit);
-                }}>{todoItem.edit === true ? '戻る' : '編集'}</button>
             </div>
-            <button id={todoStyle["closeBtn"]} type="button" className={todoStyle.formBtns} onClick={(closeBtnEl: SyntheticEvent<HTMLButtonElement>) => {
-                closeBtnEl.stopPropagation(); // 親要素のクリックイベント（OnViewModalWindow）発生を防止
-                closeModalWindow(closeBtnEl.currentTarget, 'li');
-                scrollTop();
-            }}>詳細画面を閉じる</button>
+            <button id={todoStyle["closeBtn"]} type="button" className={todoStyle.formBtns} onClick={(closeBtnEl: SyntheticEvent<HTMLButtonElement>) => handleCloseModalWindowBtnClicked(closeBtnEl)}>詳細画面を閉じる</button>
         </div>
     );
 }
