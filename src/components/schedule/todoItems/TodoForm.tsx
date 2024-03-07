@@ -2,7 +2,8 @@ import { ChangeEvent, FC, SyntheticEvent, useEffect, useState } from "react";
 import todoStyle from "./css/todoStyle.module.css";
 import { useUpdateTodoItem } from "./hooks/useUpdateTodoItem";
 import { useRegiTodoItem } from "./hooks/useRegiTodoItem";
-import { useCloseModalWindow } from "./hooks/useCloseModalWindow";
+import { useViewTodoCtrl } from "./hooks/useViewTodoCtrl";
+import { useScrollTop } from "../../../hooks/useScrollTop";
 
 type todoFormType = {
     todoID: string;
@@ -21,7 +22,12 @@ export const TodoForm: FC<todoFormType> = (props) => {
 
     const { updateTodoItem } = useUpdateTodoItem();
     const { regiTodoItem } = useRegiTodoItem();
-    const { closeModalWindow } = useCloseModalWindow();
+    const { viewTodoCtrl } = useViewTodoCtrl();
+    const { scrollTop } = useScrollTop();
+    const handleOpenClosedBtnClicked: (ctrlHandlerElm: HTMLButtonElement | SyntheticEvent<HTMLFormElement>) => void = (ctrlHandlerElm: HTMLButtonElement | SyntheticEvent<HTMLFormElement>) => {
+        viewTodoCtrl(ctrlHandlerElm);
+        scrollTop();
+    }
 
     const resetStates: () => void = () => {
         setTodoContent((_prevTodoContent) => '');
@@ -36,7 +42,10 @@ export const TodoForm: FC<todoFormType> = (props) => {
             formElm.preventDefault();
             {
                 !edit ?
-                    regiTodoItem(todoID, todoContent, startTime, finishTime) :
+                    (
+                        regiTodoItem(todoID, todoContent, startTime, finishTime),
+                        handleOpenClosedBtnClicked(formElm)
+                    ) :
                     updateTodoItem(todoID, todoContent, startTime, finishTime, index)
             }
             resetStates();
@@ -46,16 +55,20 @@ export const TodoForm: FC<todoFormType> = (props) => {
                     setTodoContent((_prevTodoContent) => todoTxt.target.value);
                 }} />
             </label>
-            <label className={todoStyle.timeLabel}>開始時刻 <input type="time" value={startTime} onChange={(timeElm: ChangeEvent<HTMLInputElement>) => setStartTime(timeElm.target.value)} /></label>
-            <label className={todoStyle.timeLabel}>終了時刻 <input type="time" value={finishTime} onChange={(timeElm: ChangeEvent<HTMLInputElement>) => setFinishTime(timeElm.target.value)} /></label>
+            <div className={todoStyle.timeSchedule}>
+                <label className={todoStyle.timeLabel}>開始時刻 <input type="time" value={startTime} onChange={(timeElm: ChangeEvent<HTMLInputElement>) => setStartTime(timeElm.target.value)} /></label>
+                <label className={todoStyle.timeLabel}>終了時刻 <input type="time" value={finishTime} onChange={(timeElm: ChangeEvent<HTMLInputElement>) => setFinishTime(timeElm.target.value)} /></label>
+            </div>
             <button className={todoStyle.formBtns} id={todoStyle.regiUpdateBtn} type="button" disabled={todoContent.length <= 0} onClick={(btnEl: SyntheticEvent<HTMLButtonElement>) => {
                 {
                     !edit ?
-                        regiTodoItem(todoID, todoContent, startTime, finishTime) :
+                        (
+                            regiTodoItem(todoID, todoContent, startTime, finishTime),
+                            handleOpenClosedBtnClicked(btnEl.currentTarget)
+                        ) :
                         updateTodoItem(todoID, todoContent, startTime, finishTime, index)
                 }
                 resetStates();
-                closeModalWindow(btnEl.currentTarget, `${todoStyle.todoView}`);
             }}>{!edit ? '登録' : '再登録'}</button>
         </form>
     );

@@ -1,15 +1,16 @@
-import { SyntheticEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import calendarStyle from "./css/calendarStyle.module.css";
 import todoStyle from "../todoItems/css/todoStyle.module.css";
 import { calendarItemType } from "./ts/calendarItemType";
 import { useAtom } from "jotai";
 import { isDesktopViewAtom, todoMemoLocalStorageAtom } from "../../../ts/calendar-atom";
+import { localstorageLabelName } from "../../../ts/calendar-localstorageLabel";
 import { PrevNextMonthBtns } from "./PrevNextMonthBtns";
 import { Todo } from "../todoItems/Todo";
 import { TodoList } from "../todoItems/TodoList";
+import { TodoCtrlClosedBtn } from "../todoItems/TodoCtrlClosedBtn";
+import { TodoCtrlOpenBtn } from "../todoItems/TodoCtrlOpenBtn";
 import { useGetMonthDays } from "./hooks/useGetMonthDays";
-import { useViewTodoCtrl } from "../todoItems/hooks/useViewTodoCtrl";
-import { useScrollTop } from "../../../hooks/useScrollTop";
 
 type todaySignal = {
     thisYear: number;
@@ -20,15 +21,10 @@ type todaySignal = {
 export const Calendar = () => {
     const { getMonthDays } = useGetMonthDays();
 
-    const { scrollTop } = useScrollTop();
-    const { viewTodoCtrl } = useViewTodoCtrl();
-    const handleOpenClosedBtnClicked: (btnEl: HTMLButtonElement) => void = (btnEl: HTMLButtonElement) => {
-        viewTodoCtrl(btnEl);
-        scrollTop();
-    }
-
     const [, setLocalstorage] = useAtom(todoMemoLocalStorageAtom); // 更新関数のみ使用（全てのスケジュールリセット）
     const [desktopView, setDesktopView] = useAtom(isDesktopViewAtom);
+
+    const localstorageLabel: string = localstorageLabelName;
 
     const currYear = new Date().getFullYear();
     const currMonth = new Date().getMonth() + 1;
@@ -60,7 +56,7 @@ export const Calendar = () => {
     const resetAllSchedule: () => void = () => {
         const result: boolean = confirm('全てのスケジュールを削除してもよろしいですか？');
         if (result) {
-            localStorage.removeItem('todoMemos');
+            localStorage.removeItem(localstorageLabel);
             setLocalstorage((_prevLocalstorage) => []);
             alert('全てのスケジュールが削除されました');
             location.reload();
@@ -98,9 +94,9 @@ export const Calendar = () => {
                                 {desktopView ?
                                     <Todo todoID={`${day.year}/${day.month}/${day.day}`} /> :
                                     <div className={`${todoStyle.todoView}`}>
-                                        <button className={`${todoStyle.openBtn} todoCtrlOpen`} onClick={(btnEl: SyntheticEvent<HTMLButtonElement>) => handleOpenClosedBtnClicked(btnEl.currentTarget)}><span className="material-symbols-outlined">add_circle</span></button>
+                                        <TodoCtrlOpenBtn />
                                         <div className={`${todoStyle.todoCtrlElm}`}>
-                                            <button className={`${todoStyle.closeBtn} todoCtrlClose`} onClick={(btnEl: SyntheticEvent<HTMLButtonElement>) => handleOpenClosedBtnClicked(btnEl.currentTarget)}><span className="material-symbols-outlined">close</span></button>
+                                            <TodoCtrlClosedBtn />
                                             <p style={{ 'fontWeight': 'bold' }}>{day.month}/{day.day}（{day.dayDate}）</p>
                                             <Todo todoID={`${day.year}/${day.month}/${day.day}`} />
                                         </div>

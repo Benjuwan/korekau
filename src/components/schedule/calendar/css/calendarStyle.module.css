@@ -23,7 +23,7 @@
         }
 
         &#jumpThisMonth {
-            background-color: #20cb14;
+            background-color: #59b835;
             margin: 1.5em 0 .5em;
         }
     }
@@ -35,7 +35,7 @@
 
     & .resetBtn {
         margin-bottom: 1em;
-        background-color: #cb1414;
+        background-color: #cc3226;
         padding: 0 1em;
     }
 
