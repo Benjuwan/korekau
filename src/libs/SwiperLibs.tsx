@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { memo, useEffect } from 'react';
+import { useAtom } from 'jotai';
+import { isDesktopViewAtom } from '../ts/calendar-atom';
 import { Calendar } from '../components/schedule/calendar/Calendar';
 import { KorekauBased } from '../components/korekau/KorekauBased';
 
@@ -19,6 +21,8 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 
 export const SwiperLibs = memo(() => {
+    const [isDesktopView, setDesktopView] = useAtom(isDesktopViewAtom);
+
     const navListsLable = ['買うものリスト', 'カレンダー'];
     const renderBullet = (index: number) => {
         return `<button type="button" class="swiper-pagination-bullet">${navListsLable[index]}</button>`;
@@ -40,6 +44,8 @@ export const SwiperLibs = memo(() => {
         if (navListsLable.length >= 5) swiperPaginationChildren.style.setProperty('width', `${targetWidth * 1.5}px`);
 
         swiperPagination.appendChild(swiperPaginationChildren);
+
+        if (window.matchMedia("(min-width: 960px)").matches) setDesktopView(true);
     }, []);
 
     return (
@@ -47,8 +53,10 @@ export const SwiperLibs = memo(() => {
             <Swiper
                 slidesPerView={1}
                 centeredSlides={true}
+                spaceBetween={56}
                 speed={1000}
                 className="useSwiper"
+                style={isDesktopView ? undefined : { 'overflow': 'unset' }} // スマホ・タブレットの時（960px 以下）は overflow:hidden を解除
                 modules={[Pagination]}
                 pagination={{ renderBullet, clickable: true }}
             >
@@ -60,6 +68,8 @@ export const SwiperLibs = memo(() => {
 });
 
 const SwiperLibsWrapper = styled.div`
+padding: 0 1em;
+
     & .swiper-pagination {
         top: 0;
         height: fit-content;

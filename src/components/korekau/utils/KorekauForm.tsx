@@ -1,10 +1,10 @@
+import styled from "styled-components";
 import { ChangeEvent, memo, useMemo, useState } from "react";
 import { useRegiKorekauItem } from "../hooks/useRegiKorekauItem";
 import { korekauItemsType } from "../ts/korekau";
 import { useAtom } from "jotai";
 import { korekauAtom } from "../../../ts/korekau-atom";
 import { useUpdateKorekauItems } from "../hooks/useUpdateKorekauItems";
-import styled from "styled-components";
 
 export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: korekauItemsType }) => {
     const [korekauLists] = useAtom(korekauAtom)
@@ -83,11 +83,11 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
 });
 
 const KorekauFormElm = styled.form`
-width: 95%;
+width: 100%;
 border-radius: 4px;
 padding: 1.5em;
 box-shadow: 0 0 8px rgba(160, 160, 160, .5) inset;
-margin: .5em 5% 5em 0;
+margin: .5em auto 5em;
 background-color: #fff;
 
     & select,

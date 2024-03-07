@@ -1,8 +1,8 @@
+import styled from "styled-components";
 import { memo } from "react";
 import { korekauItemsType } from "../ts/korekau";
 import { KorekauForm } from "./KorekauForm";
 import { KorekauItemIcons } from "./KorekauItemIcons";
-import styled from "styled-components";
 
 type itemEditerType = {
     classNameStr: string;
@@ -25,13 +25,10 @@ export const KorekauItemEditer = memo(({ props }: { props: itemEditerType }) => 
 });
 
 const KorekauItemEditerElm = styled.div`
-padding-right: 1em;
-
     & .itembox {
         padding: 1em;
         box-shadow: 0 0 8px rgba(0, 0, 0, .25) inset;
         background-color: #fff;
-        width: 95%;
         margin-bottom: 1em;
         border-radius: .4rem;
 

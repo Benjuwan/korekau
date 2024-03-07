@@ -1,11 +1,16 @@
 import { useAtom } from "jotai";
-import { korekauAtom } from "../../../ts/korekau-atom";
+import { korekauAtom, korekauItemsLocalStorageAtom } from "../../../ts/korekau-atom";
 import { korekauItemsType } from "../ts/korekau";
+import { localstorageLabel_KorekauItems } from "../../../ts/korekau-localstorageLabel";
 import { useGetTargetIndexForCtrlItems } from "./useGetTargetIndexForCtrlItems";
 import { useTargetElsRemoveClass } from "./useTargetElsRemoveClass";
 
 export const useUpdateKorekauItems = () => {
     const [korekauLists, setKorekauLists] = useAtom(korekauAtom);
+    const [, setLocalstorage] = useAtom(korekauItemsLocalStorageAtom);
+
+    const localstorageLabelKorekauItems: string = localstorageLabel_KorekauItems;
+
     const { getTargetIndexForCtrlItems } = useGetTargetIndexForCtrlItems();
     const { targetElsRemoveClass } = useTargetElsRemoveClass();
 
@@ -16,7 +21,7 @@ export const useUpdateKorekauItems = () => {
         updateItemCategory: string,
         updateItemPriority: boolean
     ) => {
-        const targetIndex: number = getTargetIndexForCtrlItems(KorekauItemList.itemName);
+        const targetIndex: number = getTargetIndexForCtrlItems(KorekauItemList);
 
         const updateKorekauItem: korekauItemsType = {
             itemName: updateItemName,
@@ -30,6 +35,9 @@ export const useUpdateKorekauItems = () => {
         if (updateItemName.length > 0) {
             setKorekauLists((_prevKorekauLists) => shallowCopy);
             targetElsRemoveClass('editerView', 'OnView');
+            /* ---------------- localStorage 関連の処理（更新）---------------- */
+            setLocalstorage((_prevLocalStorage) => shallowCopy);
+            localStorage.setItem(localstorageLabelKorekauItems, JSON.stringify([...shallowCopy]));
         }
     }
 

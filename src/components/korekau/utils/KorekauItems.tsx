@@ -1,15 +1,18 @@
 import styled from "styled-components";
 import { memo, useEffect, useState } from "react";
 import { korekauItemsType } from "../ts/korekau";
-import { useAtom } from "jotai";
-import { korekauAtom } from "../../../ts/korekau-atom";
 import { KorekauItemIcons } from "./KorekauItemIcons";
 import { KorekauItemEditer } from "./KorekauItemEditer";
 import { useDeleteItem } from "../hooks/useDeleteItem";
 import { useScrollTop } from "../../../hooks/useScrollTop";
 
-export const KorekauItems = memo(({ category }: { category: string }) => {
-    const [korekauLists] = useAtom(korekauAtom);
+type KorekauItemsType = {
+    korekauLists: korekauItemsType[];
+    category: string;
+}
+
+export const KorekauItems = memo(({ props }: { props: KorekauItemsType }) => {
+    const { korekauLists, category } = props;
 
     const { deleteItem } = useDeleteItem();
     const { scrollTop } = useScrollTop();
@@ -43,7 +46,7 @@ export const KorekauItems = memo(({ category }: { category: string }) => {
                             </h2>
                         </li>
                         {filteredItems.map((korekauList, i) => (
-                            <li className={`${korekauList.itemPriority && 'priority'} korekauList flexBox`} key={i}>
+                            <li className={korekauList.itemPriority ? 'priority korekauList flexBox' : 'korekauList flexBox'} key={i}>
                                 <div className="listItem flexBox">
                                     <p>{korekauList.itemName}<span>×{korekauList.itemNumber}</span></p>
                                 </div>
@@ -59,7 +62,7 @@ export const KorekauItems = memo(({ category }: { category: string }) => {
                                             korekauList: korekauList
                                         }} />
                                     </div>
-                                    <button type="button" className="deleteBtn" onClick={() => deleteItem(korekauList.itemName)}><figure><span className="material-symbols-outlined">delete</span></figure></button>
+                                    <button type="button" className="deleteBtn" onClick={() => deleteItem(korekauList)}><figure><span className="material-symbols-outlined">delete</span></figure></button>
                                 </div>
                             </li>
                         ))}
@@ -80,7 +83,6 @@ const KorekauItemLists = styled.section`
 
     & ul {
         list-style: none;
-        padding-right: 1em;
         margin-bottom: 5em;
         
         & li {
@@ -144,10 +146,13 @@ const KorekauItemLists = styled.section`
                     justify-content: flex-end;
 
                     & .editerView {
+                    line-height: 1;
+
                         & .itemEditer {
                             opacity: 0;
                             visibility: hidden;
-                            width: 100%;
+                            padding: 1em;
+                            width: 100vw;
                             height: 100%;
                             position: fixed;
                             top: 50%;
@@ -209,32 +214,40 @@ const KorekauItemLists = styled.section`
                     }
                 }
             }
+        }
+    }
 
-            @media screen and (min-width: 1025px) {
-                & ul {
-                    & li {
-                        &.headingElm {
-                            & h2 {
-                                border-radius: 50px;
-                                font-size: 16px;
-                            }
+@media screen and (min-width: 1025px) {
+    & ul {
+        & li {
+            &.headingElm {
+                & h2 {
+                    border-radius: 50px;
+                    font-size: 16px;
+                }
+            }
+
+            &.korekauList {
+                border-radius: 8px;
+                font-size: 16px;
+
+                & button {
+                    & figure {
+                        & span {
+                            border-radius: 4px;
                         }
+                    }
+                }
 
-                        &.korekauList {
-                            border-radius: 8px;
-                            font-size: 16px;
-
-                            & button {
-                                & figure {
-                                    & span {
-                                        border-radius: 4px;
-                                    }
-                                }
-                            }
+                & .ctrlZone {
+                    & .editerView {
+                        & .itemEditer {
+                            width: 100%;
                         }
                     }
                 }
             }
         }
     }
+}
 `;
