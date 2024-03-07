@@ -3,7 +3,7 @@ import { korekauAtom, korekauItemsLocalStorageAtom } from "../../../ts/korekau-a
 import { korekauItemsType } from "../ts/korekau";
 import { localstorageLabel_KorekauItems } from "../../../ts/korekau-localstorageLabel";
 import { useGetTargetIndexForCtrlItems } from "./useGetTargetIndexForCtrlItems";
-import { useTargetElsRemoveClass } from "./useTargetElsRemoveClass";
+import { useTargetElsRemoveClass } from "../../../hooks/useTargetElsRemoveClass";
 
 export const useUpdateKorekauItems = () => {
     const [korekauLists, setKorekauLists] = useAtom(korekauAtom);

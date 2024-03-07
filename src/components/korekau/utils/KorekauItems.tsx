@@ -3,8 +3,8 @@ import { memo, useEffect, useState } from "react";
 import { korekauItemsType } from "../ts/korekau";
 import { KorekauItemIcons } from "./KorekauItemIcons";
 import { KorekauItemEditer } from "./KorekauItemEditer";
+import { EditerViewer } from "../../../utils/EditerViewer";
 import { useDeleteItem } from "../hooks/useDeleteItem";
-import { useScrollTop } from "../../../hooks/useScrollTop";
 
 type KorekauItemsType = {
     korekauLists: korekauItemsType[];
@@ -15,7 +15,6 @@ export const KorekauItems = memo(({ props }: { props: KorekauItemsType }) => {
     const { korekauLists, category } = props;
 
     const { deleteItem } = useDeleteItem();
-    const { scrollTop } = useScrollTop();
 
     const [filteredItems, setFilteredItems] = useState<korekauItemsType[]>([]);
     useEffect(() => {
@@ -24,11 +23,6 @@ export const KorekauItems = memo(({ props }: { props: KorekauItemsType }) => {
         });
         setFilteredItems((_prevFilteredItems) => filtered);
     }, [korekauLists]);
-
-    const editerView: (btnElm: HTMLButtonElement) => void = (btnElm: HTMLButtonElement) => {
-        const editerView = btnElm.closest('.editerView') as HTMLDivElement;
-        editerView.classList.add('OnView');
-    }
 
     return (
         <>
@@ -51,17 +45,13 @@ export const KorekauItems = memo(({ props }: { props: KorekauItemsType }) => {
                                     <p>{korekauList.itemName}<span>×{korekauList.itemNumber}</span></p>
                                 </div>
                                 <div className="ctrlZone flexBox">
-                                    <div className="editerView">
-                                        <button type="button" className="editBtn" onClick={(btnElm: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-                                            editerView(btnElm.currentTarget);
-                                            scrollTop();
-                                        }}><figure><span className="material-symbols-outlined">edit</span></figure></button>
+                                    <EditerViewer children={
                                         <KorekauItemEditer props={{
                                             classNameStr: 'itemEditer',
                                             category: category,
                                             korekauList: korekauList
                                         }} />
-                                    </div>
+                                    } />
                                     <button type="button" className="deleteBtn" onClick={() => deleteItem(korekauList)}><figure><span className="material-symbols-outlined">delete</span></figure></button>
                                 </div>
                             </li>
@@ -145,33 +135,6 @@ const KorekauItemLists = styled.section`
                     width: 30%;
                     justify-content: flex-end;
 
-                    & .editerView {
-                    line-height: 1;
-
-                        & .itemEditer {
-                            opacity: 0;
-                            visibility: hidden;
-                            padding: 1em;
-                            width: 100vw;
-                            height: 100%;
-                            position: fixed;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            background-color: rgba(255, 255, 255, .5);
-                            -webkit-backdrop-filter: blur(8px);
-                            backdrop-filter: blur(8px);
-                            transition: all .25s;
-                        }
-                        
-                        &.OnView {
-                            & .itemEditer {
-                                opacity: 1;
-                                visibility: visible;
-                            }
-                        }
-                    }
-
                     & button {
                         width: fit-content;
                         appearance: none;
@@ -235,14 +198,6 @@ const KorekauItemLists = styled.section`
                     & figure {
                         & span {
                             border-radius: 4px;
-                        }
-                    }
-                }
-
-                & .ctrlZone {
-                    & .editerView {
-                        & .itemEditer {
-                            width: 100%;
                         }
                     }
                 }
