@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import { memo, useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { isDesktopViewAtom } from '../ts/calendar-atom';
-import { Calendar } from '../components/schedule/calendar/Calendar';
+import { Introduction } from '../components/Introduction';
 import { KorekauBased } from '../components/korekau/KorekauBased';
+import { Calendar } from '../components/schedule/calendar/Calendar';
+import { TrashBased } from '../components/trash/TrashBased';
 
 /**
  * reactでのswiperは【使いたいCSSと機能】を必要に応じて記述して（読み込んで使って）いくスタイル 
@@ -23,7 +25,7 @@ import { Pagination } from "swiper/modules";
 export const SwiperLibs = memo(() => {
     const [isDesktopView, setDesktopView] = useAtom(isDesktopViewAtom);
 
-    const navListsLable = ['買うものリスト', 'カレンダー'];
+    const navListsLable = ['Introduction', '買うものリスト', 'カレンダー', 'ゴミ出し日'];
     const renderBullet = (index: number) => {
         return `<button type="button" class="swiper-pagination-bullet">${navListsLable[index]}</button>`;
     }
@@ -41,7 +43,7 @@ export const SwiperLibs = memo(() => {
             targetWidth += childrennavList.clientWidth;
             swiperPaginationChildren.appendChild(childrennavList);
         });
-        if (navListsLable.length >= 5) swiperPaginationChildren.style.setProperty('width', `${targetWidth * 1.5}px`);
+        if (navListsLable.length >= 3) swiperPaginationChildren.style.setProperty('width', `${targetWidth * 1.5}px`);
 
         swiperPagination.appendChild(swiperPaginationChildren);
 
@@ -52,7 +54,7 @@ export const SwiperLibs = memo(() => {
         <SwiperLibsWrapper>
             <Swiper
                 slidesPerView={1}
-                centeredSlides={true}
+                initialSlide={1} // スライダー2枚目（KorekauBased）から表示
                 spaceBetween={56}
                 speed={1000}
                 className="useSwiper"
@@ -60,8 +62,10 @@ export const SwiperLibs = memo(() => {
                 modules={[Pagination]}
                 pagination={{ renderBullet, clickable: true }}
             >
+                <SwiperSlide><Introduction /></SwiperSlide>
                 <SwiperSlide><KorekauBased /></SwiperSlide>
                 <SwiperSlide><Calendar /></SwiperSlide>
+                <SwiperSlide><TrashBased /></SwiperSlide>
             </Swiper>
         </SwiperLibsWrapper>
     );

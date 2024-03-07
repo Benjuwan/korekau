@@ -8,3 +8,5 @@
 - 画像
 - 共有機能
 - イントロダクション追加
+
+- 再登録の際の`KorekauForm`の`defaultItemName`の値

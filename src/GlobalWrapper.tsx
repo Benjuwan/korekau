@@ -3,11 +3,13 @@ import { memo } from "react";
 import { SwiperLibs } from "./libs/SwiperLibs";
 
 import rogo from "./assets/rogo.svg";
+import { FilteredTrashDayList } from "./utils/FilteredTrashDayList";
 
 export const GlobalWrapper = memo(() => {
     return (
         <GlobalWrapperElm>
             <h1><figure><img src={rogo} alt="KoreKauのロゴ" /></figure></h1>
+            <FilteredTrashDayList />
             <SwiperLibs />
         </GlobalWrapperElm>
     );

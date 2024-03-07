@@ -1,0 +1,1 @@
+export const localstorageLabel_TrashDate: string = 'TrashDate';
