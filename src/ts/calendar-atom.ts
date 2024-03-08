@@ -4,13 +4,7 @@ import { localstorageLabelName } from "./calendar-localstorageLabel";
 
 const localstorageLabel: string = localstorageLabelName;
 
-const todoMemoItemsDefault: todoItemType = {
-    todoID: '',
-    todoContent: '',
-    edit: false
-}
-
-export let todoMemoLocalStorageAtom = atom([todoMemoItemsDefault]);
+export let todoMemoLocalStorageAtom = atom<todoItemType[]>([]);
 
 /* 既存の localStorage データを取得して（データがあれば）Atom に代入 */
 const getLocalStorageItems: string | null = localStorage.getItem(localstorageLabel);
@@ -19,6 +13,6 @@ if (getLocalStorageItems !== null) {
     todoMemoLocalStorageAtom = atom([...SaveLocalStorageDateItems]);
 }
 
-export const todoMemoAtom = atom([todoMemoItemsDefault]);
+export const todoMemoAtom = atom<todoItemType[]>([]);
 
 export const isDesktopViewAtom = atom<boolean>(false);

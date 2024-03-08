@@ -1,23 +1,17 @@
 import styled from "styled-components";
-import { ChangeEvent, memo, useMemo, useState } from "react";
+import { ChangeEvent, memo, useState } from "react";
 import { korekauItemsType } from "../ts/korekau";
-import { useAtom } from "jotai";
-import { korekauAtom } from "../../../ts/korekau-atom";
 import { useRegiKorekauItem } from "../hooks/useRegiKorekauItem";
 import { useUpdateKorekauItems } from "../hooks/useUpdateKorekauItems";
+import { useTargetElsRemoveClass } from "../../../hooks/useTargetElsRemoveClass";
 
 export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: korekauItemsType }) => {
-    const [korekauLists] = useAtom(korekauAtom)
     const { regiKorekauItem } = useRegiKorekauItem();
     const { updateKorekauItems } = useUpdateKorekauItems();
+    const { targetElsRemoveClass } = useTargetElsRemoveClass();
 
-    const defaultItemCategoty: string = useMemo(() => {
-        return KorekauItemList ? KorekauItemList.itemCategory : 'food_drink';
-    }, [korekauLists]);
-
-    const defaultItemName: string = useMemo(() => {
-        return KorekauItemList ? KorekauItemList.itemName : '';
-    }, [korekauLists]);
+    const defaultItemCategoty: string = KorekauItemList ? KorekauItemList.itemCategory : 'food_drink';
+    const defaultItemName: string = KorekauItemList ? KorekauItemList.itemName : '';
 
     const [itemCategory, setItemCategory] = useState<string>(defaultItemCategoty);
     const [itemName, setItemName] = useState<string>(defaultItemName);
@@ -64,7 +58,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                 <p className="formLabel">買うもの</p>
                 <input type="text" value={itemName} onInput={(e: ChangeEvent<HTMLInputElement>) => setItemName((_prevItemName) => e.target.value)} />
             </div>
-            <div className="flexBox">
+            <div className="formFlexBox">
                 <div className="formBlock">
                     <p className="formLabel">個数</p>
                     <input type="number" min={1} max={99} value={itemNumber} onInput={(e: ChangeEvent<HTMLInputElement>) => handleInputItemNumber(e.target.max, e.target.value)} />
@@ -77,7 +71,12 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                     </label>
                 </div>
             </div>
-            <input type="submit" disabled={itemName.length <= 0} value={KorekauItemList ? '再登録' : '登録'} />
+            <div className={KorekauItemList ? 'formFlexBox' : undefined}>
+                <input type="submit" disabled={itemName.length <= 0} value={KorekauItemList ? '再登録' : '登録'} />
+                {KorekauItemList &&
+                    <input type="button" className="editerCloseBtn" onClick={() => targetElsRemoveClass('editerView', 'OnView')} value={'戻る'} />
+                }
+            </div>
         </KorekauFormElm>
     );
 });
@@ -108,7 +107,7 @@ background-color: #fff;
 
         &[type="submit"] {
             display: block;
-            width: 100%;
+            width: 80%;
             background-color: #f0b20e;
             letter-spacing: 0.5em;
             transition: all .25s;
@@ -126,8 +125,21 @@ background-color: #fff;
             }
         }
     }
+    
+    & .editerCloseBtn {
+        display: block;
+        width: 20%;
+        background-color: #5fdd54;
+        cursor: pointer;
 
-    & .flexBox {
+        &:hover {
+            color: #5fdd54;
+            border-color: #5fdd54;
+            background-color: #fff;
+        }
+    }
+
+    & .formFlexBox {
         display: flex;
         align-items: flex-start;
         gap: 5em;

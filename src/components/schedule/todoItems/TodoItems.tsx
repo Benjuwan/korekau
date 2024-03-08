@@ -2,9 +2,9 @@ import { FC, SyntheticEvent } from "react";
 import todoStyle from "./css/todoStyle.module.css";
 import { todoItemType } from "./ts/todoItemType";
 import { useAtom } from "jotai";
-import { todoMemoAtom, todoMemoLocalStorageAtom } from "../../../ts/calendar-atom";
-import { localstorageLabelName } from "../../../ts/calendar-localstorageLabel";
+import { todoMemoAtom } from "../../../ts/calendar-atom";
 import { TodoForm } from "./TodoForm";
+import { useDeleteTodoItem } from "./hooks/useDeleteTodoItem";
 import { useCloseModalWindow } from "./hooks/useCloseModalWindow";
 import { useScrollTop } from "../../../hooks/useScrollTop";
 
@@ -17,11 +17,9 @@ type TodoItemsType = {
 export const TodoItems: FC<TodoItemsType> = (props) => {
     const { todoItem, todoID, index } = props;
 
-    const [, setLocalstorage] = useAtom(todoMemoLocalStorageAtom); // 更新関数のみ使用
     const [todoMemo, setTodoMemo] = useAtom(todoMemoAtom);
 
-    const localstorageLabel = localstorageLabelName;
-
+    const { deleteTodoItem } = useDeleteTodoItem();
     const { closeModalWindow } = useCloseModalWindow();
     const { scrollTop } = useScrollTop();
     const handleCloseModalWindowBtnClicked = (btnEl: SyntheticEvent<HTMLButtonElement>) => {
@@ -51,15 +49,6 @@ export const TodoItems: FC<TodoItemsType> = (props) => {
         setTodoMemo((_prevTodoList) => shallowCopy);
     }
 
-    const removeTodoItem: (index: number) => void = (index: number) => {
-        const shallowCopy: todoItemType[] = [...todoMemo];
-        shallowCopy.splice(index, 1);
-        setTodoMemo((_prevTodoList) => shallowCopy);
-        /* ---------------- localStorage 関連の処理（更新）---------------- */
-        setLocalstorage((_prevLocalStorage) => shallowCopy);
-        localStorage.setItem(localstorageLabel, JSON.stringify([...shallowCopy]));
-    }
-
     return (
         <div className={todoStyle.modalWindow}>
             <div className={todoStyle.modalWindowChild}>
@@ -79,7 +68,7 @@ export const TodoItems: FC<TodoItemsType> = (props) => {
                         <div className={todoStyle.editerIntoCtrlBtns}>
                             <button id={todoStyle["deleteBtn"]} className={todoStyle.formBtns} type="button" onClick={(deleteBtn: SyntheticEvent<HTMLButtonElement>) => {
                                 handleCloseModalWindowBtnClicked(deleteBtn);
-                                removeTodoItem(index);
+                                deleteTodoItem(index);
                             }}>削除</button>
                             <button className={`${todoStyle.formBtns} ${todoStyle.editBtn}`} type="button" onClick={() => {
                                 changeMode(todoItem, index, todoItem.edit);

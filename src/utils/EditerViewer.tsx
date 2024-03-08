@@ -43,6 +43,10 @@ line-height: 1;
             background-color: #59b835;
         }
     }
+
+    &:hover {
+        filter: brightness(1.25);
+    }
 }
 
 & .itemEditer {

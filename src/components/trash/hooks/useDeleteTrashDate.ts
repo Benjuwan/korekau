@@ -18,14 +18,14 @@ export const useDeleteTrashDate = () => {
         setTrashDateLists((_prevTrashDateLists) => shallowCopy);
         targetElsRemoveClass('editerView', 'OnView');
         /* ---------------- localStorage 関連の処理（更新）---------------- */
-        // if (trashDateLists.length <= 1) {
-        //     localStorage.removeItem(localstorageLabelTrashDate);
-        //     setLocalstorage((_prevLocalstorage) => []);
-        //     return;
-        // }
+        if (trashDateLists.length <= 1) {
+            localStorage.removeItem(localstorageLabelTrashDate);
+            setLocalstorage((_prevLocalstorage) => []);
+            return;
+        }
 
-        // setLocalstorage((_prevLocalStorage) => shallowCopy);
-        // localStorage.setItem(localstorageLabelTrashDate, JSON.stringify([...shallowCopy]));
+        setLocalstorage((_prevLocalStorage) => shallowCopy);
+        localStorage.setItem(localstorageLabelTrashDate, JSON.stringify([...shallowCopy]));
     }
 
     return { deleteTrashDate }

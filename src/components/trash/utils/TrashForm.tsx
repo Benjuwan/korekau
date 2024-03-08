@@ -4,6 +4,7 @@ import { trashType } from "../ts/trash";
 import { useRegiTrashDate } from "../hooks/useRegiTrashDate";
 import { useUpdateTrashDate } from "../hooks/useUpdateTrashDate";
 import { useDeleteTrashDate } from "../hooks/useDeleteTrashDate";
+import { useTargetElsRemoveClass } from "../../../hooks/useTargetElsRemoveClass";
 
 type TrashFormType = {
     trashDateList?: trashType;
@@ -19,21 +20,24 @@ export const TrashForm: FC<TrashFormType> = memo((props) => {
     const { regiTrashDate } = useRegiTrashDate();
     const { updateTrashDate } = useUpdateTrashDate();
     const { deleteTrashDate } = useDeleteTrashDate();
+    const { targetElsRemoveClass } = useTargetElsRemoveClass();
 
     return (
         <TrashFormElm action="" onSubmit={(formElm: ChangeEvent<HTMLFormElement>) => {
             formElm.preventDefault();
             {
-                (trashDateList && trashDateIndex) ?
-                    updateTrashDate(trashDateIndex, day, trashDate) :
+                trashDateList ?
+                    (
+                        updateTrashDate(trashDateIndex as number, day, trashDate),
+                        targetElsRemoveClass('editerView', 'OnView')
+                    ) :
                     regiTrashDate(day, trashDate)
             }
-            setDay((_prevDay) => 1);
             setTrashDate((_prevTrashDate) => '');
         }}>
             <div className="formBlock">
                 <p className="formLabel">曜日</p>
-                <select name="daySelect" id="daySelect" defaultValue={1} onChange={(e: ChangeEvent<HTMLSelectElement>) => setDay(parseInt(e.target.value))}>
+                <select name="daySelect" id="daySelect" onChange={(e: ChangeEvent<HTMLSelectElement>) => setDay(parseInt(e.target.value))}>
                     <option value="1">（月）</option>
                     <option value="2">（火）</option>
                     <option value="3">（水）</option>
@@ -47,10 +51,15 @@ export const TrashForm: FC<TrashFormType> = memo((props) => {
                 <p className="formLabel">出せるゴミの種別・内容</p>
                 <input type="text" value={trashDate} onInput={(e: ChangeEvent<HTMLInputElement>) => setTrashDate((_prevTrashDate) => e.target.value)} placeholder="例：燃えるゴミ" />
             </div>
-            {trashDateList &&
-                <button type="button" className="deleteBtn" onClick={() => deleteTrashDate(trashDateIndex as number)}><figure><span className="material-symbols-outlined">delete</span></figure></button>
-            }
-            <input type="submit" disabled={trashDate.length <= 0} value={trashDateList ? '再登録' : '登録'} />
+            <div className={trashDateList ? 'ctrlBtns' : undefined}>
+                <input type="submit" disabled={trashDate.length <= 0} value={trashDateList ? '再登録' : '登録'} />
+                {trashDateList &&
+                    <button type="button" className="editerCloseBtn" onClick={() => targetElsRemoveClass('editerView', 'OnView')}>戻る</button>
+                }
+                {trashDateList &&
+                    <button type="button" className="deleteBtn" onClick={() => deleteTrashDate(trashDateIndex as number)}><figure><span className="material-symbols-outlined">delete</span></figure></button>
+                }
+            </div>
         </TrashFormElm>
     );
 });
@@ -70,6 +79,12 @@ background-color: #fff;
         width: 100%;
         border-radius: 4px;
         border: 1px solid #c6c6c6;
+    }
+
+    & .ctrlBtns {
+        display: flex;
+        justify-content: space-between;
+        gap: 5%;
     }
 
     & .deleteBtn {
@@ -93,6 +108,15 @@ background-color: #fff;
         }
     }
 
+    & .editerCloseBtn {
+        background-color: #59b835;
+        width: 20%;
+        border-radius: .4rem;
+
+        &:hover {
+            color: #fff;
+        }
+    }
 
     & input {
         padding-left: .5em;

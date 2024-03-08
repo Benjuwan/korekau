@@ -54,6 +54,7 @@ font-size: 1.6rem;
         }
 
         & p {
+            overflow-wrap: anywhere; // 区切りがないとブラウザは一文として処理するので改行指定のスタイルを指定しておく
             & span {
                 font-weight: bold;
             }
