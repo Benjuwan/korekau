@@ -21,7 +21,7 @@ const HeaderElm = styled.header`
 
         & figure {
             & img {
-                width: 20em;
+                width: 16em;
             }
         }
     }

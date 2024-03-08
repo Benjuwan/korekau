@@ -57,7 +57,7 @@ export const TrashForm: FC<TrashFormType> = memo((props) => {
                     <button type="button" className="editerCloseBtn" onClick={() => targetElsRemoveClass('editerView', 'OnView')}>戻る</button>
                 }
                 {trashDateList &&
-                    <button type="button" className="deleteBtn" onClick={() => deleteTrashDate(trashDateIndex as number)}><figure><span className="material-symbols-outlined">delete</span></figure></button>
+                    <button type="button" className="deleteBtn" onClick={() => deleteTrashDate(trashDateIndex as number)}><span className="material-symbols-outlined">delete</span></button>
                 }
             </div>
         </TrashFormElm>
@@ -97,14 +97,12 @@ background-color: #fff;
         cursor: pointer;
         color: #fff;
 
-        & figure {
-            & span {
-                vertical-align: middle;
-                box-shadow: 0 0 8px rgba(0, 0, 0, .25) inset;
-                border-radius: .4rem;
-                padding: .25em;
-                background-color: #cc3226;
-            }
+        & span {
+            vertical-align: middle;
+            box-shadow: 0 0 8px rgba(0, 0, 0, .25) inset;
+            border-radius: .4rem;
+            padding: .25em;
+            background-color: #cc3226;
         }
     }
 
@@ -162,10 +160,8 @@ background-color: #fff;
 
 @media screen and (min-width: 1025px) {
     & .deleteBtn {
-        & figure {
-            & span {
-                border-radius: 4px;
-            }
+        & span {
+            border-radius: 4px;
         }
     }
 }

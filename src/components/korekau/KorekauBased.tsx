@@ -22,7 +22,7 @@ export const KorekauBased = memo(() => {
     }, []);
 
     return (
-        <>
+        <section>
             <KorekauForm />
             {korekauLists.length > 0 ?
                 <>
@@ -35,6 +35,6 @@ export const KorekauBased = memo(() => {
                 </> :
                 <p style={{ 'textAlign': 'center' }}>買うものリストには現在何も登録されていません。</p>
             }
-        </>
+        </section>
     );
 });

@@ -15,7 +15,7 @@ export const EditerViewer = memo(({ children }: { children: ReactNode }) => {
             <button type="button" className="editBtn" onClick={(btnElm: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 editerView(btnElm.currentTarget);
                 scrollTop();
-            }}><figure><span className="material-symbols-outlined">edit</span></figure></button>
+            }}><span className="material-symbols-outlined">edit</span></button>
             {children}
         </EditerView>
     );
@@ -33,15 +33,13 @@ line-height: 1;
     padding: 0;
     cursor: pointer;
 
-    & figure {
-        & span {
-            color: #fff;
-            vertical-align: middle;
-            box-shadow: 0 0 8px rgba(0, 0, 0, .25) inset;
-            border-radius: .4rem;
-            padding: .25em;
-            background-color: #59b835;
-        }
+    & span {
+        color: #fff;
+        vertical-align: middle;
+        box-shadow: 0 0 8px rgba(0, 0, 0, .25) inset;
+        border-radius: .4rem;
+        padding: .25em;
+        background-color: #59b835;
     }
 
     &:hover {
@@ -74,10 +72,8 @@ line-height: 1;
 
 @media screen and (min-width: 1025px) {
     & button {
-        & figure {
-            & span {
-                border-radius: 4px;
-            }
+        & span {
+            border-radius: 4px;
         }
     }
 

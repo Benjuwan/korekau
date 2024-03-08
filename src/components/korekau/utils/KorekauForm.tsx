@@ -64,7 +64,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                     <input type="number" min={1} max={99} value={itemNumber} onInput={(e: ChangeEvent<HTMLInputElement>) => handleInputItemNumber(e.target.max, e.target.value)} />
                 </div>
                 <div className="formBlock">
-                    <p className="formLabel">緊急度</p>
+                    <p className="formLabel">すぐ買う</p>
                     <label className={`switch ${itemPriority && 'switchOn'}`}>
                         <input type="checkbox" defaultChecked={itemPriority} onChange={() => setItemPriority(!itemPriority)} />
                         <span className="slider"></span>
@@ -107,7 +107,7 @@ background-color: #fff;
 
         &[type="submit"] {
             display: block;
-            width: 80%;
+            width: 100%;
             background-color: #f0b20e;
             letter-spacing: 0.5em;
             transition: all .25s;
@@ -143,6 +143,12 @@ background-color: #fff;
         display: flex;
         align-items: flex-start;
         gap: 5em;
+
+        & input {
+            &[type="submit"] {
+                width: 80%;
+            }
+        }
     }
 
     & .formBlock {
