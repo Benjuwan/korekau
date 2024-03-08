@@ -21,8 +21,8 @@ export const useRegiTrashDate = () => {
         if (regiTrashDate.length > 0) {
             setTrashDateLists((_prevtrashDateLists) => [...trashDateLists, newtrashDateLists]);
             /* ---------------- localStorage 関連の処理（登録）---------------- */
-            // setLocalstorage((_prevLocalStorage) => [...trashDateLists, newtrashDateLists]);
-            // localStorage.setItem(localstorageLabelTrashDate, JSON.stringify([...trashDateLists, newtrashDateLists]));
+            setLocalstorage((_prevLocalStorage) => [...trashDateLists, newtrashDateLists]);
+            localStorage.setItem(localstorageLabelTrashDate, JSON.stringify([...trashDateLists, newtrashDateLists]));
         }
     }
 

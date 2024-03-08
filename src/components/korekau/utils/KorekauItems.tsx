@@ -1,18 +1,15 @@
 import styled from "styled-components";
 import { memo, useEffect, useState } from "react";
+import { useAtom } from "jotai";
+import { korekauAtom } from "../../../ts/korekau-atom";
 import { korekauItemsType } from "../ts/korekau";
 import { KorekauItemIcons } from "./KorekauItemIcons";
 import { KorekauItemEditer } from "./KorekauItemEditer";
 import { EditerViewer } from "../../../utils/EditerViewer";
 import { useDeleteItem } from "../hooks/useDeleteItem";
 
-type KorekauItemsType = {
-    korekauLists: korekauItemsType[];
-    category: string;
-}
-
-export const KorekauItems = memo(({ props }: { props: KorekauItemsType }) => {
-    const { korekauLists, category } = props;
+export const KorekauItems = memo(({ category }: { category: string }) => {
+    const [korekauLists] = useAtom(korekauAtom);
 
     const { deleteItem } = useDeleteItem();
 
@@ -20,6 +17,12 @@ export const KorekauItems = memo(({ props }: { props: KorekauItemsType }) => {
     useEffect(() => {
         const filtered = korekauLists.filter(filteredItem => {
             if (filteredItem.itemCategory === category) return filteredItem;
+        }).sort((aheadItem, behindItem) => {
+            const aheadItemPriority = aheadItem.itemPriority ?? false;
+            const behindItemPriority = behindItem.itemPriority ?? false;
+            if (aheadItemPriority && !behindItemPriority) return -1; // 比較関数が負の値を返した場合、aはbの前に来る
+            if (!aheadItemPriority && behindItemPriority) return 1; // 比較関数が正の値を返した場合、bはaの前に来る
+            return 0; // 比較関数が0を返した場合、aとbの順序は変わらない
         });
         setFilteredItems((_prevFilteredItems) => filtered);
     }, [korekauLists]);
@@ -143,7 +146,7 @@ const KorekauItemLists = styled.section`
                         border: 0;
                         padding: 0;
                         cursor: pointer;
-
+                        
                         & figure {
                             & span {
                                 color: #fff;
@@ -152,9 +155,11 @@ const KorekauItemLists = styled.section`
                         }
 
                         &:hover {
-                            & figure {
-                                & span {
-                                    filter:brightness(1.5);
+                            &.deleteBtn {
+                                & figure {
+                                    & span {
+                                        filter:brightness(1.25);
+                                    }
                                 }
                             }
                         }

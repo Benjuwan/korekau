@@ -3,7 +3,7 @@ import calendarStyle from "./css/calendarStyle.module.css";
 import todoStyle from "../todoItems/css/todoStyle.module.css";
 import { calendarItemType } from "./ts/calendarItemType";
 import { useAtom } from "jotai";
-import { isDesktopViewAtom, todoMemoLocalStorageAtom } from "../../../ts/calendar-atom";
+import { isDesktopViewAtom, todoMemoAtom, todoMemoLocalStorageAtom } from "../../../ts/calendar-atom";
 import { localstorageLabelName } from "../../../ts/calendar-localstorageLabel";
 import { PrevNextMonthBtns } from "./PrevNextMonthBtns";
 import { Todo } from "../todoItems/Todo";
@@ -21,6 +21,7 @@ type todaySignal = {
 export const Calendar = () => {
     const { getMonthDays } = useGetMonthDays();
 
+    const [todoMemo] = useAtom(todoMemoAtom);
     const [, setLocalstorage] = useAtom(todoMemoLocalStorageAtom); // 更新関数のみ使用（全てのスケジュールリセット）
     const [desktopView, setDesktopView] = useAtom(isDesktopViewAtom);
 
@@ -68,7 +69,9 @@ export const Calendar = () => {
     return (
         <div className={calendarStyle.wrapper}>
             <h2>{ctrlYear}年{ctrlMonth}月</h2>
-            <button className={calendarStyle.resetBtn} type="button" onClick={resetAllSchedule}>予定を全削除</button>
+            {todoMemo.length > 0 &&
+                <button className={calendarStyle.resetBtn} type="button" onClick={resetAllSchedule}>予定を全削除</button>
+            }
             <PrevNextMonthBtns
                 className={calendarStyle.btns}
                 ctrlYear={ctrlYear}

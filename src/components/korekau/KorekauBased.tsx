@@ -27,26 +27,11 @@ export const KorekauBased = memo(() => {
             {korekauLists.length > 0 ?
                 <>
                     <KorekauAllReset />
-                    <KorekauItems props={{
-                        korekauLists: korekauLists,
-                        category: "food_drink"
-                    }} />
-                    <KorekauItems props={{
-                        korekauLists: korekauLists,
-                        category: "utils"
-                    }} />
-                    <KorekauItems props={{
-                        korekauLists: korekauLists,
-                        category: "family"
-                    }} />
-                    <KorekauItems props={{
-                        korekauLists: korekauLists,
-                        category: "myself"
-                    }} />
-                    <KorekauItems props={{
-                        korekauLists: korekauLists,
-                        category: "others"
-                    }} />
+                    <KorekauItems category="food_drink" />
+                    <KorekauItems category="utils" />
+                    <KorekauItems category="family" />
+                    <KorekauItems category="myself" />
+                    <KorekauItems category="others" />
                 </> :
                 <p style={{ 'textAlign': 'center' }}>買うものリストには現在何も登録されていません。</p>
             }

@@ -2,11 +2,8 @@ import { trashType } from "../ts/trash";
 import { useAtom } from "jotai";
 import { trashDateAtom, trashDateLocalStorageAtom } from "../../../ts/trash-atom";
 import { localstorageLabel_TrashDate } from "../../../ts/trash-localstorageLabel";
-import { useTargetElsRemoveClass } from "../../../hooks/useTargetElsRemoveClass";
 
 export const useUpdateTrashDate = () => {
-    const { targetElsRemoveClass } = useTargetElsRemoveClass();
-
     const [trashDateLists, setTrashDateLists] = useAtom(trashDateAtom);
     const [, setLocalstorage] = useAtom(trashDateLocalStorageAtom);
 
@@ -26,10 +23,9 @@ export const useUpdateTrashDate = () => {
         shallowCopy.splice(index, 1, updatetrashDateLists);
         if (updateTrashDate.length > 0) {
             setTrashDateLists((_prevtrashDateLists) => shallowCopy);
-            targetElsRemoveClass('editerView', 'OnView');
             /* ---------------- localStorage 関連の処理（更新）---------------- */
-            // setLocalstorage((_prevLocalStorage) => shallowCopy);
-            // localStorage.setItem(localstorageLabelTrashDate, JSON.stringify([...shallowCopy]));
+            setLocalstorage((_prevLocalStorage) => shallowCopy);
+            localStorage.setItem(localstorageLabelTrashDate, JSON.stringify([...shallowCopy]));
         }
     }
 
