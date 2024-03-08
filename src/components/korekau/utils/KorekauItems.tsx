@@ -46,6 +46,9 @@ export const KorekauItems = memo(({ category }: { category: string }) => {
                             <li className={korekauList.itemPriority ? 'priority korekauList flexBox' : 'korekauList flexBox'} key={i}>
                                 <div className="listItem flexBox">
                                     <p>{korekauList.itemName}<span>×{korekauList.itemNumber}</span></p>
+                                    {korekauList.itemImg &&
+                                        <figure className="itemThumbnail"><img src={korekauList.itemImg} alt={`${korekauList.itemName}の画像`} /></figure>
+                                    }
                                 </div>
                                 <div className="ctrlZone flexBox">
                                     <EditerViewer children={
