@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ChangeEvent, memo, useState } from "react";
 import { korekauItemsType } from "../ts/korekau";
+import { UploadImgItem } from "../../../utils/UploadImgItem";
 import { useRegiKorekauItem } from "../hooks/useRegiKorekauItem";
 import { useUpdateKorekauItems } from "../hooks/useUpdateKorekauItems";
 import { useTargetElsRemoveClass } from "../../../hooks/useTargetElsRemoveClass";
@@ -23,22 +24,29 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
     }
     const [itemPriority, setItemPriority] = useState<boolean>(false);
 
+    const [itemImgSrc, setItemImgSrc] = useState<string>('');
+
     return (
         <KorekauFormElm action="" onSubmit={(formElm: ChangeEvent<HTMLFormElement>) => {
             formElm.preventDefault();
             KorekauItemList ?
-                updateKorekauItems(
-                    KorekauItemList,
-                    itemName,
-                    itemNumber,
-                    itemCategory,
-                    itemPriority
+                (
+                    updateKorekauItems(
+                        KorekauItemList,
+                        itemName,
+                        itemNumber,
+                        itemCategory,
+                        itemPriority,
+                        itemImgSrc
+                    ),
+                    targetElsRemoveClass('editerView', 'OnView')
                 ) :
                 regiKorekauItem(
                     itemName,
                     itemNumber,
                     itemCategory,
-                    itemPriority
+                    itemPriority,
+                    itemImgSrc
                 );
             setItemName('');
             setItemNumber(1);
@@ -57,6 +65,11 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
             <div className="formBlock">
                 <p className="formLabel">買うもの</p>
                 <input type="text" value={itemName} onInput={(e: ChangeEvent<HTMLInputElement>) => setItemName((_prevItemName) => e.target.value)} />
+                <div className="UploadImgItem">
+                    <UploadImgItem props={{
+                        setItemImgSrc: setItemImgSrc
+                    }} />
+                </div>
             </div>
             <div className="formFlexBox">
                 <div className="formBlock">
@@ -159,6 +172,16 @@ background-color: #fff;
             border-left: 4px solid #f0b20e;
             padding-left: .5em;
             margin-bottom: .5em;
+        }
+
+        & .UploadImgItem {
+            margin-top: 1em;
+
+            & input {
+                border: 0;
+                padding: 0;
+                margin-bottom: .5em;
+            }
         }
 
         & .switch {
