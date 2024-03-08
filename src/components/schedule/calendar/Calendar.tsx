@@ -67,7 +67,7 @@ export const Calendar = () => {
     useEffect(() => getMonthDays(ctrlYear, ctrlMonth, setDays), [ctrlMonth]);
 
     return (
-        <div className={calendarStyle.wrapper}>
+        <section className={calendarStyle.wrapper}>
             <h2>{ctrlYear}年{ctrlMonth}月</h2>
             {todoMemo.length > 0 &&
                 <button className={calendarStyle.resetBtn} type="button" onClick={resetAllSchedule}>予定を全削除</button>
@@ -111,6 +111,6 @@ export const Calendar = () => {
                     </li>
                 ))}
             </ul>
-        </div >
+        </section>
     );
 }

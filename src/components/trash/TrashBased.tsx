@@ -22,7 +22,7 @@ export const TrashBased = memo(() => {
     }, []);
 
     return (
-        <>
+        <section>
             <TrashForm />
             {trashDateLists.length > 0 ?
                 <>
@@ -32,6 +32,6 @@ export const TrashBased = memo(() => {
                 </> :
                 <p style={{ 'textAlign': 'center' }}>ゴミ出し日はまだ設定されていません。</p>
             }
-        </>
+        </section>
     );
 });

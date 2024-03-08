@@ -25,7 +25,7 @@ import { Pagination } from "swiper/modules";
 export const SwiperLibs = memo(() => {
     const [isDesktopView, setDesktopView] = useAtom(isDesktopViewAtom);
 
-    const navListsLable = ['Introduction', '買うものリスト', 'カレンダー', 'ゴミ出し日'];
+    const navListsLable = ['コレカウとは？', '買うものリスト', 'カレンダー', 'ゴミ出し日'];
     const renderBullet = (index: number) => {
         return `<button type="button" class="swiper-pagination-bullet">${navListsLable[index]}</button>`;
     }

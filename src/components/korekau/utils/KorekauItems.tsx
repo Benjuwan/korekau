@@ -55,7 +55,7 @@ export const KorekauItems = memo(({ category }: { category: string }) => {
                                             korekauList: korekauList
                                         }} />
                                     } />
-                                    <button type="button" className="deleteBtn" onClick={() => deleteItem(korekauList)}><figure><span className="material-symbols-outlined">delete</span></figure></button>
+                                    <button type="button" className="deleteBtn" onClick={() => deleteItem(korekauList)}><span className="material-symbols-outlined">delete</span></button>
                                 </div>
                             </li>
                         ))}
@@ -83,15 +83,13 @@ const KorekauItemLists = styled.section`
                 margin-bottom: 1em;
             }
 
-            & figure {
-                span {
-                    vertical-align: middle;
-                    box-shadow: 0 0 8px rgba(0, 0, 0, .25) inset;
-                    background-color: #fff;
-                    aspect-ratio: 1 / 1;
-                    border-radius: 50%;
-                    padding: .25em;
-                }
+            span.material-symbols-outlined {
+                vertical-align: middle;
+                box-shadow: 0 0 8px rgba(0, 0, 0, .25) inset;
+                background-color: #fff;
+                aspect-ratio: 1 / 1;
+                border-radius: 50%;
+                padding: .25em;
             }
             
             &.headingElm {
@@ -147,36 +145,28 @@ const KorekauItemLists = styled.section`
                         padding: 0;
                         cursor: pointer;
                         
-                        & figure {
-                            & span {
-                                color: #fff;
-                                border-radius: .4rem;
-                            }
+                        & span {
+                            color: #fff;
+                            border-radius: .4rem;
                         }
 
                         &:hover {
                             &.deleteBtn {
-                                & figure {
-                                    & span {
-                                        filter:brightness(1.25);
-                                    }
+                                & span {
+                                    filter:brightness(1.25);
                                 }
                             }
                         }
 
                         &.editBtn {
-                            & figure {
-                                & span {
-                                    background-color: #59b835;
-                                }
+                            & span {
+                                background-color: #59b835;
                             }
                         }
 
                         &.deleteBtn {
-                            & figure {
-                                & span {
-                                    background-color: #cc3226;
-                                }
+                            & span {
+                                background-color: #cc3226;
                             }
                         }
                     }
@@ -200,10 +190,8 @@ const KorekauItemLists = styled.section`
                 font-size: 16px;
 
                 & button {
-                    & figure {
-                        & span {
-                            border-radius: 4px;
-                        }
+                    & span {
+                        border-radius: 4px;
                     }
                 }
             }

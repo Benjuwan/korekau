@@ -13,7 +13,7 @@ export const TrashDateDetails = memo(({ trashDateList }: { trashDateList: trashT
                 {trashDateList.day === 5 && '（金）'}
                 {trashDateList.day === 6 && '（土）'}
                 {trashDateList.day === 0 && '（日）'}
-            </span>：
+            </span>
             {trashDateList.trashDate}
         </p>
     );

@@ -41,8 +41,9 @@ export const FilteredTrashDayList = memo(() => {
 });
 
 const TrashLists = styled.div`
+width: clamp(30rem, 100%, 60rem);
 padding: 0 1em;
-margin-bottom: 2.5em;
+margin: 0 auto 2.5em;
 
     & .wrapper {
         padding: 1em;
@@ -70,6 +71,8 @@ margin-bottom: 2.5em;
     }
 
 @media screen and (min-width: 1025px) {
+width: clamp(300px, 100%, 960px);
+
     & .wrapper {
         border-radius: 4px;
 

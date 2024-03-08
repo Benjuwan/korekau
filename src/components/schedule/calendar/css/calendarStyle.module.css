@@ -2,6 +2,7 @@
 
 .wrapper {
     width: clamp(30rem, 100%, 60rem);
+    margin-bottom: 5em;
 
     & button {
         appearance: none;
