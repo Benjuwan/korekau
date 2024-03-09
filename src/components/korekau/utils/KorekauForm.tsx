@@ -53,7 +53,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
             setItemPriority(false);
         }}>
             <div className="formBlock">
-                <p className="formLabel">カテゴリー</p>
+                <label className="formLabel" htmlFor="korekauCategories">カテゴリー</label>
                 <select name="korekauCategories" id="korekauCategories" defaultValue={defaultItemCategoty} onChange={(e: ChangeEvent<HTMLSelectElement>) => setItemCategory(e.target.value)}>
                     <option value="food_drink">食料品</option>
                     <option value="utils">日用品</option>
@@ -63,7 +63,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                 </select>
             </div>
             <div className="formBlock">
-                <p className="formLabel">買うもの</p>
+                <label className="formLabel" htmlFor="itemName">買うもの</label>
                 <input type="text" value={itemName} onInput={(e: ChangeEvent<HTMLInputElement>) => setItemName((_prevItemName) => e.target.value)} />
                 <div className="UploadImgItem">
                     <UploadImgItem props={{
@@ -73,10 +73,11 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
             </div>
             <div className="formFlexBox">
                 <div className="formBlock">
-                    <p className="formLabel">個数</p>
+                    <label className="formLabel" htmlFor="itemNumber">個数</label>
                     <input type="number" min={1} max={99} value={itemNumber} onInput={(e: ChangeEvent<HTMLInputElement>) => handleInputItemNumber(e.target.max, e.target.value)} />
                 </div>
                 <div className="formBlock">
+                    {/* トグルボタンのスタイル及び機能の都合上ここは<p> */}
                     <p className="formLabel">すぐ買う</p>
                     <label className={`switch ${itemPriority && 'switchOn'}`}>
                         <input type="checkbox" defaultChecked={itemPriority} onChange={() => setItemPriority(!itemPriority)} />
@@ -167,7 +168,7 @@ background-color: #fff;
     & .formBlock {
         margin-bottom: 2em;
         
-        & p.formLabel {
+        & .formLabel {
             line-height: 2;
             border-left: 4px solid #f0b20e;
             padding-left: .5em;

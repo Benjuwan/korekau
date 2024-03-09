@@ -50,14 +50,14 @@ export const TodoForm: FC<todoFormType> = (props) => {
             }
             resetStates();
         }}>
-            <label>
-                <input type="text" value={todoContent} onInput={(todoTxt: ChangeEvent<HTMLInputElement>) => {
+            <label htmlFor="todoContent">
+                <input type="text" value={todoContent} id="todoContent" onInput={(todoTxt: ChangeEvent<HTMLInputElement>) => {
                     setTodoContent((_prevTodoContent) => todoTxt.target.value);
                 }} />
             </label>
             <div className={todoStyle.timeSchedule}>
-                <label className={todoStyle.timeLabel}>開始時刻 <input type="time" value={startTime} onChange={(timeElm: ChangeEvent<HTMLInputElement>) => setStartTime(timeElm.target.value)} /></label>
-                <label className={todoStyle.timeLabel}>終了時刻 <input type="time" value={finishTime} onChange={(timeElm: ChangeEvent<HTMLInputElement>) => setFinishTime(timeElm.target.value)} /></label>
+                <label className={todoStyle.timeLabel} htmlFor="startTime">開始時刻 <input type="time" value={startTime} onChange={(timeElm: ChangeEvent<HTMLInputElement>) => setStartTime(timeElm.target.value)} /></label>
+                <label className={todoStyle.timeLabel} htmlFor="finishTime">終了時刻 <input type="time" value={finishTime} onChange={(timeElm: ChangeEvent<HTMLInputElement>) => setFinishTime(timeElm.target.value)} /></label>
             </div>
             <button className={todoStyle.formBtns} id={todoStyle.regiUpdateBtn} type="button" disabled={todoContent.length <= 0} onClick={(btnEl: SyntheticEvent<HTMLButtonElement>) => {
                 {
