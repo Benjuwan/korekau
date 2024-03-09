@@ -51,6 +51,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
             setItemName('');
             setItemNumber(1);
             setItemPriority(false);
+            setItemImgSrc('');
         }}>
             <div className="formBlock">
                 <label className="formLabel" htmlFor="korekauCategories">カテゴリー</label>
