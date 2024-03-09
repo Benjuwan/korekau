@@ -54,6 +54,7 @@ margin: 0 auto 2.5em;
         & p {
             &.notice {
                 line-height: 1;
+                font-size: 1.6rem;
                 margin-bottom: .5em;
                 
                 & span {
@@ -78,6 +79,7 @@ width: clamp(300px, 100%, 960px);
 
         & p {
             &.notice{
+                font-size: 16px;
                 & span {
                     font-size: 16px;
                 }

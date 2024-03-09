@@ -50,7 +50,7 @@ line-height: 1;
 & .itemEditer {
     opacity: 0;
     visibility: hidden;
-    padding: 1em;
+    padding: 2.5em 1em 1em;
     width: 100vw;
     height: 100%;
     position: fixed;

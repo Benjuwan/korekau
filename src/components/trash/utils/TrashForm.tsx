@@ -36,7 +36,7 @@ export const TrashForm: FC<TrashFormType> = memo((props) => {
             setTrashDate((_prevTrashDate) => '');
         }}>
             <div className="formBlock">
-                <p className="formLabel">曜日</p>
+                <label className="formLabel" htmlFor="daySelect">曜日</label>
                 <select name="daySelect" id="daySelect" onChange={(e: ChangeEvent<HTMLSelectElement>) => setDay(parseInt(e.target.value))}>
                     <option value="1">（月）</option>
                     <option value="2">（火）</option>
@@ -48,8 +48,8 @@ export const TrashForm: FC<TrashFormType> = memo((props) => {
                 </select>
             </div>
             <div className="formBlock">
-                <p className="formLabel">出せるゴミの種別・内容</p>
-                <input type="text" value={trashDate} onInput={(e: ChangeEvent<HTMLInputElement>) => setTrashDate((_prevTrashDate) => e.target.value)} placeholder="例：燃えるゴミ" />
+                <label className="formLabel" htmlFor="trashDate">出せるゴミの種別・内容</label>
+                <input type="text" value={trashDate} id="trashDate" onInput={(e: ChangeEvent<HTMLInputElement>) => setTrashDate((_prevTrashDate) => e.target.value)} placeholder="例：燃えるゴミ" />
             </div>
             <div className={trashDateList ? 'ctrlBtns' : undefined}>
                 <input type="submit" disabled={trashDate.length <= 0} value={trashDateList ? '再登録' : '登録'} />
@@ -150,7 +150,7 @@ background-color: #fff;
     & .formBlock {
         margin-bottom: 2em;
         
-        & p.formLabel {
+        & .formLabel {
             line-height: 2;
             border-left: 4px solid #676767;
             padding-left: .5em;
