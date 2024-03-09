@@ -9,7 +9,7 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
 
     const [base64ImageStr, setBase64ImageStr] = useState<string | ArrayBuffer | null>(null); // input[type="file"] でアップした画像のバイナリデータ管理用
 
-    const [file, setFile] = useState<FileList | null>(null); // input[type="file"] のデータ
+    const [_, setFile] = useState<FileList | null>(null); // input[type="file"] のデータ
     const fileAccept: string[] = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp']; // input[type="file"] で指定可能な mineType
 
     const fileToGenerativePart = async (file: Blob) => {
@@ -42,6 +42,12 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
     }
 
     const uploadImgView = (fileElm: HTMLInputElement) => {
+        if (fileElm.files !== null && fileElm.files[0].size >= (1000 * 1000)) {
+            alert('1MB以下の画像をアップできます'); // 1MB = 1,000,000
+            return; // 早期リターンで処理終了
+        }
+
+        setFile(fileElm.files);
         const files = fileElm.files as FileList;
 
         // 画像アップロードの取り消しを行った場合は画像を画面から削除
@@ -71,10 +77,7 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
             <input
                 type="file"
                 accept={`${[...fileAccept]}`}
-                onChange={(fileElm: ChangeEvent<HTMLInputElement>) => {
-                    setFile(fileElm.target.files);
-                    uploadImgView(fileElm.currentTarget);
-                }}
+                onChange={(fileElm: ChangeEvent<HTMLInputElement>) => uploadImgView(fileElm.currentTarget)}
             />
             {base64ImageStr && <img src={base64ImageStr as string} />}
         </>
