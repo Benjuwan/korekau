@@ -67,7 +67,9 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                 <label className="formLabel" htmlFor="itemName">買うもの</label>
                 <input type="text" value={itemName} onInput={(e: ChangeEvent<HTMLInputElement>) => setItemName((_prevItemName) => e.target.value)} />
                 <div className="UploadImgItem">
+                    <label className="formLabel" htmlFor="itemImgSrc">商品画像（※1MB以下）</label>
                     <UploadImgItem props={{
+                        itemImgSrc: itemImgSrc,
                         setItemImgSrc: setItemImgSrc
                     }} />
                 </div>
