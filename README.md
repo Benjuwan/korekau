@@ -3,6 +3,6 @@
 
 - アイコンソース元：[Material Symbols](https://fonts.google.com/icons)
 
-- 画像
+- 商品価格の比較検証
 - 共有機能
 - イントロダクション
