@@ -16,14 +16,12 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
 
     const [itemCategory, setItemCategory] = useState<string>(defaultItemCategoty);
     const [itemName, setItemName] = useState<string>(defaultItemName);
-    const [itemNumber, setItemNumber] = useState<number>(1);
-    const handleInputItemNumber: (maxNum: string, itemNumber: string) => void = (maxNum: string, itemNumber: string) => {
-        if (parseInt(itemNumber) <= parseInt(maxNum)) {
-            setItemNumber((_prevItemNumber) => parseInt(itemNumber));
-        }
+    const [itemNumber, setItemNumber] = useState<string>('');
+    const handleInputItemNumber = (itemNumberValue: string) => {
+        if (itemNumberValue.length === 0) setItemNumber('');
+        if (parseInt(itemNumberValue) && parseInt(itemNumberValue) <= 99) setItemNumber((_prevItemNumber) => itemNumberValue);
     }
     const [itemPriority, setItemPriority] = useState<boolean>(false);
-
     const [itemImgSrc, setItemImgSrc] = useState<string>('');
 
     return (
@@ -34,7 +32,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                     updateKorekauItems(
                         KorekauItemList,
                         itemName,
-                        itemNumber,
+                        parseInt(itemNumber),
                         itemCategory,
                         itemPriority,
                         itemImgSrc
@@ -43,13 +41,13 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                 ) :
                 regiKorekauItem(
                     itemName,
-                    itemNumber,
+                    parseInt(itemNumber),
                     itemCategory,
                     itemPriority,
                     itemImgSrc
                 );
             setItemName('');
-            setItemNumber(1);
+            setItemNumber('');
             setItemPriority(false);
             setItemImgSrc('');
         }}>
@@ -77,7 +75,8 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
             <div className="formFlexBox">
                 <div className="formBlock">
                     <label className="formLabel" htmlFor="itemNumber">個数</label>
-                    <input type="number" min={1} max={99} value={itemNumber} onInput={(e: ChangeEvent<HTMLInputElement>) => handleInputItemNumber(e.target.max, e.target.value)} />
+                    {/* pattern="\d*"：\dは任意の数字を表し、*は0回以上の繰り返しを意味する（＝入力されるテキストが0個以上の数字で構成されることを許可）*/}
+                    <input type="text" inputMode="numeric" pattern="\d*" value={itemNumber} onInput={(e: ChangeEvent<HTMLInputElement>) => handleInputItemNumber(e.target.value)} />
                 </div>
                 <div className="formBlock">
                     {/* トグルボタンのスタイル及び機能の都合上ここは<p> */}
@@ -89,7 +88,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                 </div>
             </div>
             <div className={KorekauItemList ? 'formFlexBox' : undefined}>
-                <input type="submit" disabled={itemName.length <= 0} value={KorekauItemList ? '再登録' : '登録'} />
+                <input type="submit" disabled={(itemName.length && itemNumber.length) <= 0} value={KorekauItemList ? '再登録' : '登録'} />
                 {KorekauItemList &&
                     <input type="button" className="editerCloseBtn" onClick={() => targetElsRemoveClass('editerView', 'OnView')} value={'戻る'} />
                 }

@@ -25,6 +25,8 @@ padding: 0 1em;
     }
 
 @media screen and (min-width: 1025px) {
+    font-size: 1.4rem;
+    
     & .rogoThumbnail {
         & img {
             width: clamp(240px, 100%, 400px);

@@ -87,8 +87,9 @@ padding: 0 1em;
             justify-content: flex-start;
             align-items: flex-start;
         }
-
+        
         & button {
+            font-size: 1.4rem;
             appearance: none;
             background: none;
             border-radius: 0;
@@ -110,4 +111,12 @@ padding: 0 1em;
     & .swiper-wrapper {
         padding-top: 2.5em;
     }
+
+@media screen and (min-width: 1025px) {
+    & .swiper-pagination {
+        & button {
+            font-size: 14px;
+        }
+    }
+}
 `;
