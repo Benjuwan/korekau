@@ -55,6 +55,7 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
                 type="file"
                 accept={`${[...fileAccept]}`}
                 onChange={(fileElm: ChangeEvent<HTMLInputElement>) => uploadImgView(fileElm.currentTarget)}
+                id="itemImgSrc"
             />
             {itemImgSrc && <img src={itemImgSrc} />}
         </>
