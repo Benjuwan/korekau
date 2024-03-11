@@ -6,6 +6,7 @@ import { Introduction } from '../components/Introduction';
 import { KorekauBased } from '../components/korekau/KorekauBased';
 import { Calendar } from '../components/schedule/calendar/Calendar';
 import { TrashBased } from '../components/trash/TrashBased';
+import { CompareItems } from '../components/compareItems/CompareItems';
 
 /**
  * reactでのswiperは【使いたいCSSと機能】を必要に応じて記述して（読み込んで使って）いくスタイル 
@@ -25,7 +26,7 @@ import { Pagination } from "swiper/modules";
 export const SwiperLibs = memo(() => {
     const [isDesktopView, setDesktopView] = useAtom(isDesktopViewAtom);
 
-    const navListsLable = ['コレカウとは？', '買うものリスト', 'カレンダー', 'ゴミ出し日'];
+    const navListsLable = ['コレカウとは？', '買うものリスト', '商品価格の比較', 'カレンダー', 'ゴミ出し日'];
     const renderBullet = (index: number) => {
         return `<button type="button" class="swiper-pagination-bullet">${navListsLable[index]}</button>`;
     }
@@ -64,6 +65,7 @@ export const SwiperLibs = memo(() => {
             >
                 <SwiperSlide><Introduction /></SwiperSlide>
                 <SwiperSlide><KorekauBased /></SwiperSlide>
+                <SwiperSlide><CompareItems /></SwiperSlide>
                 <SwiperSlide><Calendar /></SwiperSlide>
                 <SwiperSlide><TrashBased /></SwiperSlide>
             </Swiper>
