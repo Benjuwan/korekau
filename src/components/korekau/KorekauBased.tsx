@@ -1,11 +1,12 @@
 import { memo, useEffect } from "react";
+import { korekauItemsType } from "./ts/korekau";
 import { useAtom } from "jotai";
 import { korekauAtom } from "../../ts/korekau-atom";
 import { localstorageLabel_KorekauItems } from "../../ts/korekau-localstorageLabel";
 import { KorekauForm } from "./utils/KorekauForm";
 import { KorekauItems } from "./utils/KorekauItems";
 import { KorekauAllReset } from "./utils/KorekauAllReset";
-import { korekauItemsType } from "./ts/korekau";
+import { CtrlJsonDatas } from "../../utils/CtrlJsonDatas";
 
 export const KorekauBased = memo(() => {
     const [korekauLists, setKorekauLists] = useAtom(korekauAtom);
@@ -32,8 +33,12 @@ export const KorekauBased = memo(() => {
                     <KorekauItems category="family" />
                     <KorekauItems category="myself" />
                     <KorekauItems category="others" />
+                    <CtrlJsonDatas both={true} />
                 </> :
-                <p style={{ 'textAlign': 'center' }}>買うものリストには現在何も登録されていません。</p>
+                <>
+                    <p style={{ 'textAlign': 'center' }}>買うものリストには現在何も登録されていません。</p>
+                    <CtrlJsonDatas />
+                </>
             }
         </section>
     );
