@@ -9,11 +9,12 @@ export const useRegiKorekauItem = () => {
 
     const localstorageLabelKorekauItems: string = localstorageLabel_KorekauItems;
 
-    const regiKorekauItem: (itemName: string, itemNumber: number, itemCategory: string, itemPriority: boolean, itemImgSrc?: string) => void = (
+    const regiKorekauItem: (itemName: string, itemNumber: number, itemCategory: string, itemPriority: boolean, itemImgMemo?: string, itemImgSrc?: string) => void = (
         itemName: string,
         itemNumber: number,
         itemCategory: string,
         itemPriority: boolean,
+        itemImgMemo?: string,
         itemImgSrc?: string
     ) => {
         const newKorekauItems: korekauItemsType = {
@@ -21,6 +22,7 @@ export const useRegiKorekauItem = () => {
             itemNumber: itemNumber,
             itemCategory: itemCategory,
             itemPriority: itemPriority,
+            itemMemo: itemImgMemo,
             itemImg: itemImgSrc
         }
 

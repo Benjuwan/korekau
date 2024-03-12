@@ -9,7 +9,6 @@ ul,
 
 form {
     width: clamp(280px, calc(100vw/2), 320px);
-    font-size: 1.6rem;
 }
 
 & .todoView {
@@ -131,6 +130,7 @@ form {
         margin-right: 1em;
 
         & input {
+            font-size: 16px;
             line-height: 2;
 
             &[type="text"] {
@@ -265,10 +265,6 @@ ul.todoLists {
     ul,
     .formBtns {
         font-size: 14px;
-    }
-
-    form {
-        font-size: 16px;
     }
 
     & .todoView {

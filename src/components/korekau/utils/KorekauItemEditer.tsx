@@ -18,6 +18,9 @@ export const KorekauItemEditer = memo(({ props }: { props: itemEditerType }) => 
             <div className="itembox flexBox">
                 <KorekauItemIcons category={category} />
                 <p>{korekauList.itemName}<span>×{korekauList.itemNumber}</span>の内容を編集</p>
+                {korekauList.itemMemo &&
+                    <p className="korekauMemo">【注釈メモ】<br />{korekauList.itemMemo}</p>
+                }
             </div>
             <KorekauForm KorekauItemList={korekauList} />
         </KorekauItemEditerElm>
@@ -36,14 +39,28 @@ const KorekauItemEditerElm = styled.div`
             width: 80%;
             overflow-wrap: anywhere; // 区切りがないとブラウザは一文として処理するので改行指定のスタイルを指定しておく
 
+            &.korekauMemo {
+                width: 100%;
+                font-size: 1.4rem;
+                line-height: 1.8;
+            }
+
             & span {
                 margin: 0 1em;
                 color: #59b835;
             }
         }
-        
-        @media screen and (min-width: 1025px) {
-            border-radius: 4px;
+    }
+
+@media screen and (min-width: 1025px) {
+    border-radius: 4px;
+
+    & .itembox {
+        & p {
+            &.korekauMemo {
+                font-size: 14px;
+            }
         }
     }
+}
 `;

@@ -22,6 +22,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
         if (parseInt(itemNumberValue) && parseInt(itemNumberValue) <= 99) setItemNumber((_prevItemNumber) => itemNumberValue);
     }
     const [itemPriority, setItemPriority] = useState<boolean>(false);
+    const [itemImgMemo, setItemImgMemo] = useState<string>('');
     const [itemImgSrc, setItemImgSrc] = useState<string>('');
 
     return (
@@ -35,6 +36,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                         parseInt(itemNumber),
                         itemCategory,
                         itemPriority,
+                        itemImgMemo,
                         itemImgSrc
                     ),
                     targetElsRemoveClass('editerView', 'OnView')
@@ -44,11 +46,13 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                     parseInt(itemNumber),
                     itemCategory,
                     itemPriority,
+                    itemImgMemo,
                     itemImgSrc
                 );
             setItemName('');
             setItemNumber('');
             setItemPriority(false);
+            setItemImgMemo('');
             setItemImgSrc('');
         }}>
             <div className="formBlock">
@@ -71,6 +75,10 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                         setItemImgSrc: setItemImgSrc
                     }} />
                 </div>
+            </div>
+            <div className="formBlock">
+                <label className="formLabel" htmlFor="itemImgMemo">メモ</label>
+                <textarea name="itemImgMemo" id="itemImgMemo" rows={5} value={itemImgMemo} onInput={(e: ChangeEvent<HTMLTextAreaElement>) => setItemImgMemo((_prevItemMemo) => e.target.value)} placeholder="例：最近の底値148円近辺なら買う" ></textarea>
             </div>
             <div className="formFlexBox">
                 <div className="formBlock">
@@ -106,7 +114,8 @@ margin: .5em auto 5em;
 background-color: #fff;
 
     & select,
-    & input {
+    & input,
+    & textarea {
         font-size: 16px;
         line-height: 2;
         width: 100%;
@@ -114,12 +123,14 @@ background-color: #fff;
         border: 1px solid #c6c6c6;
     }
 
+    & textarea {
+        &::placeholder {
+            color: #c2c2c2;
+        }
+    }
+
     & input {
         padding-left: .5em;
-
-        &[type="number"] {
-            width: auto;
-        }
 
         &[type="submit"] {
             display: block;
@@ -169,6 +180,10 @@ background-color: #fff;
 
     & .formBlock {
         margin-bottom: 2em;
+
+        &:has(.switch){
+            width: 50%;
+        }
         
         & .formLabel {
             line-height: 2;

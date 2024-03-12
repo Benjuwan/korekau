@@ -12,12 +12,13 @@ export const useUpdateKorekauItems = () => {
 
     const { getTargetIndexForCtrlItems } = useGetTargetIndexForCtrlItems();
 
-    const updateKorekauItems = (
+    const updateKorekauItems: (KorekauItemList: korekauItemsType, updateItemName: string, updateItemNumber: number, updateItemCategory: string, updateItemPriority: boolean, itemImgMemo?: string, itemImgSrc?: string) => void = (
         KorekauItemList: korekauItemsType,
         updateItemName: string,
         updateItemNumber: number,
         updateItemCategory: string,
         updateItemPriority: boolean,
+        itemImgMemo?: string,
         itemImgSrc?: string
     ) => {
         const targetIndex: number = getTargetIndexForCtrlItems(KorekauItemList);
@@ -27,6 +28,7 @@ export const useUpdateKorekauItems = () => {
             itemNumber: updateItemNumber,
             itemCategory: updateItemCategory,
             itemPriority: updateItemPriority,
+            itemMemo: itemImgMemo,
             itemImg: itemImgSrc
         }
 
