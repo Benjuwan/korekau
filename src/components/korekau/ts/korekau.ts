@@ -3,5 +3,6 @@ export type korekauItemsType = {
     itemNumber: number;
     itemCategory: string;
     itemPriority: boolean;
+    itemMemo?: string;
     itemImg?: string;
 }

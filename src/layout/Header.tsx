@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { memo } from "react";
 import { FilteredTrashDayList } from "../components/trash/utils/FilteredTrashDayList";
 
-import rogo from "../assets/rogo.svg";
+import rogo from "../../public/img/favi.svg";
 
 export const Header = memo(() => {
     return (
@@ -15,20 +15,24 @@ export const Header = memo(() => {
 
 const HeaderElm = styled.header`
     & h1 {
-        max-width: 48rem;
-        margin: 2.5em auto;
+        max-width: 32rem;
+        margin: 1em auto;
         text-align: center;
 
         & figure {
             & img {
-                width: 16em;
+                width: 5em;
+                box-shadow: 0 0 8px rgba(160, 160, 160, .25) inset;
+                border-radius: 50%;
+                aspect-ratio: 1 / 1;
+                padding: .25em;
             }
         }
     }
 
 @media screen and (min-width: 1025px) {
     & h1 {
-        max-width: 480px;
+        max-width: 320px;
     }
 }
 `

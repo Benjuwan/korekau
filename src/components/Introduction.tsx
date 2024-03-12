@@ -6,8 +6,7 @@ import rogo from "../assets/rogo.svg";
 export const Introduction = memo(() => {
     return (
         <IntroductionWrapper>
-            <h2>Introduction</h2>
-            <figure className="rogoThumbnail"><img src={rogo} alt="KoreKau のロゴ" /></figure>
+            <h2><figure className="rogoThumbnail"><img src={rogo} alt="KoreKau（シンプルな買い物リスト管理アプリ）のロゴ" /></figure></h2>
         </IntroductionWrapper>
     );
 });

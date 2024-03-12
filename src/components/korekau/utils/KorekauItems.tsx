@@ -6,6 +6,8 @@ import { korekauItemsType } from "../ts/korekau";
 import { KorekauItemIcons } from "./KorekauItemIcons";
 import { KorekauItemEditer } from "./KorekauItemEditer";
 import { EditerViewer } from "../../../utils/EditerViewer";
+import { PartKorekauItemsMemo } from "./PartKorekauItemsMemo";
+import { PartKorekauItemsImg } from "./PartKorekauItemsImg";
 import { useDeleteItem } from "../hooks/useDeleteItem";
 
 export const KorekauItems = memo(({ category }: { category: string }) => {
@@ -57,8 +59,11 @@ export const KorekauItems = memo(({ category }: { category: string }) => {
                                     } />
                                     <button type="button" className="deleteBtn" onClick={() => deleteItem(korekauList)}><span className="material-symbols-outlined">delete</span></button>
                                 </div>
+                                {korekauList.itemMemo &&
+                                    <PartKorekauItemsMemo korekauList={korekauList} />
+                                }
                                 {korekauList.itemImg &&
-                                    <figure className="itemThumbnail"><img src={korekauList.itemImg} alt={`${korekauList.itemName}の画像`} /></figure>
+                                    <PartKorekauItemsImg korekauList={korekauList} />
                                 }
                             </li>
                         ))}
@@ -75,6 +80,15 @@ const KorekauItemLists = styled.section`
         align-items: center;
         flex-flow: row wrap;
         gap: 1em;
+    }
+
+    & button {
+        appearance: none;
+        background-color: transparent;
+        border-radius: 0;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
     }
 
     & ul {
@@ -116,17 +130,14 @@ const KorekauItemLists = styled.section`
                 border-radius: .8rem;
                 font-size: 1.6rem;
                 gap: 2%;
+                position: relative; // PartKorekauItemsMemo.tsx 用の基準元 relative
 
                 &.priority {
                     background-color: #f3e0ab;
                 }
 
-                & .itemThumbnail {
-                    margin-top: .5em;
-                }
-
                 & .listItem {
-                    width: clamp(16rem, 68%, 56rem);
+                    width: clamp(16rem, 58%, 56rem);
 
                     & p {
                         width: 100%;
@@ -140,16 +151,11 @@ const KorekauItemLists = styled.section`
                 }
 
                 & .ctrlZone {
-                    width: 30%;
+                    width: 40%;
                     justify-content: flex-end;
 
                     & button {
                         width: fit-content;
-                        appearance: none;
-                        background-color: transparent;
-                        border-radius: 0;
-                        border: 0;
-                        padding: 0;
                         cursor: pointer;
                         
                         & span {
@@ -196,9 +202,11 @@ const KorekauItemLists = styled.section`
                 border-radius: 8px;
                 font-size: 16px;
 
-                & button {
-                    & span {
-                        border-radius: 4px;
+                & .ctrlZone {
+                    & button {
+                        & span {
+                            border-radius: 4px;
+                        }
                     }
                 }
             }

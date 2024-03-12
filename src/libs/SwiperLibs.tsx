@@ -6,7 +6,7 @@ import { Introduction } from '../components/Introduction';
 import { KorekauBased } from '../components/korekau/KorekauBased';
 import { Calendar } from '../components/schedule/calendar/Calendar';
 import { TrashBased } from '../components/trash/TrashBased';
-import { CompareItems } from '../components/compareItems/CompareItems';
+import { CompareBased } from '../components/compareItems/CompareBased';
 
 /**
  * reactでのswiperは【使いたいCSSと機能】を必要に応じて記述して（読み込んで使って）いくスタイル 
@@ -65,7 +65,7 @@ export const SwiperLibs = memo(() => {
             >
                 <SwiperSlide><Introduction /></SwiperSlide>
                 <SwiperSlide><KorekauBased /></SwiperSlide>
-                <SwiperSlide><CompareItems /></SwiperSlide>
+                <SwiperSlide><CompareBased /></SwiperSlide>
                 <SwiperSlide><Calendar /></SwiperSlide>
                 <SwiperSlide><TrashBased /></SwiperSlide>
             </Swiper>
