@@ -31,6 +31,9 @@ width: 100%;
 }
 
     & button {
+        font-size: 1.4rem;
+        color: #333;
+
         & span {
             margin-right: .5em;
         }
@@ -61,6 +64,10 @@ width: 100%;
     }
 
 @media screen and (min-width: 1025px) {
+    & button {
+        font-size: 14px;
+    }
+
     & .korekauMemoContenet {
         max-height: 240px;
         border-radius: 8px;

@@ -12,8 +12,17 @@ export const PartKorekauItemsImg = memo(({ korekauList }: { korekauList: korekau
 });
 
 const KorekauDetails = styled.details`
+    /* Chrome、Safari */
+    summary::-webkit-details-marker {
+        display: none;
+    }
+    
+    /* Chrome、Safari以外 */
+    summary {
+        display: block; // display:list-item を display:block で上書き
+    }
+
     & summary {
-        list-style: none;
         cursor: pointer;
         font-size: 1.4rem;
 
