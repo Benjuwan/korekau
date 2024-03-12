@@ -16,12 +16,12 @@ export const Header = memo(() => {
 const HeaderElm = styled.header`
     & h1 {
         max-width: 32rem;
-        margin: 1em auto;
+        margin: 2em auto;
         text-align: center;
 
         & figure {
             & img {
-                width: 5em;
+                width: 3.2em;
                 box-shadow: 0 0 8px rgba(160, 160, 160, .25) inset;
                 border-radius: 50%;
                 aspect-ratio: 1 / 1;
