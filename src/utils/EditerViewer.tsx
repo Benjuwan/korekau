@@ -67,6 +67,7 @@ line-height: 1;
     & .itemEditer {
         opacity: 1;
         visibility: visible;
+        z-index: 1;
     }
 }
 
