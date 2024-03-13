@@ -10,7 +10,7 @@ export const Footer = memo(() => {
 
     return (
         <FooterElm>
-            <p>&copy; {currYear} benjuwan</p>
+            <p>&copy; {currYear} KoreKau benjuwan</p>
         </FooterElm>
     );
 });

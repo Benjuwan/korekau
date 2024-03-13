@@ -7,6 +7,7 @@ import { KorekauBased } from '../components/korekau/KorekauBased';
 import { Calendar } from '../components/schedule/calendar/Calendar';
 import { TrashBased } from '../components/trash/TrashBased';
 import { CompareBased } from '../components/compareItems/CompareBased';
+import { useScrollTop } from '../hooks/useScrollTop';
 
 /**
  * reactでのswiperは【使いたいCSSと機能】を必要に応じて記述して（読み込んで使って）いくスタイル 
@@ -25,6 +26,8 @@ import { Pagination } from "swiper/modules";
 
 export const SwiperLibs = memo(() => {
     const [isDesktopView, setDesktopView] = useAtom(isDesktopViewAtom);
+
+    const { scrollTop } = useScrollTop();
 
     const navListsLable = ['コレカウとは？', '買うものリスト', '商品価格の比較', 'カレンダー', 'ゴミ出し日'];
     const renderBullet = (index: number) => {
@@ -62,6 +65,7 @@ export const SwiperLibs = memo(() => {
                 style={isDesktopView ? undefined : { 'overflow': 'unset' }} // スマホ・タブレットの時（960px 以下）は overflow:hidden を解除
                 modules={[Pagination]}
                 pagination={{ renderBullet, clickable: true }}
+                onSlideChange={() => scrollTop()}
             >
                 <SwiperSlide><Introduction /></SwiperSlide>
                 <SwiperSlide><KorekauBased /></SwiperSlide>

@@ -110,7 +110,7 @@ width: 100%;
 border-radius: 4px;
 padding: 1.5em;
 box-shadow: 0 0 8px rgba(160, 160, 160, .5) inset;
-margin: .5em auto 5em;
+margin: 1em auto;
 background-color: #fff;
 
     & select,
