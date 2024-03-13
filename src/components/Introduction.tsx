@@ -9,9 +9,13 @@ export const Introduction = memo(() => {
             <h2><figure className="rogoThumbnail"><img src={rogo} alt="KoreKau（シンプルな買い物リスト管理アプリ）のロゴ" /></figure></h2>
             <p>KoreKau（コレカウ）は、シンプルな買い物リスト管理アプリです。買うものリストの管理（追加・編集）に加えて、家事に関するちょっとしたフォローができるよう「商品価格の比較」や「簡易なスケジュール管理」、「ゴミ出し前日のお知らせ表示」などが行えるようになっています。KoreKau（コレカウ）を日常的に使っていただくことで少しでも家事の負担を軽減できれば幸いです。</p>
             <p>画面上部の［ツールバー］から［項目］を選択（タップ）またはスワイプで当該項目を表示して各機能を利用いただけます。</p>
-            <div className="caution">
+            <div className="notice high">
                 <p><span className="material-symbols-outlined">error</span>注意事項</p>
                 <p>KoreKau（コレカウ） は localStorage という技術を用いてユーザーのデバイス（で使用しているブラウザ：Safari, Chrome など）に情報を保存しています。仕様上、セキュリティリスクが生じる可能性がありますので、<b>個人情報やパスワードをはじめ、家族や他人のセンシティブ情報は絶対に登録しない</b>でください。</p>
+            </div>
+            <div className="notice low">
+                <p><span className="material-symbols-outlined">error</span>プライベートモード以外でご利用ください</p>
+                <p>プライベート（ブラウザの閲覧履歴を残さない）モードでは仕様上機能しません（登録情報を保存できません）。</p>
             </div>
             <section>
                 <h3>コレカウでできること</h3>
@@ -90,12 +94,44 @@ line-height: 2;
         }
     }
 
-    & .caution {
+    & .notice {
         margin: 2.5em 0;
         padding: 1em;
+        background-color: #fff;
         box-shadow: 0 0 8px rgba(160, 160, 160, .5) inset;
-        background-color: #ffe2e0;
         border-radius: .4rem;
+        
+        &.high {
+            background-color: #ffe2e0;
+
+            & p {
+                &:first-of-type {
+                    & .material-symbols-outlined {
+                        color: #cc3226;
+                    }
+                }
+
+                & b {
+                    color: #cc3226;
+                }
+            }
+        }
+
+        &.low {
+            background-color: #d2e4fc;
+
+            & p {
+                &:first-of-type {
+                    & .material-symbols-outlined {
+                        color: #1d6cd4;
+                    }
+                }
+
+                & b {
+                    color: #1d6cd4;
+                }
+            }
+        }
 
         & p {
             &:first-of-type {
