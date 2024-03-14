@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import calendarStyle from "./css/calendarStyle.module.css";
 import todoStyle from "../todoItems/css/todoStyle.module.css";
 import { calendarItemType } from "./ts/calendarItemType";
@@ -64,6 +64,9 @@ export const Calendar = () => {
         }
     }
 
+    /* カレンダーの部分ではスワイプ機能を停止 */
+    const handleSwipeCancel: (calendarElm: SyntheticEvent<HTMLUListElement>) => void = (calendarElm: SyntheticEvent<HTMLUListElement>) => calendarElm.stopPropagation();
+
     useEffect(() => getMonthDays(ctrlYear, ctrlMonth, setDays), [ctrlMonth]);
 
     return (
@@ -80,7 +83,8 @@ export const Calendar = () => {
                 setCtrlMonth={setCtrlMonth}
             />
             <button id={calendarStyle["jumpThisMonth"]} type="button" onClick={jumpThisMonth}>今月に移動</button>
-            <ul className={calendarStyle.calendar}>
+            {/* Reactにおけるイベントハンドラでは、イベントオブジェクト（SyntheticEvent）が自動的に渡されるので以下の書き方でOK （handleSwipeCancel にわざわざ引数を指定しなくても良い）*/}
+            <ul className={calendarStyle.calendar} onTouchMove={handleSwipeCancel}>
                 {days.map((day, i) => (
                     // カスタムデータ属性の指定は low-case でないと React から怒られる
                     <li key={i} data-daydate={day.dayDateNum} className={
