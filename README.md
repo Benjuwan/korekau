@@ -1,6 +1,8 @@
 # KoreKau | シンプルな買い物リスト管理アプリ
 KoreKau（コレカウ）は、シンプルな買い物リスト管理アプリです。買うものリストの作成・管理に加えて、家事に関するちょっとしたフォローができるよう「ゴミ出し前日のお知らせ表示」や「簡易なカレンダー」、「商品価格の比較」などが行えるようになっています。KoreKau（コレカウ）を日常的に使っていただくことで少しでも家事の負担を軽減できれば幸いです。
 
+サイトURL：[https://korekau.netlify.app/](https://korekau.netlify.app/)
+
 - アイコンソース元：[Material Symbols](https://fonts.google.com/icons)
 
 ***
