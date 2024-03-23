@@ -50,12 +50,11 @@
     }
 
     & .calendar {
-        overflow-x: scroll;
         list-style: none;
         padding: 0;
         margin: 0;
         display: grid;
-        grid-template-columns: repeat(7, minmax(12rem, 1fr));
+        grid-template-columns: repeat(7, 1fr);
         place-items: center;
         place-content: start;
         border-radius: .4rem;
@@ -105,8 +104,6 @@
         }
 
         & .calendar {
-            overflow-x: auto;
-            grid-template-columns: repeat(7, 1fr);
             border-radius: 8px;
         }
     }

@@ -75,12 +75,17 @@ export const TodoItems: FC<TodoItemsType> = (props) => {
                             }}>戻る</button>
                         </div>
                     </> :
-                    <>
-                        <p>{todoItem.todoContent}</p>
+                    <div className={todoStyle.editFalseMode}>
+                        <div className={todoStyle.editTargetContent}>
+                            <p>--- 現在の予定内容 ---</p>
+                            <p>ToDo：{todoItem.todoContent}</p>
+                            {todoItem.startTime && <p>開始時刻：{todoItem.startTime}</p>}
+                            {todoItem.finishTime && <p>終了時刻：{todoItem.finishTime}</p>}
+                        </div>
                         <button className={`${todoStyle.formBtns} ${todoStyle.editBtn}`} type="button" onClick={() => {
                             changeMode(todoItem, index, todoItem.edit);
                         }}>編集</button>
-                    </>
+                    </div>
                 }
             </div>
             <button id={todoStyle["closeBtn"]} type="button" className={todoStyle.formBtns} onClick={(closeBtnEl: SyntheticEvent<HTMLButtonElement>) => handleCloseModalWindowBtnClicked(closeBtnEl)}>詳細画面を閉じる</button>

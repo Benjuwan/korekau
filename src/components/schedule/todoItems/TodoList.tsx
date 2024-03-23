@@ -1,12 +1,13 @@
 import todoStyle from "./css/todoStyle.module.css";
 import { Fragment, SyntheticEvent } from "react";
 import { useAtom } from "jotai";
-import { todoMemoAtom } from "../../../ts/calendar-atom";
+import { isDesktopViewAtom, todoMemoAtom } from "../../../ts/calendar-atom";
 import { TodoItems } from "./TodoItems";
 import { useScrollTop } from "../../../hooks/useScrollTop";
 
 export const TodoList = ({ todoID }: { todoID: string }) => {
     const [todoMemo] = useAtom(todoMemoAtom);
+    const [desktopView] = useAtom(isDesktopViewAtom);
 
     const { scrollTop } = useScrollTop();
 
@@ -29,11 +30,14 @@ export const TodoList = ({ todoID }: { todoID: string }) => {
                                     OnViewModalWindow(liElm.currentTarget);
                                     scrollTop();
                                 }}>
-                                    <div className={todoStyle.editTargetContent}>
-                                        <p className={todoStyle.editTargetStr}>{todoItem.todoContent}</p>
-                                        {todoItem.startTime && <span>開始時刻：{todoItem.startTime}</span>}
-                                        {todoItem.finishTime && <span>終了時刻：{todoItem.finishTime}</span>}
-                                    </div>
+                                    {desktopView ?
+                                        <div className={todoStyle.editTargetContent}>
+                                            <p className={todoStyle.editTargetStr}>{todoItem.todoContent}</p>
+                                            {todoItem.startTime && <span>開始時刻：{todoItem.startTime}</span>}
+                                            {todoItem.finishTime && <span>終了時刻：{todoItem.finishTime}</span>}
+                                        </div> :
+                                        <p className={todoStyle.isMobileNotice}>予定{i + 1}</p>
+                                    }
                                     <TodoItems
                                         todoItem={todoItem}
                                         todoID={todoID}
