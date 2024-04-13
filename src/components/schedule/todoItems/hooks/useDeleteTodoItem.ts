@@ -6,13 +6,12 @@ import { localstorageLabelName } from "../../../../ts/calendar-localstorageLabel
 export const useDeleteTodoItem = () => {
     const [, setLocalstorage] = useAtom(todoMemoLocalStorageAtom); // 更新関数のみ使用
     const [todoMemo, setTodoMemo] = useAtom(todoMemoAtom);
-    
+
     const localstorageLabel = localstorageLabelName;
-    
-    const deleteTodoItem: (index: number) => void = (index: number) => {
-        const shallowCopy: todoItemType[] = [...todoMemo];
-        shallowCopy.splice(index, 1);
-        setTodoMemo((_prevTodoList) => shallowCopy);
+
+    const deleteTodoItem: (uuid: string) => void = (uuid: string) => {
+        const exceptRemoveTodoItems: todoItemType[] = [...todoMemo].filter(todoItem => todoItem.uuid !== uuid);
+        setTodoMemo((_prevTodoList) => exceptRemoveTodoItems);
         /* ---------------- localStorage 関連の処理（更新）---------------- */
         if (todoMemo.length <= 1) {
             localStorage.removeItem(localstorageLabel);
@@ -20,9 +19,9 @@ export const useDeleteTodoItem = () => {
             return;
         }
 
-        setLocalstorage((_prevLocalStorage) => shallowCopy);
-        localStorage.setItem(localstorageLabel, JSON.stringify([...shallowCopy]));
+        setLocalstorage((_prevLocalStorage) => exceptRemoveTodoItems);
+        localStorage.setItem(localstorageLabel, JSON.stringify([...exceptRemoveTodoItems]));
     }
 
-    return {deleteTodoItem}
+    return { deleteTodoItem }
 }

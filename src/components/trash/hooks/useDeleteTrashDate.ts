@@ -12,11 +12,11 @@ export const useDeleteTrashDate = () => {
 
     const localstorageLabelTrashDate: string = localstorageLabel_TrashDate;
 
-    const deleteTrashDate: (index: number) => void = (index: number) => {
-        const shallowCopy: trashType[] = [...trashDateLists];
-        shallowCopy.splice(index, 1);
-        setTrashDateLists((_prevTrashDateLists) => shallowCopy);
+    const deleteTrashDate: (trashDateUuid: string) => void = (trashDateUuid: string) => {
+        const exceptRemoveTrashDataItems: trashType[] = [...trashDateLists].filter(trashDataItem => trashDataItem.uuid !== trashDateUuid);
+        setTrashDateLists((_prevTrashDateLists) => exceptRemoveTrashDataItems);
         targetElsRemoveClass('editerView', 'OnView');
+
         /* ---------------- localStorage 関連の処理（更新）---------------- */
         if (trashDateLists.length <= 1) {
             localStorage.removeItem(localstorageLabelTrashDate);
@@ -24,8 +24,8 @@ export const useDeleteTrashDate = () => {
             return;
         }
 
-        setLocalstorage((_prevLocalStorage) => shallowCopy);
-        localStorage.setItem(localstorageLabelTrashDate, JSON.stringify([...shallowCopy]));
+        setLocalstorage((_prevLocalStorage) => exceptRemoveTrashDataItems);
+        localStorage.setItem(localstorageLabelTrashDate, JSON.stringify([...exceptRemoveTrashDataItems]));
     }
 
     return { deleteTrashDate }

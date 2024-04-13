@@ -7,7 +7,7 @@ import { TrashDateDetails } from "./TrashDateDetails";
 
 export const FilteredTrashDayList = memo(() => {
     const [trashDateLists] = useAtom(trashDateAtom);
-    
+
     const [filteredTrashDayLists, setFilteredTrashDayLists] = useState<trashType[]>([]);
     useEffect(() => {
         const theDayofToday: number = new Date().getDay();
@@ -29,8 +29,8 @@ export const FilteredTrashDayList = memo(() => {
             {filteredTrashDayLists.length > 0 &&
                 <div className="wrapper">
                     <p className="notice"><span className="material-symbols-outlined">error</span>明日は以下のゴミ出しがあります。</p>
-                    {filteredTrashDayLists.map((filteredTrashDayList, i) => (
-                        <div key={i}>
+                    {filteredTrashDayLists.map(filteredTrashDayList => (
+                        <div key={filteredTrashDayList.uuid}>
                             <TrashDateDetails trashDateList={filteredTrashDayList} />
                         </div>
                     ))}

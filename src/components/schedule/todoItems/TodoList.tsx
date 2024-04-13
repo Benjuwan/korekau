@@ -22,8 +22,7 @@ export const TodoList = ({ todoID }: { todoID: string }) => {
             {todoMemo.length > 0 &&
                 <ul className={todoStyle.todoLists}>
                     {todoMemo.map((todoItem, i) => (
-                        /* key={i} を渡すために Fragment を使用 */
-                        <Fragment key={i}>
+                        <Fragment key={todoItem.uuid}>
                             {/* yyyy/MM/dd が一致した場合 */}
                             {todoItem.todoID === todoID ?
                                 <li onClick={(liElm: SyntheticEvent<HTMLLIElement>) => {
@@ -41,7 +40,7 @@ export const TodoList = ({ todoID }: { todoID: string }) => {
                                     <TodoItems
                                         todoItem={todoItem}
                                         todoID={todoID}
-                                        index={i}
+                                        uuid={todoItem.uuid}
                                     />
                                 </li>
                                 : null

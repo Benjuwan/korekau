@@ -20,14 +20,14 @@ export const TrashDateLists = memo(() => {
 
     return (
         <TrashDateList>
-            {trashDateSortedLists.map((trashDateList, i) => (
-                <li key={i}>
+            {trashDateSortedLists.map(trashDateList => (
+                <li key={trashDateList.uuid}>
                     <TrashDateDetails trashDateList={trashDateList} />
                     <EditerViewer children={
                         <TrashDateEditer props={{
                             classNameStr: 'itemEditer',
                             trashDateList: trashDateList,
-                            trashDateIndex: i
+                            trashDateUuid: trashDateList.uuid
                         }} />
                     } />
                 </li>

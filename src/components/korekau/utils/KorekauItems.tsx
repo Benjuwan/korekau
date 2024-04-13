@@ -44,8 +44,8 @@ export const KorekauItems = memo(({ category }: { category: string }) => {
                                 {category === 'others' && 'その他'}
                             </h2>
                         </li>
-                        {filteredItems.map((korekauList, i) => (
-                            <li className={korekauList.itemPriority ? 'priority korekauList flexBox' : 'korekauList flexBox'} key={i}>
+                        {filteredItems.map(korekauList => (
+                            <li className={korekauList.itemPriority ? 'priority korekauList flexBox' : 'korekauList flexBox'} key={korekauList.uuid}>
                                 <div className="listItem flexBox">
                                     <p>{korekauList.itemName}<span>×{korekauList.itemNumber}</span></p>
                                 </div>
