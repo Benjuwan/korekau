@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { trashType } from "../ts/trash";
 import { useAtom } from "jotai";
 import { trashDateAtom, trashDateLocalStorageAtom } from "../../../ts/trash-atom";
@@ -14,8 +15,9 @@ export const useRegiTrashDate = () => {
         regiTrashDate: string
     ) => {
         const newtrashDateLists: trashType = {
-            day:regiDay,
-            trashDate:regiTrashDate
+            uuid: uuidv4(), // key に渡すための固有の識別子を生成
+            day: regiDay,
+            trashDate: regiTrashDate
         }
 
         if (regiTrashDate.length > 0) {

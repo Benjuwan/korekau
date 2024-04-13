@@ -24,6 +24,7 @@ export const useUpdateKorekauItems = () => {
         const targetIndex: number = getTargetIndexForCtrlItems(KorekauItemList);
 
         const updateKorekauItem: korekauItemsType = {
+            uuid: KorekauItemList.uuid,
             itemName: updateItemName,
             itemNumber: updateItemNumber,
             itemCategory: updateItemCategory,

@@ -11,11 +11,11 @@ import { useScrollTop } from "../../../hooks/useScrollTop";
 type TodoItemsType = {
     todoItem: todoItemType;
     todoID: string;
-    index: number;
+    uuid: string;
 }
 
 export const TodoItems: FC<TodoItemsType> = (props) => {
-    const { todoItem, todoID, index } = props;
+    const { todoItem, todoID, uuid } = props;
 
     const [todoMemo, setTodoMemo] = useAtom(todoMemoAtom);
 
@@ -28,25 +28,25 @@ export const TodoItems: FC<TodoItemsType> = (props) => {
         scrollTop();
     }
 
-    const changeMode: (todiItem: todoItemType, index: number, editMode: boolean) => void = (todiItem: todoItemType, index: number, editMode: boolean) => {
+    const changeMode: (todoItem: todoItemType, editMode: boolean) => void = (todoItem: todoItemType, editMode: boolean) => {
         let editState: boolean | null = null;
         if (editMode === false) editState = true;
         else editState = false;
 
         const updateTodoList: todoItemType = {
+            uuid: todoItem.uuid,
             todoID: todoID,
-            todoContent: todiItem.todoContent,
+            todoContent: todoItem.todoContent,
             edit: editState
         }
 
-        if (todiItem.startTime || todiItem.finishTime) {
-            updateTodoList.startTime = todiItem.startTime;
-            updateTodoList.finishTime = todiItem.finishTime;
+        if (todoItem.startTime || todoItem.finishTime) {
+            updateTodoList.startTime = todoItem.startTime;
+            updateTodoList.finishTime = todoItem.finishTime;
         }
 
-        const shallowCopy: todoItemType[] = [...todoMemo];
-        shallowCopy.splice(index, 1, updateTodoList); // splice（切取＆置換）した結果ではなく「処理結果の残り分（shallowCopy）を更新関数に渡す」ので「変数への代入」を行わず、shallowCopy を以下の setter 関数に渡している。
-        setTodoMemo((_prevTodoList) => shallowCopy);
+        const exceptUpdateTodoMemos: todoItemType[] = [...todoMemo].filter(todoMemoItem => todoMemoItem.uuid !== uuid);
+        setTodoMemo((_prevTodoList) => [...exceptUpdateTodoMemos, updateTodoList]);
     }
 
     return (
@@ -62,16 +62,15 @@ export const TodoItems: FC<TodoItemsType> = (props) => {
                         </div>
                         <TodoForm
                             todoID={todoID}
-                            index={index}
-                            edit={todoItem.edit}
+                            todoItem={todoItem}
                         />
                         <div className={todoStyle.editerIntoCtrlBtns}>
                             <button id={todoStyle["deleteBtn"]} className={todoStyle.formBtns} type="button" onClick={(deleteBtn: SyntheticEvent<HTMLButtonElement>) => {
                                 handleCloseModalWindowBtnClicked(deleteBtn);
-                                deleteTodoItem(index);
+                                deleteTodoItem(uuid);
                             }}>削除</button>
                             <button className={`${todoStyle.formBtns} ${todoStyle.editBtn}`} type="button" onClick={() => {
-                                changeMode(todoItem, index, todoItem.edit);
+                                changeMode(todoItem, todoItem.edit);
                             }}>戻る</button>
                         </div>
                     </> :
@@ -83,7 +82,7 @@ export const TodoItems: FC<TodoItemsType> = (props) => {
                             {todoItem.finishTime && <p>終了時刻：{todoItem.finishTime}</p>}
                         </div>
                         <button className={`${todoStyle.formBtns} ${todoStyle.editBtn}`} type="button" onClick={() => {
-                            changeMode(todoItem, index, todoItem.edit);
+                            changeMode(todoItem, todoItem.edit);
                         }}>編集</button>
                     </div>
                 }

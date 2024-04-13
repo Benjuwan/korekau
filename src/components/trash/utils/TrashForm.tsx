@@ -8,11 +8,11 @@ import { useTargetElsRemoveClass } from "../../../hooks/useTargetElsRemoveClass"
 
 type TrashFormType = {
     trashDateList?: trashType;
-    trashDateIndex?: number;
+    trashDateUuid?: string;
 }
 
 export const TrashForm: FC<TrashFormType> = memo((props) => {
-    const { trashDateList, trashDateIndex } = props;
+    const { trashDateList, trashDateUuid } = props;
 
     const [day, setDay] = useState<number>(1); // デフォルト：Monday
     const [trashDate, setTrashDate] = useState<string>('');
@@ -28,7 +28,7 @@ export const TrashForm: FC<TrashFormType> = memo((props) => {
             {
                 trashDateList ?
                     (
-                        updateTrashDate(trashDateIndex as number, day, trashDate),
+                        updateTrashDate(trashDateUuid as string, day, trashDate),
                         targetElsRemoveClass('editerView', 'OnView')
                     ) :
                     regiTrashDate(day, trashDate)
@@ -57,7 +57,7 @@ export const TrashForm: FC<TrashFormType> = memo((props) => {
                     <button type="button" className="editerCloseBtn" onClick={() => targetElsRemoveClass('editerView', 'OnView')}>戻る</button>
                 }
                 {trashDateList &&
-                    <button type="button" className="deleteBtn" onClick={() => deleteTrashDate(trashDateIndex as number)}><span className="material-symbols-outlined">delete</span></button>
+                    <button type="button" className="deleteBtn" onClick={() => deleteTrashDate(trashDateUuid as string)}><span className="material-symbols-outlined">delete</span></button>
                 }
             </div>
         </TrashFormElm>

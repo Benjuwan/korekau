@@ -7,18 +7,18 @@ import { TrashDateDetails } from "./TrashDateDetails";
 type trashDateType = {
     classNameStr: string;
     trashDateList: trashType;
-    trashDateIndex: number;
+    trashDateUuid: string;
 }
 
 export const TrashDateEditer = memo(({ props }: { props: trashDateType }) => {
-    const { classNameStr, trashDateList, trashDateIndex } = props;
+    const { classNameStr, trashDateList, trashDateUuid } = props;
 
     return (
         <TrashDateEditerElm className={classNameStr}>
             <div className="itembox flexBox">
                 <TrashDateDetails trashDateList={trashDateList} />の内容を編集
             </div>
-            <TrashForm trashDateList={trashDateList} trashDateIndex={trashDateIndex} />
+            <TrashForm trashDateList={trashDateList} trashDateUuid={trashDateUuid} />
         </TrashDateEditerElm>
     );
 });

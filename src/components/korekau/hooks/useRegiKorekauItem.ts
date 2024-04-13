@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { useAtom } from "jotai";
 import { korekauAtom, korekauItemsLocalStorageAtom } from "../../../ts/korekau-atom";
 import { korekauItemsType } from "../ts/korekau";
@@ -18,6 +19,7 @@ export const useRegiKorekauItem = () => {
         itemImgSrc?: string
     ) => {
         const newKorekauItems: korekauItemsType = {
+            uuid: uuidv4(), // key に渡すための固有の識別子
             itemName: itemName,
             itemNumber: itemNumber,
             itemCategory: itemCategory,

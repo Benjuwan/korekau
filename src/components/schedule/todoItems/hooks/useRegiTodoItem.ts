@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid'; // key へ渡すための固有の識別子を生成する npm ライブラリ
+
 import { todoItemType } from "../ts/todoItemType";
 import { useAtom } from "jotai";
 import { todoMemoAtom, todoMemoLocalStorageAtom } from "../../../../ts/calendar-atom";
@@ -17,6 +19,7 @@ export const useRegiTodoItem = () => {
         finishTime: string,
     ) => {
         const newTodoList: todoItemType = {
+            uuid: uuidv4(), // key へ渡すための固有の識別子（uuid：Universally Unique Identifier）を生成
             todoID: todoID,
             todoContent: todoContent,
             edit: false

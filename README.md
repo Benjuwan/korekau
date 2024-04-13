@@ -12,10 +12,11 @@ KoreKau（コレカウ）は、シンプルな買い物リスト管理アプリ�
 ## 技術スタック
 - react @18.2.0
 - typescript @5.3.3
-- vite @5.1.4
+- vite@5.2.8
 - jotai @2.6.5
 - styled-components @6.1.8
 - swiper @11.0.7
+- uuid@9.0.1
 
 ## 概要
 `localStorage`を使って登録データ（買うものリスト、カレンダーのスケジュール、ゴミ出し日）の保存を行っています。<br />

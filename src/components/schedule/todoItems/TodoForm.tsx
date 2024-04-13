@@ -4,16 +4,16 @@ import { useUpdateTodoItem } from "./hooks/useUpdateTodoItem";
 import { useRegiTodoItem } from "./hooks/useRegiTodoItem";
 import { useViewTodoCtrl } from "./hooks/useViewTodoCtrl";
 import { useScrollTop } from "../../../hooks/useScrollTop";
+import { todoItemType } from "./ts/todoItemType";
 
 type todoFormType = {
     todoID: string;
-    index?: number;
-    edit?: boolean;
+    todoItem?: todoItemType;
 }
 
 export const TodoForm: FC<todoFormType> = (props) => {
     /* index には初期値を設定している（一番上の ToDo 編集実現に index が必要なため）*/
-    const { todoID, index = 0, edit } = props;
+    const { todoID, todoItem } = props;
 
     /* 入力欄の State（ToDo, 開始時刻, 終了時刻）*/
     const [todoContent, setTodoContent] = useState<string>('');
@@ -41,12 +41,12 @@ export const TodoForm: FC<todoFormType> = (props) => {
         <form className={todoStyle.form} onSubmit={(formElm: ChangeEvent<HTMLFormElement>) => {
             formElm.preventDefault();
             {
-                !edit ?
+                !todoItem?.edit ?
                     (
                         regiTodoItem(todoID, todoContent, startTime, finishTime),
                         handleOpenClosedBtnClicked(formElm)
                     ) :
-                    updateTodoItem(todoID, todoContent, startTime, finishTime, index)
+                    updateTodoItem(todoID, todoItem.uuid, todoContent, startTime, finishTime)
             }
             resetStates();
         }}>
@@ -61,15 +61,15 @@ export const TodoForm: FC<todoFormType> = (props) => {
             </div>
             <button className={todoStyle.formBtns} id={todoStyle.regiUpdateBtn} type="button" disabled={todoContent.length <= 0} onClick={(btnEl: SyntheticEvent<HTMLButtonElement>) => {
                 {
-                    !edit ?
+                    !todoItem?.edit ?
                         (
                             regiTodoItem(todoID, todoContent, startTime, finishTime),
                             handleOpenClosedBtnClicked(btnEl.currentTarget)
                         ) :
-                        updateTodoItem(todoID, todoContent, startTime, finishTime, index)
+                        updateTodoItem(todoID, todoItem.uuid, todoContent, startTime, finishTime)
                 }
                 resetStates();
-            }}>{!edit ? '登録' : '再登録'}</button>
+            }}>{!todoItem?.edit ? '登録' : '再登録'}</button>
         </form>
     );
 }

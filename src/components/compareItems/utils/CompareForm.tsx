@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import styled from "styled-components";
 import { ChangeEvent, memo, useState } from "react";
 import { CompareItemsType } from "../ts/compareItems";
@@ -17,6 +19,7 @@ export const CompareForm = memo(({ props }: { props: CompareFormType }) => {
         const calcValue: number = parseInt(price) / parseInt(amount);
         const result: string = parseFloat(String(calcValue)).toFixed(3);
         const newCompareItem: CompareItemsType = {
+            uuid: uuidv4(), // key に渡すための固有の識別子を生成
             price: parseInt(price),
             amount: parseInt(amount),
             result: result

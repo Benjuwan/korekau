@@ -85,9 +85,9 @@ export const Calendar = () => {
             <button id={calendarStyle["jumpThisMonth"]} type="button" onClick={jumpThisMonth}>今月に移動</button>
             {/* Reactにおけるイベントハンドラでは、イベントオブジェクト（SyntheticEvent）が自動的に渡されるので以下の書き方でOK （handleSwipeCancel にわざわざ引数を指定しなくても良い）*/}
             <ul className={calendarStyle.calendar} onTouchMove={handleSwipeCancel}>
-                {days.map((day, i) => (
+                {days.map(day => (
                     // カスタムデータ属性の指定は low-case でないと React から怒られる
-                    <li key={i} data-daydate={day.dayDateNum} className={
+                    <li key={`${day.year}/${day.month}/${day.day}`} data-daydate={day.dayDateNum} className={
                         (ctrlToday?.thisYear === day.year && ctrlToday.thisMonth === day.month && ctrlToday.today === day.day) ?
                             `${calendarStyle.todaySignal} ${calendarStyle.calendarLists}` :
                             `${calendarStyle.calendarLists}`
