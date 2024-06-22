@@ -81,26 +81,27 @@ const SwiperLibsWrapper = styled.div`
 padding: 0 1em;
 
     & .swiper-pagination {
-        top: 0;
+        top: -1.5em;
         height: fit-content;
-        overflow-x: scroll;
         
         & .swiperPaginationChildrenWrapper {
+            width: 100%!important;
             display: flex;
-            gap: 2%;
+            gap: 1em;
             justify-content: flex-start;
             align-items: flex-start;
+            flex-flow: row wrap;
         }
         
         & button {
-            font-size: 1.4rem;
+            font-size: calc(100vw/44);
+            width: fit-content;
             appearance: none;
             background: none;
             border-radius: 0;
             border-bottom:  3px solid transparent;
             display: block;
             text-align: left;
-            width: fit-content;
             padding: 0 0 1.5em 0;
             letter-spacing: 0.25em;
             margin: 0!important;
@@ -116,10 +117,26 @@ padding: 0 1em;
         padding-top: 2.5em;
     }
 
+@media screen and (min-width: 700px) {
+    & .swiper-pagination {
+        top: -1em;
+
+        & .swiperPaginationChildrenWrapper {
+            gap: .5em;
+
+            & button {
+                font-size: 14px;
+            }
+        }
+    }
+}
+
 @media screen and (min-width: 1025px) {
     & .swiper-pagination {
-        & button {
-            font-size: 14px;
+        top: 0;
+
+        & .swiperPaginationChildrenWrapper {
+            gap: 1em;
         }
     }
 }
