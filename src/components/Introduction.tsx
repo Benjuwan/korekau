@@ -12,6 +12,7 @@ export const Introduction = memo(() => {
             <div className="notice high">
                 <p><span className="material-symbols-outlined">error</span>注意事項</p>
                 <p>KoreKau（コレカウ） は localStorage という技術を用いてユーザーのデバイス（で使用しているブラウザ：Safari, Chrome など）に情報を保存しています。仕様上、セキュリティリスクが生じる可能性がありますので、<b>個人情報やパスワードをはじめ、家族や他人のセンシティブ情報は絶対に登録しない</b>でください。</p>
+                <p>localStorage の仕様上、1週間ほど過ぎると登録内容はリセット（全削除）されます。登録してから1週間経っても買わないならそれは不要なものだったと捉えて「要らないものを買わずに済んで節約になったね♪」と前向きに考えて（やって）ください。</p>
             </div>
             <div className="notice low">
                 <p><span className="material-symbols-outlined">error</span>プライベートモード以外でご利用ください</p>
