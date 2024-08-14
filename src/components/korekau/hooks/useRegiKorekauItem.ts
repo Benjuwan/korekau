@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { useAtom } from "jotai";
 import { korekauAtom, korekauItemsLocalStorageAtom } from "../../../ts/korekau-atom";
-import { korekauItemsType } from "../ts/korekau";
+import { itemCategoryType, korekauItemsType } from "../ts/korekau";
 import { localstorageLabel_KorekauItems } from "../../../ts/korekau-localstorageLabel";
 
 export const useRegiKorekauItem = () => {
@@ -10,10 +10,10 @@ export const useRegiKorekauItem = () => {
 
     const localstorageLabelKorekauItems: string = localstorageLabel_KorekauItems;
 
-    const regiKorekauItem: (itemName: string, itemNumber: number, itemCategory: string, itemPriority: boolean, itemImgMemo?: string, itemImgSrc?: string) => void = (
+    const regiKorekauItem: (itemName: string, itemNumber: number, itemCategory: itemCategoryType, itemPriority: boolean, itemImgMemo?: string, itemImgSrc?: string) => void = (
         itemName: string,
         itemNumber: number,
-        itemCategory: string,
+        itemCategory: itemCategoryType,
         itemPriority: boolean,
         itemImgMemo?: string,
         itemImgSrc?: string

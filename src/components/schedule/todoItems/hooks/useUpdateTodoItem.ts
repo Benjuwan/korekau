@@ -2,12 +2,15 @@ import { todoItemType } from "../ts/todoItemType";
 import { useAtom } from "jotai";
 import { todoMemoAtom, todoMemoLocalStorageAtom } from "../../../../ts/calendar-atom";
 import { localstorageLabelName } from "../../../../ts/calendar-localstorageLabel";
+import { useCheckJSONByteSize } from "../../../korekau/hooks/useCheckJSONByteSize";
 
 export const useUpdateTodoItem = () => {
     const [, setLocalstorage] = useAtom(todoMemoLocalStorageAtom); // 更新関数のみ使用
     const [todoMemo, setTodoMemo] = useAtom(todoMemoAtom);
 
     const localstorageLabel = localstorageLabelName;
+
+    const { checkJSONByteSize } = useCheckJSONByteSize();
 
     /* ToDo の更新 */
     const updateTodoItem: (todoID: string, uuid: string, todoContent: string, startTime: string, finishTime: string) => void = (
@@ -39,6 +42,8 @@ export const useUpdateTodoItem = () => {
             // setTodoMemo((_prevTodoMemo) => shallowCopy);
             setTodoMemo((_prevTodoMemo) => [...exceptRemoveTodoItems, updateTodoList]);
             /* ---------------- localStorage 関連の処理（更新）---------------- */
+            checkJSONByteSize(JSON.stringify([...exceptRemoveTodoItems, updateTodoList])); // localStorage のストレージ上限チェック
+
             // setLocalstorage((_prevLocalStorage) => shallowCopy);
             // localStorage.setItem(localstorageLabel, JSON.stringify([...shallowCopy]));
             setLocalstorage((_prevLocalStorage) => [...exceptRemoveTodoItems, updateTodoList]);

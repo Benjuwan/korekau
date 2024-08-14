@@ -3,6 +3,7 @@ import { korekauItemsType } from "../components/korekau/ts/korekau";
 import { useAtom } from "jotai";
 import { korekauAtom, korekauItemsLocalStorageAtom } from "../ts/korekau-atom";
 import { localstorageLabel_KorekauItems } from "../ts/korekau-localstorageLabel";
+import { useCheckJSONByteSize } from "../components/korekau/hooks/useCheckJSONByteSize";
 
 export const ImportJsonData = memo(() => {
     const [korekauLists, setKorekauLists] = useAtom(korekauAtom);
@@ -11,6 +12,8 @@ export const ImportJsonData = memo(() => {
     const localstorageLabelKorekauItems: string = localstorageLabel_KorekauItems;
 
     const fileAccept: string = 'application/json';
+
+    const { checkJSONByteSize } = useCheckJSONByteSize();
 
     const inputJsonData = (fileElm: HTMLInputElement) => {
         if (fileElm.files && fileElm.files[0].name !== 'korekauitems.json') return; // 所定のファイル名でない場合は早期終了 
@@ -24,6 +27,7 @@ export const ImportJsonData = memo(() => {
             const newKorekauItems: korekauItemsType[] = [...korekauLists, ...inputKorekauItemsJsonData];
             setKorekauLists((_prevKorekauLists) => newKorekauItems);
             /* ---------------- localStorage 関連の処理（登録）---------------- */
+            checkJSONByteSize(JSON.stringify(newKorekauItems)); // localStorage のストレージ上限チェック
             setLocalstorage((_prevLocalstorage) => newKorekauItems);
             localStorage.setItem(localstorageLabelKorekauItems, JSON.stringify(newKorekauItems));
             location.reload();
