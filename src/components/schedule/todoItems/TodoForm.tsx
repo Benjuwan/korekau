@@ -33,6 +33,7 @@ export const TodoForm: FC<todoFormType> = (props) => {
         setTodoContent((_prevTodoContent) => '');
         setStartTime((_prevStartTime) => '');
         setFinishTime((_prevFinishTime) => '');
+        setTimeout(() => scrollTop()); // buttonのクリックイベントでスクロールトップしないので回避策として疑似的な遅延処理
     }
 
     useEffect(() => resetStates(), [todoID]); // 前月や次月に移動するたびに入力欄を初期化

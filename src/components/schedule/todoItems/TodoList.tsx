@@ -21,7 +21,7 @@ export const TodoList = ({ todoID }: { todoID: string }) => {
         <>
             {todoMemo.length > 0 &&
                 <ul className={todoStyle.todoLists}>
-                    {todoMemo.map((todoItem, i) => (
+                    {todoMemo.map(todoItem => (
                         <Fragment key={todoItem.uuid}>
                             {/* yyyy/MM/dd が一致した場合 */}
                             {todoItem.todoID === todoID ?
@@ -35,7 +35,12 @@ export const TodoList = ({ todoID }: { todoID: string }) => {
                                             {todoItem.startTime && <span>開始時刻：{todoItem.startTime}</span>}
                                             {todoItem.finishTime && <span>終了時刻：{todoItem.finishTime}</span>}
                                         </div> :
-                                        <p className={todoStyle.isMobileNotice}>予定{i + 1}</p>
+                                        <p className={todoStyle.isMobileNotice}>
+                                            {todoItem.todoContent.length > 8 ?
+                                                <>{todoItem.todoContent.slice(0, 8)}...</> :
+                                                <>{todoItem.todoContent}</>
+                                            }
+                                        </p>
                                     }
                                     <TodoItems
                                         todoItem={todoItem}

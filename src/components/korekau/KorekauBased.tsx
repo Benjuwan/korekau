@@ -31,7 +31,7 @@ export const KorekauBased = memo(() => {
     }, []);
 
     return (
-        <section>
+        <section className="korekauSection">
             <details style={formAccordionStyle}>
                 <summary>買うものを新たに登録する</summary>
                 <KorekauForm />
