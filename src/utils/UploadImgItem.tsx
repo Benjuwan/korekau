@@ -14,25 +14,12 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
 
     const fileAccept: string[] = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp']; // input[type="file"] で指定可能な mineType
 
-    const resetFileNamePlaceholderTxt: () => void = () => {
-        const inputFile: HTMLInputElement | null = document.querySelector('.korekauSection input[type="file"]');
-        /* 一度ファイルアップロードした形跡を持つ場合は以降アップロード時のプレースホルダーテキストを非表示（透明）にする */
-        if (inputFile?.hasAttribute('data-gtm-form-interact-field-id')) {
-            /* file.name（file: File）の削除や非表示は仕様上不可能（セキュリティ面の観点から禁止されているそう）なので回避策としてCSSで対応 */
-            inputFile.style.setProperty('color', 'transparent');
-        }
-    }
-
-    const uploadImgView = (fileElm: HTMLInputElement) => {
+    const uploadImgView: (fileElm: HTMLInputElement) => void = (fileElm: HTMLInputElement) => {
         // 画像アップロードの取り消しを行った場合は画像を画面から削除  
         if (fileElm.files?.length === 0) {
             setItemImgSrc('');
             return; // 早期リターンで処理終了
         }
-
-        /* resetFileNamePlaceholderTxt メソッドで非表示（透明）になったアップロードファイル名を表示 */
-        const inputFile: HTMLInputElement | null = document.querySelector('.korekauSection input[type="file"]');
-        inputFile?.style.setProperty('color', '#333');
 
         if (
             fileElm.files !== null &&
@@ -62,7 +49,20 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
         });
     };
 
-    useEffect(() => resetFileNamePlaceholderTxt(), [korekauLists]);
+    /* input[type="file"] の中身をリセット（初期化）*/
+    const resetInputTypeFileData: () => void = () => {
+        const inputFile: HTMLInputElement | null = document.querySelector('.korekauSection input[type="file"]');
+        const fileElmFileProp: FileList | null | undefined = inputFile?.files;
+
+        if (
+            (fileElmFileProp && fileElmFileProp.length > 0) &&
+            inputFile?.value
+        ) {
+            inputFile.value = ''; // input[type="file"] の中身をリセット（初期化）
+        }
+    }
+
+    useEffect(() => resetInputTypeFileData(), [korekauLists]);
 
     return (
         <>
