@@ -11,6 +11,7 @@ export const TrashDateLists = memo(() => {
     const [trashDateLists] = useAtom(trashDateAtom);
 
     const [trashDateSortedLists, setTrashDateSortedLists] = useState<trashType[]>([]);
+
     useEffect(() => {
         const sortedTrashDate: trashType[] = trashDateLists.sort((aheadList, behindList) => {
             return aheadList.day - behindList.day;
@@ -26,8 +27,7 @@ export const TrashDateLists = memo(() => {
                     <EditerViewer children={
                         <TrashDateEditer props={{
                             classNameStr: 'itemEditer',
-                            trashDateList: trashDateList,
-                            trashDateUuid: trashDateList.uuid
+                            trashDateList: trashDateList
                         }} />
                     } />
                 </li>

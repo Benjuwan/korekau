@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent } from "react";
+import { SyntheticEvent } from "react";
 import todoStyle from "./css/todoStyle.module.css";
 import { todoItemType } from "./ts/todoItemType";
 import { useAtom } from "jotai";
@@ -8,15 +8,7 @@ import { useDeleteTodoItem } from "./hooks/useDeleteTodoItem";
 import { useCloseModalWindow } from "./hooks/useCloseModalWindow";
 import { useScrollTop } from "../../../hooks/useScrollTop";
 
-type TodoItemsType = {
-    todoItem: todoItemType;
-    todoID: string;
-    uuid: string;
-}
-
-export const TodoItems: FC<TodoItemsType> = (props) => {
-    const { todoItem, todoID, uuid } = props;
-
+export const TodoItems = ({ todoItem }: { todoItem: todoItemType }) => {
     const [todoMemo, setTodoMemo] = useAtom(todoMemoAtom);
 
     const { deleteTodoItem } = useDeleteTodoItem();
@@ -28,14 +20,14 @@ export const TodoItems: FC<TodoItemsType> = (props) => {
         scrollTop();
     }
 
-    const changeMode: (todoItem: todoItemType, editMode: boolean) => void = (todoItem: todoItemType, editMode: boolean) => {
+    const changeMode: (todoItem: todoItemType) => void = (todoItem: todoItemType) => {
         let editState: boolean | null = null;
-        if (editMode === false) editState = true;
+        if (todoItem.edit === false) editState = true;
         else editState = false;
 
         const updateTodoList: todoItemType = {
             uuid: todoItem.uuid,
-            todoID: todoID,
+            todoID: todoItem.todoID,
             todoContent: todoItem.todoContent,
             edit: editState
         }
@@ -45,7 +37,7 @@ export const TodoItems: FC<TodoItemsType> = (props) => {
             updateTodoList.finishTime = todoItem.finishTime;
         }
 
-        const exceptUpdateTodoMemos: todoItemType[] = [...todoMemo].filter(todoMemoItem => todoMemoItem.uuid !== uuid);
+        const exceptUpdateTodoMemos: todoItemType[] = [...todoMemo].filter(todoMemoItem => todoMemoItem.uuid !== todoItem.uuid);
         setTodoMemo((_prevTodoList) => [...exceptUpdateTodoMemos, updateTodoList]);
     }
 
@@ -60,17 +52,16 @@ export const TodoItems: FC<TodoItemsType> = (props) => {
                             {todoItem.startTime && <p>開始時刻：{todoItem.startTime}</p>}
                             {todoItem.finishTime && <p>終了時刻：{todoItem.finishTime}</p>}
                         </div>
-                        <TodoForm
-                            todoID={todoID}
-                            todoItem={todoItem}
-                        />
+                        <TodoForm props={{
+                            todoItem: todoItem
+                        }} />
                         <div className={todoStyle.editerIntoCtrlBtns}>
                             <button id={todoStyle["deleteBtn"]} className={todoStyle.formBtns} type="button" onClick={(deleteBtn: SyntheticEvent<HTMLButtonElement>) => {
                                 handleCloseModalWindowBtnClicked(deleteBtn);
-                                deleteTodoItem(uuid);
+                                deleteTodoItem(todoItem.uuid);
                             }}>削除</button>
                             <button className={`${todoStyle.formBtns} ${todoStyle.editBtn}`} type="button" onClick={() => {
-                                changeMode(todoItem, todoItem.edit);
+                                changeMode(todoItem);
                             }}>戻る</button>
                         </div>
                     </> :
@@ -82,7 +73,7 @@ export const TodoItems: FC<TodoItemsType> = (props) => {
                             {todoItem.finishTime && <p>終了時刻：{todoItem.finishTime}</p>}
                         </div>
                         <button className={`${todoStyle.formBtns} ${todoStyle.editBtn}`} type="button" onClick={() => {
-                            changeMode(todoItem, todoItem.edit);
+                            changeMode(todoItem);
                         }}>編集</button>
                     </div>
                 }

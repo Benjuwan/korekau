@@ -1,21 +1,29 @@
 import styled from "styled-components";
-import { ChangeEvent, memo, useState, FC } from "react";
+import { ChangeEvent, memo, useState } from "react";
 import { trashType } from "../ts/trash";
 import { useRegiTrashDate } from "../hooks/useRegiTrashDate";
 import { useUpdateTrashDate } from "../hooks/useUpdateTrashDate";
 import { useDeleteTrashDate } from "../hooks/useDeleteTrashDate";
 import { useTargetElsRemoveClass } from "../../../hooks/useTargetElsRemoveClass";
 
-type TrashFormType = {
-    trashDateList?: trashType;
-    trashDateUuid?: string;
-}
+export const TrashForm = memo(({ trashDateList }: { trashDateList?: trashType }) => {
+    const initTrashData: trashType = {
+        uuid: trashDateList ? trashDateList.uuid : '001',
+        day: trashDateList ? trashDateList.day : 1,
+        trashDate: trashDateList ? trashDateList.trashDate : ''
+    }
+    const [trashData, setTrashData] = useState<trashType>(initTrashData);
 
-export const TrashForm: FC<TrashFormType> = memo((props) => {
-    const { trashDateList, trashDateUuid } = props;
+    const handleTrashData: (targetElm: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void = (targetElm: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+        const type: string = targetElm.currentTarget.id;
+        const value: string | number | boolean = targetElm.currentTarget.value;
 
-    const [day, setDay] = useState<number>(1); // デフォルト：Monday
-    const [trashDate, setTrashDate] = useState<string>('');
+        const newTrashData: trashType = {
+            ...trashData,
+            [type]: value
+        }
+        setTrashData((_prevTrashData) => newTrashData);
+    }
 
     const { regiTrashDate } = useRegiTrashDate();
     const { updateTrashDate } = useUpdateTrashDate();
@@ -28,16 +36,16 @@ export const TrashForm: FC<TrashFormType> = memo((props) => {
             {
                 trashDateList ?
                     (
-                        updateTrashDate(trashDateUuid as string, day, trashDate),
+                        updateTrashDate(trashData),
                         targetElsRemoveClass('editerView', 'OnView')
                     ) :
-                    regiTrashDate(day, trashDate)
+                    regiTrashDate(trashData)
             }
-            setTrashDate((_prevTrashDate) => '');
+            setTrashData((_prevTrashData) => initTrashData);
         }}>
             <div className="formBlock">
-                <label className="formLabel" htmlFor="daySelect">曜日</label>
-                <select name="daySelect" id="daySelect" onChange={(e: ChangeEvent<HTMLSelectElement>) => setDay(parseInt(e.target.value))}>
+                <label className="formLabel">曜日</label>
+                <select name="daySelect" id="day" onChange={(e: ChangeEvent<HTMLSelectElement>) => handleTrashData(e)}>
                     <option value="1">（月）</option>
                     <option value="2">（火）</option>
                     <option value="3">（水）</option>
@@ -48,16 +56,16 @@ export const TrashForm: FC<TrashFormType> = memo((props) => {
                 </select>
             </div>
             <div className="formBlock">
-                <label className="formLabel" htmlFor="trashDate">出せるゴミの種別・内容</label>
-                <input type="text" value={trashDate} id="trashDate" onInput={(e: ChangeEvent<HTMLInputElement>) => setTrashDate((_prevTrashDate) => e.target.value)} placeholder="例：燃えるゴミ" />
+                <label className="formLabel">出せるゴミの種別・内容</label>
+                <input type="text" value={trashData.trashDate} id="trashDate" onInput={(e: ChangeEvent<HTMLInputElement>) => handleTrashData(e)} placeholder="例：燃えるゴミ" />
             </div>
             <div className={trashDateList ? 'ctrlBtns' : undefined}>
-                <input type="submit" disabled={trashDate.length <= 0} value={trashDateList ? '再登録' : '登録'} />
+                <input type="submit" disabled={trashData.trashDate.length <= 0} value={trashDateList ? '再登録' : '登録'} />
                 {trashDateList &&
                     <button type="button" className="editerCloseBtn" onClick={() => targetElsRemoveClass('editerView', 'OnView')}>戻る</button>
                 }
                 {trashDateList &&
-                    <button type="button" className="deleteBtn" onClick={() => deleteTrashDate(trashDateUuid as string)}><span className="material-symbols-outlined">delete</span></button>
+                    <button type="button" className="deleteBtn" onClick={() => deleteTrashDate(trashDateList.uuid)}><span className="material-symbols-outlined">delete</span></button>
                 }
             </div>
         </TrashFormElm>

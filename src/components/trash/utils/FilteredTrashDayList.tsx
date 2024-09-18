@@ -9,15 +9,17 @@ export const FilteredTrashDayList = memo(() => {
     const [trashDateLists] = useAtom(trashDateAtom);
 
     const [filteredTrashDayLists, setFilteredTrashDayLists] = useState<trashType[]>([]);
+
     useEffect(() => {
         const theDayofToday: number = new Date().getDay();
         let isSat: boolean = theDayofToday + 1 === 7;
 
-        const filteredLists: trashType[] = trashDateLists.filter(trashDateList => {
+        const filteredLists: trashType[] = [...trashDateLists].filter(trashDateList => {
             if (isSat) {
-                if (trashDateList.day === 0) return trashDateList;
+                /* TrashForm.tsx の handleTrashData メソッドで（オブジェクト： newTrashData として登録する）value が強制的に string となるので強制的に数値型に変換して処理を進める */
+                if (Number(trashDateList.day) === 0) return trashDateList;
             } else {
-                if (trashDateList.day === (theDayofToday + 1)) return trashDateList;
+                if (Number(trashDateList.day) === (theDayofToday + 1)) return trashDateList;
             }
         });
 

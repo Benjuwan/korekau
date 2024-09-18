@@ -9,7 +9,7 @@ export const CompareItems = memo(({ compareItems }: { compareItems: CompareItems
                 <CompareItem className="compareItems">
                     <li>※小数点以下3桁目を四捨五入</li>
                     {compareItems.map((compareItem, i) => (
-                        <li key={compareItem.uuid}>入力項目「No.{i + 1}」は、価格（{compareItem.price}）に対して指定した容量・個数（{compareItem.amount}）あたり<span>{compareItem.result}</span>円です。</li>
+                        <li key={compareItem.uuid}>入力項目「No.{i + 1}」は、価格（{compareItem.price}）に対して指定した容量・個数（{compareItem.amount}）あたり【<span>{compareItem.result}</span>円】です。</li>
                     ))}
                 </CompareItem>
             }

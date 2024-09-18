@@ -26,10 +26,14 @@ export const Todo = ({ todoID }: { todoID: string }) => {
         <>
             {desktopView ?
                 <>
-                    <TodoForm todoID={todoID} />
+                    <TodoForm props={{
+                        todoId: todoID
+                    }} />
                     <TodoList todoID={todoID} />
                 </> :
-                <TodoForm todoID={todoID} />
+                <TodoForm props={{
+                    todoId: todoID
+                }} />
             }
         </>
     );

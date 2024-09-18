@@ -1,14 +1,24 @@
-import { useAtom } from "jotai";
 import { ChangeEvent, memo, useEffect } from "react";
+import { korekauItemsType } from "../components/korekau/ts/korekau";
+import { useAtom } from "jotai";
 import { korekauAtom } from "../ts/korekau-atom";
 
 type UploadImgItemType = {
-    itemImgSrc: string;
-    setItemImgSrc: React.Dispatch<React.SetStateAction<string>>;
+    itemImgSrc: string | undefined;
+    korekauItem: korekauItemsType;
+    setKorekauItem: React.Dispatch<React.SetStateAction<korekauItemsType>>;
 }
 
 export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
-    const { itemImgSrc, setItemImgSrc } = props;
+    const { itemImgSrc, korekauItem, setKorekauItem } = props;
+
+    const handleItemImgSrc: (value: string) => void = (value: string) => {
+        const newKorekauItem: korekauItemsType = {
+            ...korekauItem,
+            itemImg: itemImgSrc ? itemImgSrc : value
+        }
+        setKorekauItem((_prevKorekauItem) => newKorekauItem);
+    }
 
     const [korekauLists] = useAtom(korekauAtom);
 
@@ -17,7 +27,7 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
     const uploadImgView: (fileElm: HTMLInputElement) => void = (fileElm: HTMLInputElement) => {
         // 画像アップロードの取り消しを行った場合は画像を画面から削除  
         if (fileElm.files?.length === 0) {
-            setItemImgSrc('');
+            handleItemImgSrc('');
             return; // 早期リターンで処理終了
         }
 
@@ -41,7 +51,7 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
             // ファイルの読み込みが完了したら画像の配列に加える
             reader.onloadend = () => {
                 const result = reader.result as string;
-                setItemImgSrc((_prevItemImgSrc) => result);
+                handleItemImgSrc(result);
             };
 
             // 画像ファイルを base64 形式で読み込む
