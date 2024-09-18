@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useAtom } from "jotai";
 import { todoMemoLocalStorageAtom } from "../../../ts/calendar-atom";
 import { localstorageLabelName } from "../../../ts/calendar-localstorageLabel";
+import { useScrollTop } from "../../../hooks/useScrollTop";
 
 type btnsPropsType = {
     className: string;
@@ -26,6 +27,8 @@ export const PrevNextMonthBtns: FC<btnsPropsType> = (props) => {
 
     const localstorageLabel: string = localstorageLabelName;
 
+    const { scrollTop } = useScrollTop();
+
     const nextCalendarView = () => {
         if (ctrlMonth === 12) {
             setCtrlYear((_prevCtrlYear) => ctrlYear + 1);
@@ -35,6 +38,8 @@ export const PrevNextMonthBtns: FC<btnsPropsType> = (props) => {
         }
         /* ---------------- localStorage 関連の処理（登録）---------------- */
         localStorage.setItem(localstorageLabel, JSON.stringify([...localstorageData]));
+
+        scrollTop();
     }
 
     const prevCalendarView = () => {
@@ -46,6 +51,8 @@ export const PrevNextMonthBtns: FC<btnsPropsType> = (props) => {
         }
         /* ---------------- localStorage 関連の処理（登録）---------------- */
         localStorage.setItem(localstorageLabel, JSON.stringify([...localstorageData]));
+
+        scrollTop();
     }
 
     return (

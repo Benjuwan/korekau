@@ -42,11 +42,7 @@ export const TodoList = ({ todoID }: { todoID: string }) => {
                                             }
                                         </p>
                                     }
-                                    <TodoItems
-                                        todoItem={todoItem}
-                                        todoID={todoID}
-                                        uuid={todoItem.uuid}
-                                    />
+                                    <TodoItems todoItem={todoItem} />
                                 </li>
                                 : null
                             }

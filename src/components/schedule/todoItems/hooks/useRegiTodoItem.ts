@@ -12,25 +12,15 @@ export const useRegiTodoItem = () => {
     const localstorageLabel = localstorageLabelName;
 
     /* ToDo の登録 */
-    const regiTodoItem: (todoID: string, todoContent: string, startTime: string, finishTime: string) => void = (
-        todoID: string,
-        todoContent: string,
-        startTime: string,
-        finishTime: string,
-    ) => {
-        const newTodoList: todoItemType = {
-            uuid: uuidv4(), // key へ渡すための固有の識別子（uuid：Universally Unique Identifier）を生成
-            todoID: todoID,
-            todoContent: todoContent,
-            edit: false
-        };
+    const regiTodoItem: (todoItems: todoItemType) => void = (todoItems: todoItemType) => {
+        const shallowCopyTodoItems: todoItemType = { ...todoItems }
 
-        if (startTime.length > 0 || finishTime.length > 0) {
-            newTodoList.startTime = startTime;
-            newTodoList.finishTime = finishTime;
+        const newTodoList: todoItemType = {
+            ...shallowCopyTodoItems,
+            uuid: uuidv4() // key へ渡すための固有の識別子（uuid：Universally Unique Identifier）を生成
         }
 
-        if (todoContent.length > 0) {
+        if (shallowCopyTodoItems.todoContent.length > 0) {
             setTodoMemo((_prevTodoMemo) => [...todoMemo, newTodoList]);
             /* ---------------- localStorage 関連の処理（登録）---------------- */
             setLocalstorage((_prevLocalStorage) => [...todoMemo, newTodoList]);
