@@ -5,6 +5,7 @@ import { useRegiTrashDate } from "../hooks/useRegiTrashDate";
 import { useUpdateTrashDate } from "../hooks/useUpdateTrashDate";
 import { useDeleteTrashDate } from "../hooks/useDeleteTrashDate";
 import { useTargetElsRemoveClass } from "../../../hooks/useTargetElsRemoveClass";
+import { useHandleFormEntries } from "../../../hooks/useHandleFormEntries";
 
 export const TrashForm = memo(({ trashDateList }: { trashDateList?: trashType }) => {
     const initTrashData: trashType = {
@@ -14,21 +15,11 @@ export const TrashForm = memo(({ trashDateList }: { trashDateList?: trashType })
     }
     const [trashData, setTrashData] = useState<trashType>(initTrashData);
 
-    const handleTrashData: (targetElm: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void = (targetElm: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
-        const type: string = targetElm.currentTarget.id;
-        const value: string | number | boolean = targetElm.currentTarget.value;
-
-        const newTrashData: trashType = {
-            ...trashData,
-            [type]: value
-        }
-        setTrashData((_prevTrashData) => newTrashData);
-    }
-
     const { regiTrashDate } = useRegiTrashDate();
     const { updateTrashDate } = useUpdateTrashDate();
     const { deleteTrashDate } = useDeleteTrashDate();
     const { targetElsRemoveClass } = useTargetElsRemoveClass();
+    const { handleFormEntries } = useHandleFormEntries();
 
     return (
         <TrashFormElm action="" onSubmit={(formElm: ChangeEvent<HTMLFormElement>) => {
@@ -45,7 +36,7 @@ export const TrashForm = memo(({ trashDateList }: { trashDateList?: trashType })
         }}>
             <div className="formBlock">
                 <label className="formLabel">曜日</label>
-                <select name="daySelect" id="day" onChange={(e: ChangeEvent<HTMLSelectElement>) => handleTrashData(e)}>
+                <select name="daySelect" id="day" onChange={(e: ChangeEvent<HTMLSelectElement>) => handleFormEntries<trashType>(e, trashData, setTrashData)}>
                     <option value="1">（月）</option>
                     <option value="2">（火）</option>
                     <option value="3">（水）</option>
@@ -57,7 +48,7 @@ export const TrashForm = memo(({ trashDateList }: { trashDateList?: trashType })
             </div>
             <div className="formBlock">
                 <label className="formLabel">出せるゴミの種別・内容</label>
-                <input type="text" value={trashData.trashDate} id="trashDate" onInput={(e: ChangeEvent<HTMLInputElement>) => handleTrashData(e)} placeholder="例：燃えるゴミ" />
+                <input type="text" value={trashData.trashDate} id="trashDate" onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<trashType>(e, trashData, setTrashData)} placeholder="例：燃えるゴミ" />
             </div>
             <div className={trashDateList ? 'ctrlBtns' : undefined}>
                 <input type="submit" disabled={trashData.trashDate.length <= 0} value={trashDateList ? '再登録' : '登録'} />

@@ -1,10 +1,12 @@
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import todoStyle from "./css/todoStyle.module.css";
+import { todoItemType } from "./ts/todoItemType";
 import { useUpdateTodoItem } from "./hooks/useUpdateTodoItem";
 import { useRegiTodoItem } from "./hooks/useRegiTodoItem";
 import { useViewTodoCtrl } from "./hooks/useViewTodoCtrl";
 import { useScrollTop } from "../../../hooks/useScrollTop";
-import { todoItemType } from "./ts/todoItemType";
+import { useCloseModalWindow } from "./hooks/useCloseModalWindow";
+import { useHandleFormEntries } from "../../../hooks/useHandleFormEntries";
 
 type TodoFormType = {
     todoItem?: todoItemType;
@@ -28,17 +30,8 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
     const { regiTodoItem } = useRegiTodoItem();
     const { viewTodoCtrl } = useViewTodoCtrl();
     const { scrollTop } = useScrollTop();
-
-    const handleTodoItems: (targetElm: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void = (targetElm: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const type: string = targetElm.currentTarget.id;
-        const value: string | number | boolean = targetElm.currentTarget.value;
-
-        const newTodoitems: todoItemType = {
-            ...todoItems,
-            [type]: value
-        }
-        setTodoItems((_prevTodoItems) => newTodoitems);
-    }
+    const { closeModalWindow } = useCloseModalWindow();
+    const { handleFormEntries } = useHandleFormEntries();
 
     const handleOpenClosedBtnClicked: (ctrlHandlerElm: HTMLButtonElement | SyntheticEvent<HTMLFormElement>) => void = (ctrlHandlerElm: HTMLButtonElement | SyntheticEvent<HTMLFormElement>) => {
         viewTodoCtrl(ctrlHandlerElm);
@@ -64,23 +57,29 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
             resetStates();
         }}>
             <label>
-                <input type="text" value={todoItems.todoContent} id="todoContent" onInput={(e: ChangeEvent<HTMLInputElement>) => handleTodoItems(e)} />
+                <input type="text" value={todoItems.todoContent} id="todoContent" onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} />
             </label>
             <div className={todoStyle.timeSchedule}>
-                <label className={todoStyle.timeLabel}>開始時刻 <input id="startTime" type="time" value={todoItems.startTime} onChange={(e: ChangeEvent<HTMLInputElement>) => handleTodoItems(e)} /></label>
-                <label className={todoStyle.timeLabel}>終了時刻 <input id="finishTime" type="time" value={todoItems.finishTime} onChange={(e: ChangeEvent<HTMLInputElement>) => handleTodoItems(e)} /></label>
+                <label className={todoStyle.timeLabel}>開始時刻 <input id="startTime" type="time" value={todoItems.startTime} onChange={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} /></label>
+                <label className={todoStyle.timeLabel}>終了時刻 <input id="finishTime" type="time" value={todoItems.finishTime} onChange={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} /></label>
             </div>
-            <button className={todoStyle.formBtns} id={todoStyle.regiUpdateBtn} type="button" disabled={todoItems.todoContent.length <= 0} onClick={(btnEl: SyntheticEvent<HTMLButtonElement>) => {
-                {
-                    !todoItems.edit ?
-                        (
-                            regiTodoItem(todoItems),
-                            handleOpenClosedBtnClicked(btnEl.currentTarget)
-                        ) :
-                        updateTodoItem(todoItems)
-                }
-                resetStates();
-            }}>{!todoItems.edit ? '登録' : '再登録'}</button>
+            <button className={todoStyle.formBtns} id={todoStyle.regiUpdateBtn} type="button"
+                disabled={todoItems.todoContent.length <= 0}
+                onClick={(btnEl: SyntheticEvent<HTMLButtonElement>) => {
+                    {
+                        !todoItems.edit ?
+                            (
+                                regiTodoItem(todoItems),
+                                handleOpenClosedBtnClicked(btnEl.currentTarget)
+                            ) :
+                            (
+                                btnEl.stopPropagation(), // 親要素のクリックイベント（OnViewModalWindow）発生を防止
+                                updateTodoItem(todoItems),
+                                closeModalWindow()
+                            )
+                    }
+                    resetStates();
+                }}>{!todoItems.edit ? '登録' : '再登録'}</button>
         </form>
     );
 }

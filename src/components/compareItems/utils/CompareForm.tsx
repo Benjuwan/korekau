@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import styled from "styled-components";
 import { ChangeEvent, memo, useState } from "react";
 import { CompareItemsType } from "../ts/compareItems";
+import { useHandleFormEntries } from '../../../hooks/useHandleFormEntries';
 
 type CompareFormType = {
     compareItems: CompareItemsType[];
@@ -14,30 +15,19 @@ export const CompareForm = memo(({ props }: { props: CompareFormType }) => {
 
     const initCompareItem: CompareItemsType = {
         uuid: '',
-        amount: 0,
-        price: 0,
+        amount: '',
+        price: '',
         result: '',
     }
     const [compareItem, setCompareItem] = useState<CompareItemsType>(initCompareItem);
 
-    const handleCompareItems: (targetElm: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void = (targetElm: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const type: string = targetElm.currentTarget.id;
-        let value: string | number | boolean = targetElm.currentTarget.value;
-
-        if (type === 'amount' || 'price') {
-            if (!Number(value) && value.length > 0) return; // 入力内容が0文字数以上かつ数値以外の場合は早期リターンで処理終了
-            value = value;
-        }
-
-        const newCompareitem: CompareItemsType = {
-            ...compareItem,
-            [type]: value
-        }
-        setCompareItem((_prevCompareitem) => newCompareitem);
-    }
+    const { handleFormEntries } = useHandleFormEntries();
 
     const entryCompareItem: () => void = () => {
-        const calcValue: number = compareItem.price / compareItem.amount;
+        const price: number = typeof compareItem.price !== 'number' ? parseInt(compareItem.price) : compareItem.price;
+        const amount: number = typeof compareItem.amount !== 'number' ? parseInt(compareItem.amount) : compareItem.amount;
+
+        const calcValue: number = price / amount;
         const result: string = parseFloat(String(calcValue)).toFixed(3);
 
         const newCompareItem: CompareItemsType = {
@@ -56,13 +46,13 @@ export const CompareForm = memo(({ props }: { props: CompareFormType }) => {
         }}>
             <label htmlFor="amount">
                 <span>容量・個数</span>
-                <input type="text" inputMode="numeric" pattern="\d*" value={compareItem.amount} id="amount" min={0} onInput={(e: ChangeEvent<HTMLInputElement>) => handleCompareItems(e)} />
+                <input type="text" inputMode="numeric" pattern="\d*" value={compareItem.amount} id="amount" min={0} onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<CompareItemsType>(e, compareItem, setCompareItem, "compare")} />
             </label>
             <label htmlFor="price">
                 <span>価格</span>
-                <input type="text" inputMode="numeric" pattern="\d*" value={compareItem.price} id="price" min={0} onInput={(e: ChangeEvent<HTMLInputElement>) => handleCompareItems(e)} />
+                <input type="text" inputMode="numeric" pattern="\d*" value={compareItem.price} id="price" min={0} onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<CompareItemsType>(e, compareItem, setCompareItem, "compare")} />
             </label>
-            <button disabled={compareItem.price <= 0 && compareItem.amount <= 0}>計算</button>
+            <button disabled={compareItem.price.toString().length === 0 || compareItem.amount.toString().length === 0}>計算</button>
         </CompareFormElm>
     );
 });
