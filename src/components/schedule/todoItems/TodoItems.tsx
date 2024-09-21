@@ -16,7 +16,7 @@ export const TodoItems = ({ todoItem }: { todoItem: todoItemType }) => {
     const { scrollTop } = useScrollTop();
     const handleCloseModalWindowBtnClicked = (btnEl: SyntheticEvent<HTMLButtonElement>) => {
         btnEl.stopPropagation(); // 親要素のクリックイベント（OnViewModalWindow）発生を防止
-        closeModalWindow(btnEl.currentTarget);
+        closeModalWindow();
         scrollTop();
     }
 

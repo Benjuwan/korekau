@@ -4,18 +4,17 @@ import { useAtom } from "jotai";
 import { korekauAtom } from "../ts/korekau-atom";
 
 type UploadImgItemType = {
-    itemImgSrc: string | undefined;
     korekauItem: korekauItemsType;
     setKorekauItem: React.Dispatch<React.SetStateAction<korekauItemsType>>;
 }
 
 export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
-    const { itemImgSrc, korekauItem, setKorekauItem } = props;
+    const { korekauItem, setKorekauItem } = props;
 
     const handleItemImgSrc: (value: string) => void = (value: string) => {
         const newKorekauItem: korekauItemsType = {
             ...korekauItem,
-            itemImg: itemImgSrc ? itemImgSrc : value
+            itemImg: value
         }
         setKorekauItem((_prevKorekauItem) => newKorekauItem);
     }
@@ -82,7 +81,7 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
                 onChange={(fileElm: ChangeEvent<HTMLInputElement>) => uploadImgView(fileElm.currentTarget)}
                 id="itemImgSrc"
             />
-            {itemImgSrc && <img src={itemImgSrc} />}
+            {korekauItem.itemImg && <img src={korekauItem.itemImg} />}
         </>
     );
 });
