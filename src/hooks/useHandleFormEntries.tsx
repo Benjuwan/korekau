@@ -1,19 +1,19 @@
 import { ChangeEvent } from "react";
 
-export const useHandleFormEntries = () => {
-    type handleFormEntriesType = <T>(
-        targetElm: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, targetFormEntries: T,
-        setEntries: React.Dispatch<React.SetStateAction<T>>,
-        addSpecificFeatures?: string
-    ) => void
+type handleFormEntriesType = <T>(
+    targetElm: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, targetFormEntries: T,
+    setEntries: React.Dispatch<React.SetStateAction<T>>,
+    addSpecificFeatures?: string
+) => void
 
+export const useHandleFormEntries = () => {
     /* <T>：ジェネリクスで任意の型を指定 */
     const handleFormEntries: handleFormEntriesType = function <T>(
         targetElm: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
         targetFormEntries: T,
         setEntries: React.Dispatch<React.SetStateAction<T>>,
         addSpecificFeatures?: string
-    ) {
+    ): void {
         const type: string = targetElm.currentTarget.id;
         let value: string | number | boolean = targetElm.currentTarget.value;
 
