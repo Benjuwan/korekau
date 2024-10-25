@@ -19,8 +19,6 @@ export const useHandleFormEntries = () => {
 
         if (addSpecificFeatures === 'compare') {
             if (isNaN(Number(value))) return; // 数値以外の場合は早期リターンで処理終了
-            const compareSpecificFeatureValue: string | undefined = _compareSpecificFeature(type, value);
-            value = compareSpecificFeatureValue !== undefined ? compareSpecificFeatureValue : value; // 数値以外の入力値は''（空文字）で返却
         }
 
         if (addSpecificFeatures === 'korekau') {
@@ -37,13 +35,6 @@ export const useHandleFormEntries = () => {
             [type]: value
         }
         setEntries((_prevEntries) => newEntries);
-    }
-
-    /* 商品比較機能において別途追加する関数 */
-    const _compareSpecificFeature: (type: string, value: string) => string | undefined = (type: string, value: string) => {
-        if (type === 'amount' || 'price') {
-            return value = value;
-        }
     }
 
     /* 買うものリスト機能において別途追加する関数 */

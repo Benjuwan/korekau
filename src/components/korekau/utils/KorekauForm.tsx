@@ -11,13 +11,13 @@ import { useScrollTop } from "../../../hooks/useScrollTop";
 
 export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: korekauItemsType }) => {
     const initKorekauItem: korekauItemsType = {
-        uuid: KorekauItemList ? KorekauItemList.uuid : '001',
-        itemName: KorekauItemList ? KorekauItemList.itemName : '',
-        itemNumber: KorekauItemList ? KorekauItemList.itemNumber : '',
+        uuid: KorekauItemList ? KorekauItemList.uuid : '001', // uuid の既存値設定は必須
+        itemName: '',
+        itemNumber: '',
         itemCategory: KorekauItemList ? KorekauItemList.itemCategory : 'food_drink',
         itemPriority: KorekauItemList ? KorekauItemList.itemPriority : false,
-        itemMemo: KorekauItemList ? KorekauItemList.itemMemo : '',
-        itemImg: KorekauItemList ? KorekauItemList.itemImg : ''
+        itemMemo: '',
+        itemImg: ''
     }
     const [korekauItem, setKorekauItem] = useState<korekauItemsType>(initKorekauItem);
 
@@ -47,7 +47,11 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
         <KorekauFormElm action="" onSubmit={handleFormSubmit}>
             <div className="formBlock">
                 <label className="formLabel">カテゴリー</label>
-                <select name="itemCategory" id="itemCategory" value={korekauItem.itemCategory} onChange={(e: ChangeEvent<HTMLSelectElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')}>
+                <select name="itemCategory" id="itemCategory"
+                    value={korekauItem.itemCategory}
+                    onChange={
+                        (e: ChangeEvent<HTMLSelectElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')
+                    }>
                     <option value="food_drink">食料品</option>
                     <option value="utils">日用品</option>
                     <option value="family">家族（親・子ども・ペット）</option>
@@ -57,7 +61,12 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
             </div>
             <div className="formBlock">
                 <label className="formLabel">買うもの</label>
-                <input type="text" id="itemName" value={korekauItem.itemName} onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')} />
+                <input type="text" id="itemName"
+                    value={korekauItem.itemName}
+                    placeholder={KorekauItemList && `現在の内容：${KorekauItemList.itemName}`}
+                    onInput={
+                        (e: ChangeEvent<HTMLInputElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')
+                    } />
                 <div className="UploadImgItem">
                     <label className="formLabel">商品画像（※1MB以下）</label>
                     <UploadImgItem props={{
@@ -68,27 +77,49 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
             </div>
             <div className="formBlock">
                 <label className="formLabel">メモ</label>
-                <textarea name="itemMemo" id="itemMemo" rows={5} value={korekauItem.itemMemo} onInput={(e: ChangeEvent<HTMLTextAreaElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')} placeholder="例：最近の底値148円近辺なら買う" ></textarea>
+                <textarea name="itemMemo" id="itemMemo" rows={5}
+                    value={korekauItem.itemMemo}
+                    placeholder={KorekauItemList ? `現在の内容：${KorekauItemList.itemMemo}` : "例：最近の底値148円近辺なら買う"}
+                    onInput={
+                        (e: ChangeEvent<HTMLTextAreaElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')
+                    }>
+                </textarea>
             </div>
             <div className="formFlexBox">
                 <div className="formBlock">
                     <label className="formLabel">個数</label>
                     {/* pattern="\d*"：\dは任意の数字を表し、*は0回以上の繰り返しを意味する（＝入力されるテキストが0個以上の数字で構成されることを許可）*/}
-                    <input type="text" id="itemNumber" inputMode="numeric" pattern="\d*" value={korekauItem.itemNumber} onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')} />
+                    <input type="text" id="itemNumber"
+                        inputMode="numeric"
+                        pattern="\d*"
+                        value={korekauItem.itemNumber}
+                        placeholder={KorekauItemList && `現在の内容：${KorekauItemList.itemNumber}`}
+                        onInput={
+                            (e: ChangeEvent<HTMLInputElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')
+                        } />
                 </div>
                 <div className="formBlock">
                     {/* トグルボタンのスタイル及び機能の都合上ここは<p> */}
                     <p className="formLabel">すぐ買う</p>
                     <label className={`switch ${korekauItem.itemPriority && 'switchOn'}`}>
-                        <input type="checkbox" id="itemPriority" onChange={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')} />
+                        <input type="checkbox" id="itemPriority"
+                            onChange={
+                                (e: ChangeEvent<HTMLInputElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')
+                            } />
                         <span className="slider">&nbsp;</span>
                     </label>
                 </div>
             </div>
             <div className={KorekauItemList ? 'formFlexBox' : undefined}>
-                <input type="submit" disabled={(korekauItem.itemName.length <= 0 && Number(korekauItem.itemNumber) <= 0)} value={KorekauItemList ? '再登録' : '登録'} />
+                <input type="submit"
+                    value={KorekauItemList ? '再登録' : '登録'}
+                    disabled={(korekauItem.itemName.length <= 0 && Number(korekauItem.itemNumber) <= 0)} />
                 {KorekauItemList &&
-                    <input type="button" className="editerCloseBtn" onClick={() => targetElsRemoveClass('editerView', 'OnView')} value={'戻る'} />
+                    <input type="button" className="editerCloseBtn"
+                        value={'戻る'}
+                        onClick={
+                            () => targetElsRemoveClass('editerView', 'OnView')
+                        } />
                 }
             </div>
         </KorekauFormElm>
