@@ -17,9 +17,7 @@ export const KorekauItems = memo(({ category }: { category: string }) => {
 
     const [filteredItems, setFilteredItems] = useState<korekauItemsType[]>([]);
     useEffect(() => {
-        const filtered = korekauLists.filter(filteredItem => {
-            if (filteredItem.itemCategory === category) return filteredItem;
-        }).sort((aheadItem, behindItem) => {
+        const filtered = korekauLists.filter(filteredItem => filteredItem.itemCategory === category).sort((aheadItem, behindItem) => {
             const aheadItemPriority = aheadItem.itemPriority ?? false;
             const behindItemPriority = behindItem.itemPriority ?? false;
             if (aheadItemPriority && !behindItemPriority) return -1; // 比較関数が負の値を返した場合、aはbの前に来る

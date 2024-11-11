@@ -1,7 +1,8 @@
 import { ChangeEvent } from "react";
 
 type handleFormEntriesType = <T>(
-    targetElm: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, targetFormEntries: T,
+    targetElm: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    targetFormEntries: T,
     setEntries: React.Dispatch<React.SetStateAction<T>>,
     addSpecificFeatures?: string
 ) => void
