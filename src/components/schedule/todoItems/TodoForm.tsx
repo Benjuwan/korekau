@@ -44,18 +44,17 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
     }
 
     return (
-        <form className={todoStyle.form} onSubmit={(formElm: ChangeEvent<HTMLFormElement>) => {
-            formElm.preventDefault();
-            {
-                !todoItems.edit ?
-                    (
-                        regiTodoItem(todoItems),
-                        handleOpenClosedBtnClicked(formElm)
-                    ) :
-                    updateTodoItem(todoItems)
-            }
-            resetStates();
-        }}>
+        <form className={todoStyle.form}
+            onSubmit={(formElm: ChangeEvent<HTMLFormElement>) => {
+                formElm.preventDefault();
+                if (!todoItems.edit) {
+                    regiTodoItem(todoItems);
+                    handleOpenClosedBtnClicked(formElm);
+                } else {
+                    updateTodoItem(todoItems);
+                }
+                resetStates();
+            }}>
             <label>
                 <input type="text" value={todoItems.todoContent} id="todoContent" onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} />
             </label>
@@ -66,17 +65,13 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
             <button className={todoStyle.formBtns} id={todoStyle.regiUpdateBtn} type="button"
                 disabled={todoItems.todoContent.length <= 0}
                 onClick={(btnEl: SyntheticEvent<HTMLButtonElement>) => {
-                    {
-                        !todoItems.edit ?
-                            (
-                                regiTodoItem(todoItems),
-                                handleOpenClosedBtnClicked(btnEl.currentTarget)
-                            ) :
-                            (
-                                btnEl.stopPropagation(), // 親要素のクリックイベント（OnViewModalWindow）発生を防止
-                                updateTodoItem(todoItems),
-                                closeModalWindow()
-                            )
+                    if (!todoItems.edit) {
+                        regiTodoItem(todoItems);
+                        handleOpenClosedBtnClicked(btnEl.currentTarget);
+                    } else {
+                        btnEl.stopPropagation(); // 親要素のクリックイベント（OnViewModalWindow）発生を防止
+                        updateTodoItem(todoItems);
+                        closeModalWindow();
                     }
                     resetStates();
                 }}>{!todoItems.edit ? '登録' : '再登録'}</button>
