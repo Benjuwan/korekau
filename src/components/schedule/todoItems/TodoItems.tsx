@@ -14,7 +14,7 @@ export const TodoItems = ({ todoItem }: { todoItem: todoItemType }) => {
     const { deleteTodoItem } = useDeleteTodoItem();
     const { closeModalWindow } = useCloseModalWindow();
     const { scrollTop } = useScrollTop();
-    const handleCloseModalWindowBtnClicked = (btnEl: SyntheticEvent<HTMLButtonElement>) => {
+    const handleCloseModalWindowBtnClicked: (btnEl: SyntheticEvent<HTMLButtonElement>) => void = (btnEl: SyntheticEvent<HTMLButtonElement>) => {
         btnEl.stopPropagation(); // 親要素のクリックイベント（OnViewModalWindow）発生を防止
         closeModalWindow();
         scrollTop();
@@ -26,9 +26,7 @@ export const TodoItems = ({ todoItem }: { todoItem: todoItemType }) => {
         else editState = false;
 
         const updateTodoList: todoItemType = {
-            uuid: todoItem.uuid,
-            todoID: todoItem.todoID,
-            todoContent: todoItem.todoContent,
+            ...todoItem,
             edit: editState
         }
 
@@ -38,13 +36,14 @@ export const TodoItems = ({ todoItem }: { todoItem: todoItemType }) => {
         }
 
         const exceptUpdateTodoMemos: todoItemType[] = [...todoMemo].filter(todoMemoItem => todoMemoItem.uuid !== todoItem.uuid);
+
         setTodoMemo((_prevTodoList) => [...exceptUpdateTodoMemos, updateTodoList]);
     }
 
     return (
         <div className={todoStyle.modalWindow}>
             <div className={todoStyle.modalWindowChild}>
-                {todoItem.edit === true ?
+                {todoItem.edit ?
                     <>
                         <div className={todoStyle.editTargetContent}>
                             <p>--- 編集前 ---</p>
@@ -60,9 +59,7 @@ export const TodoItems = ({ todoItem }: { todoItem: todoItemType }) => {
                                 handleCloseModalWindowBtnClicked(deleteBtn);
                                 deleteTodoItem(todoItem.uuid);
                             }}>削除</button>
-                            <button className={`${todoStyle.formBtns} ${todoStyle.editBtn}`} type="button" onClick={() => {
-                                changeMode(todoItem);
-                            }}>戻る</button>
+                            <button className={`${todoStyle.formBtns} ${todoStyle.editBtn}`} type="button" onClick={() => changeMode(todoItem)}>戻る</button>
                         </div>
                     </> :
                     <div className={todoStyle.editFalseMode}>
@@ -72,9 +69,7 @@ export const TodoItems = ({ todoItem }: { todoItem: todoItemType }) => {
                             {todoItem.startTime && <p>開始時刻：{todoItem.startTime}</p>}
                             {todoItem.finishTime && <p>終了時刻：{todoItem.finishTime}</p>}
                         </div>
-                        <button className={`${todoStyle.formBtns} ${todoStyle.editBtn}`} type="button" onClick={() => {
-                            changeMode(todoItem);
-                        }}>編集</button>
+                        <button className={`${todoStyle.formBtns} ${todoStyle.editBtn}`} type="button" onClick={() => changeMode(todoItem)}>編集</button>
                     </div>
                 }
             </div>
