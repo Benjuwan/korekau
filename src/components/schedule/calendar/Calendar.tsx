@@ -1,15 +1,12 @@
 import { SyntheticEvent, useEffect, useState } from "react";
 import calendarStyle from "./css/calendarStyle.module.css";
-import todoStyle from "../todoItems/css/todoStyle.module.css";
 import { calendarItemType } from "./ts/calendarItemType";
 import { useAtom } from "jotai";
 import { isDesktopViewAtom, todoMemoAtom, todoMemoLocalStorageAtom } from "../../../ts/calendar-atom";
 import { localstorageLabelName } from "../../../ts/calendar-localstorageLabel";
 import { PrevNextMonthBtns } from "./PrevNextMonthBtns";
-import { Todo } from "../todoItems/Todo";
-import { TodoList } from "../todoItems/TodoList";
-import { TodoCtrlClosedBtn } from "../todoItems/TodoCtrlClosedBtn";
-import { TodoCtrlOpenBtn } from "../todoItems/TodoCtrlOpenBtn";
+import { DaydateList } from "./DaydateList";
+import { DaysList } from "./DaysList";
 import { useGetMonthDays } from "./hooks/useGetMonthDays";
 
 type todaySignal = {
@@ -23,7 +20,7 @@ export const Calendar = () => {
 
     const [todoMemo] = useAtom(todoMemoAtom);
     const [, setLocalstorage] = useAtom(todoMemoLocalStorageAtom); // 更新関数のみ使用（全てのスケジュールリセット）
-    const [desktopView, setDesktopView] = useAtom(isDesktopViewAtom);
+    const [, setDesktopView] = useAtom(isDesktopViewAtom);
 
     const localstorageLabel: string = localstorageLabelName;
 
@@ -32,7 +29,7 @@ export const Calendar = () => {
     const [ctrlYear, setCtrlYear] = useState<number>(currYear);
     const [ctrlMonth, setCtrlMonth] = useState<number>(currMonth);
     const [days, setDays] = useState<calendarItemType[]>([]);
-    const [ctrlToday, setCtrlToday] = useState<todaySignal | null>(null);
+    const [, setCtrlToday] = useState<todaySignal | null>(null);
 
     useEffect(() => {
         const today: todaySignal = {
@@ -83,37 +80,12 @@ export const Calendar = () => {
                 setCtrlMonth={setCtrlMonth}
             />
             <button id={calendarStyle["jumpThisMonth"]} type="button" onClick={jumpThisMonth}>今月に移動</button>
-            {/* Reactにおけるイベントハンドラでは、イベントオブジェクト（SyntheticEvent）が自動的に渡されるので以下の書き方でOK （handleSwipeCancel にわざわざ引数を指定しなくても良い）*/}
-            <ul className={calendarStyle.calendar} onTouchMove={handleSwipeCancel}>
-                {days.map(day => (
-                    // カスタムデータ属性の指定は low-case でないと React から怒られる
-                    <li key={`${day.year}/${day.month}/${day.day}`} data-daydate={day.dayDateNum} className={
-                        (ctrlToday?.thisYear === day.year && ctrlToday.thisMonth === day.month && ctrlToday.today === day.day) ?
-                            `${calendarStyle.todaySignal} ${calendarStyle.calendarLists}` :
-                            `${calendarStyle.calendarLists}`
-                    }>
-                        <p>
-                            {day.signalPrevNextMonth && <span>{day.month}/</span>}{day.day}
-                        </p>
-                        <p>{day.dayDate}</p>
-                        {day.signalPrevNextMonth ? null :
-                            <>
-                                {desktopView ?
-                                    <Todo todoID={`${day.year}/${day.month}/${day.day}`} /> :
-                                    <div className={`${todoStyle.todoView}`}>
-                                        <TodoCtrlOpenBtn />
-                                        <div className={`${todoStyle.todoCtrlElm}`}>
-                                            <TodoCtrlClosedBtn />
-                                            <p style={{ 'fontWeight': 'bold' }}>{day.month}/{day.day}（{day.dayDate}）</p>
-                                            <Todo todoID={`${day.year}/${day.month}/${day.day}`} />
-                                        </div>
-                                        <TodoList todoID={`${day.year}/${day.month}/${day.day}`} />
-                                    </div>
-                                }
-                            </>
-                        }
-                    </li>
-                ))}
+            <ul className={calendarStyle.calendar}
+                // Reactにおけるイベントハンドラでは、イベントオブジェクト（SyntheticEvent）が自動的に渡されるので以下の書き方でOK （handleSwipeCancel にわざわざ引数を指定しなくても良い）
+                onTouchMove={handleSwipeCancel}
+            >
+                <DaydateList days={days} />
+                <DaysList days={days} />
             </ul>
         </section>
     );

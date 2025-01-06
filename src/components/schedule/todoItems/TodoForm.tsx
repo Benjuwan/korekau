@@ -44,7 +44,7 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
     }
 
     return (
-        <form className={todoStyle.form}
+        <form className={todoStyle.todoForm}
             onSubmit={(formElm: ChangeEvent<HTMLFormElement>) => {
                 formElm.preventDefault();
                 if (!todoItems.edit) {
