@@ -21,9 +21,9 @@ export const useRegiTodoItem = () => {
         }
 
         if (shallowCopyTodoItems.todoContent.length > 0) {
-            setTodoMemo((_prevTodoMemo) => [...todoMemo, newTodoList]);
+            setTodoMemo([...todoMemo, newTodoList]);
             /* ---------------- localStorage 関連の処理（登録）---------------- */
-            setLocalstorage((_prevLocalStorage) => [...todoMemo, newTodoList]);
+            setLocalstorage([...todoMemo, newTodoList]);
             localStorage.setItem(localstorageLabel, JSON.stringify([...todoMemo, newTodoList]));
         }
     }

@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid';
-
 import styled from "styled-components";
 import { ChangeEvent, memo, useState } from "react";
 import { CompareItemsType } from "../ts/compareItems";
@@ -35,14 +34,14 @@ export const CompareForm = memo(({ props }: { props: CompareFormType }) => {
             uuid: uuidv4(), // key に渡すための固有の識別子を生成
             result: result
         }
-        setCompareItems((_prevCompareItems) => [...compareItems, newCompareItem]);
+        setCompareItems([...compareItems, newCompareItem]);
     }
 
     return (
         <CompareFormElm action="" onSubmit={(formElm: ChangeEvent<HTMLFormElement>) => {
             formElm.preventDefault();
             entryCompareItem();
-            setCompareItem((_prevCompareItem) => initCompareItem);
+            setCompareItem(initCompareItem);
         }}>
             <label htmlFor="amount">
                 <span>容量・個数</span>

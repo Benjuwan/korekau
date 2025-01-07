@@ -13,7 +13,7 @@ export const TrashDateListsAllReset = memo(() => {
         const result: boolean = confirm('設定中のゴミ出し日をリセットしてもよろしいですか？');
         if (result) {
             localStorage.removeItem(localstorageLabelTrashDate);
-            setLocalstorage((_prevLocalstorage) => []);
+            setLocalstorage([]);
             alert('設定中のゴミ出し日をリセットしました');
             location.reload();
         }

@@ -18,10 +18,10 @@ export const useUpdateKorekauItems = () => {
         const exceptRemoveKorekauItem: korekauItemsType[] = [...korekauLists].filter(todoItem => todoItem.uuid !== updateKorekauItem.uuid); // 今回更新（削除）対象の korekauItem 以外を返す
 
         if (updateKorekauItem.itemName.length > 0) {
-            setKorekauLists((_prevKorekauLists) => [...exceptRemoveKorekauItem, updateKorekauItem]);
+            setKorekauLists([...exceptRemoveKorekauItem, updateKorekauItem]);
             /* ---------------- localStorage 関連の処理（更新）---------------- */
             checkJSONByteSize(JSON.stringify([...exceptRemoveKorekauItem, updateKorekauItem])); // localStorage のストレージ上限チェック
-            setLocalstorage((_prevLocalStorage) => [...exceptRemoveKorekauItem, updateKorekauItem]);
+            setLocalstorage([...exceptRemoveKorekauItem, updateKorekauItem]);
             localStorage.setItem(localstorageLabelKorekauItems, JSON.stringify([...exceptRemoveKorekauItem, updateKorekauItem]));
         }
     }

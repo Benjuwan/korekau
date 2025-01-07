@@ -5,7 +5,7 @@ export const Footer = memo(() => {
     const [currYear, setCurrYear] = useState<number>(0);
     useEffect(() => {
         const currYear: number = new Date().getFullYear();
-        setCurrYear((_prevCurryear) => currYear);
+        setCurrYear(currYear);
     }, []);
 
     return (

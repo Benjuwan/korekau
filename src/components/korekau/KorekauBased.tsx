@@ -26,8 +26,9 @@ export const KorekauBased = memo(() => {
         const getLocalStorageItems: string | null = localStorage.getItem(localstorageLabelKorekauItems);
         if (getLocalStorageItems !== null) {
             const SaveLocalStorageDateItems: korekauItemsType[] = JSON.parse(getLocalStorageItems);
-            setKorekauLists((_prevKorekauLists) => [...SaveLocalStorageDateItems]);
+            setKorekauLists([...SaveLocalStorageDateItems]);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

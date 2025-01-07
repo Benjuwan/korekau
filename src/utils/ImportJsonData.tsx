@@ -25,10 +25,10 @@ export const ImportJsonData = memo(() => {
         reader.onload = () => {
             const inputKorekauItemsJsonData: korekauItemsType[] = JSON.parse(reader.result as string);
             const newKorekauItems: korekauItemsType[] = [...korekauLists, ...inputKorekauItemsJsonData];
-            setKorekauLists((_prevKorekauLists) => newKorekauItems);
+            setKorekauLists(newKorekauItems);
             /* ---------------- localStorage 関連の処理（登録）---------------- */
             checkJSONByteSize(JSON.stringify(newKorekauItems)); // localStorage のストレージ上限チェック
-            setLocalstorage((_prevLocalstorage) => newKorekauItems);
+            setLocalstorage(newKorekauItems);
             localStorage.setItem(localstorageLabelKorekauItems, JSON.stringify(newKorekauItems));
             location.reload();
         };

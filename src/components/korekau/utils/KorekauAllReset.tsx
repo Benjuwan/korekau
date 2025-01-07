@@ -13,7 +13,7 @@ export const KorekauAllReset = memo(() => {
         const result: boolean = confirm('リストを全削除してもよろしいですか？');
         if (result) {
             localStorage.removeItem(localstorageLabelKorekauItems);
-            setLocalstorage((_prevLocalstorage) => []);
+            setLocalstorage([]);
             alert('リストを全削除しました');
             location.reload();
         }

@@ -24,7 +24,8 @@ export const KorekauItems = memo(({ category }: { category: string }) => {
             if (!aheadItemPriority && behindItemPriority) return 1; // 比較関数が正の値を返した場合、bはaの前に来る
             return 0; // 比較関数が0を返した場合、aとbの順序は変わらない
         });
-        setFilteredItems((_prevFilteredItems) => filtered);
+        setFilteredItems(filtered);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [korekauLists]);
 
     return (

@@ -1,7 +1,11 @@
-import { memo, useMemo } from "react";
-import calendarStyle from "./css/calendarStyle.module.css";
+import { memo, useEffect, useMemo } from "react";
 import todoStyle from "../todoItems/css/todoStyle.module.css";
+import calendarStyle from "./css/calendarStyle.module.css";
+import { useAtom } from "jotai";
+import { todoMemoAtom } from "../../../ts/calendar-atom";
 import { calendarItemType } from "./ts/calendarItemType";
+import { todoItemType } from "../todoItems/ts/todoItemType";
+import { localstorageLabelName } from "../../../ts/calendar-localstorageLabel";
 import { TodoForm } from "../todoItems/TodoForm";
 import { TodoList } from "../todoItems/TodoList";
 import { TodoCtrlClosedBtn } from "../todoItems/TodoCtrlClosedBtn";
@@ -20,6 +24,21 @@ export const DaysList = memo(({ days }: { days: calendarItemType[] }) => {
             thisMonth: new Date().getMonth() + 1,
             today: new Date().getDate()
         }
+    }, []);
+
+    const [, setTodoMemo] = useAtom(todoMemoAtom);
+
+    const localstorageLabel = localstorageLabelName;
+
+    useEffect(() => {
+        const getLocalStorageItems: string | null = localStorage.getItem(localstorageLabel);
+        if (getLocalStorageItems !== null) {
+            const SaveLocalStorageDateItems: todoItemType[] = JSON.parse(getLocalStorageItems);
+            setTodoMemo([...SaveLocalStorageDateItems]);
+        } else {
+            setTodoMemo([]); // 前月や次月に移動するたびに ToDo メモを初期化
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

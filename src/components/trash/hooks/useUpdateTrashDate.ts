@@ -19,13 +19,13 @@ export const useUpdateTrashDate = () => {
         // shallowCopy.splice(index, 1, updatetrashDateLists);
 
         if (updatetrashDateLists.trashDate.length > 0) {
-            // setTrashDateLists((_prevtrashDateLists) => shallowCopy);
-            setTrashDateLists((_prevtrashDateLists) => [...exceptRemoveTrashDataItems, updatetrashDateLists]);
+            // setTrashDateLists(shallowCopy);
+            setTrashDateLists([...exceptRemoveTrashDataItems, updatetrashDateLists]);
 
             /* ---------------- localStorage 関連の処理（更新）---------------- */
-            // setLocalstorage((_prevLocalStorage) => shallowCopy);
+            // setLocalstorage(shallowCopy);
             // localStorage.setItem(localstorageLabelTrashDate, JSON.stringify([...shallowCopy]));
-            setLocalstorage((_prevLocalStorage) => [...exceptRemoveTrashDataItems, updatetrashDateLists]);
+            setLocalstorage([...exceptRemoveTrashDataItems, updatetrashDateLists]);
             localStorage.setItem(localstorageLabelTrashDate, JSON.stringify([...exceptRemoveTrashDataItems, updatetrashDateLists]));
         }
     }

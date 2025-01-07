@@ -31,10 +31,10 @@ export const PrevNextMonthBtns: FC<btnsPropsType> = (props) => {
 
     const nextCalendarView = () => {
         if (ctrlMonth === 12) {
-            setCtrlYear((_prevCtrlYear) => ctrlYear + 1);
-            setCtrlMonth((_prevCtrlMonth) => 1);
+            setCtrlYear(ctrlYear + 1);
+            setCtrlMonth(1);
         } else {
-            setCtrlMonth((_prevCtrlMonth) => ctrlMonth + 1);
+            setCtrlMonth(ctrlMonth + 1);
         }
         /* ---------------- localStorage 関連の処理（登録）---------------- */
         localStorage.setItem(localstorageLabel, JSON.stringify([...localstorageData]));
@@ -44,10 +44,10 @@ export const PrevNextMonthBtns: FC<btnsPropsType> = (props) => {
 
     const prevCalendarView = () => {
         if (ctrlMonth === 1) {
-            setCtrlYear((_prevCtrlYear) => ctrlYear - 1);
-            setCtrlMonth((_prevCtrlMonth) => 12);
+            setCtrlYear(ctrlYear - 1);
+            setCtrlMonth(12);
         } else {
-            setCtrlMonth((_prevCtrlMonth) => ctrlMonth - 1);
+            setCtrlMonth(ctrlMonth - 1);
         }
         /* ---------------- localStorage 関連の処理（登録）---------------- */
         localStorage.setItem(localstorageLabel, JSON.stringify([...localstorageData]));

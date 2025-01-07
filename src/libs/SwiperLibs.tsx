@@ -52,6 +52,8 @@ export const SwiperLibs = memo(() => {
         swiperPagination.appendChild(swiperPaginationChildren);
 
         if (window.matchMedia("(min-width: 960px)").matches) setDesktopView(true);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
