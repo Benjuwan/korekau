@@ -14,17 +14,17 @@ export const useDeleteTrashDate = () => {
 
     const deleteTrashDate: (trashDateUuid: string) => void = (trashDateUuid: string) => {
         const exceptRemoveTrashDataItems: trashType[] = [...trashDateLists].filter(trashDataItem => trashDataItem.uuid !== trashDateUuid);
-        setTrashDateLists((_prevTrashDateLists) => exceptRemoveTrashDataItems);
+        setTrashDateLists(exceptRemoveTrashDataItems);
         targetElsRemoveClass('editerView', 'OnView');
 
         /* ---------------- localStorage 関連の処理（更新）---------------- */
         if (trashDateLists.length <= 1) {
             localStorage.removeItem(localstorageLabelTrashDate);
-            setLocalstorage((_prevLocalstorage) => []);
+            setLocalstorage([]);
             return;
         }
 
-        setLocalstorage((_prevLocalStorage) => exceptRemoveTrashDataItems);
+        setLocalstorage(exceptRemoveTrashDataItems);
         localStorage.setItem(localstorageLabelTrashDate, JSON.stringify([...exceptRemoveTrashDataItems]));
     }
 

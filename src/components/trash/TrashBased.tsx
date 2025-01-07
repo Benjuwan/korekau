@@ -17,8 +17,9 @@ export const TrashBased = memo(() => {
         const getLocalStorageItems: string | null = localStorage.getItem(localstorageLabelTrashDate);
         if (getLocalStorageItems !== null) {
             const SaveLocalStorageDateItems: trashType[] = JSON.parse(getLocalStorageItems);
-            setTrashDateLists((_prevTrashDateLists) => [...SaveLocalStorageDateItems]);
+            setTrashDateLists([...SaveLocalStorageDateItems]);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

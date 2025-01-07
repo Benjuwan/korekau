@@ -11,15 +11,15 @@ export const useDeleteTodoItem = () => {
 
     const deleteTodoItem: (uuid: string) => void = (uuid: string) => {
         const exceptRemoveTodoItems: todoItemType[] = [...todoMemo].filter(todoItem => todoItem.uuid !== uuid);
-        setTodoMemo((_prevTodoList) => exceptRemoveTodoItems);
+        setTodoMemo(exceptRemoveTodoItems);
         /* ---------------- localStorage 関連の処理（更新）---------------- */
         if (todoMemo.length <= 1) {
             localStorage.removeItem(localstorageLabel);
-            setLocalstorage((_prevLocalstorage) => []);
+            setLocalstorage([]);
             return;
         }
 
-        setLocalstorage((_prevLocalStorage) => exceptRemoveTodoItems);
+        setLocalstorage(exceptRemoveTodoItems);
         localStorage.setItem(localstorageLabel, JSON.stringify([...exceptRemoveTodoItems]));
     }
 

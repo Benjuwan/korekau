@@ -16,7 +16,7 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
             ...korekauItem,
             itemImg: value
         }
-        setKorekauItem((_prevKorekauItem) => newKorekauItem);
+        setKorekauItem(newKorekauItem);
     }
 
     const [korekauLists] = useAtom(korekauAtom);

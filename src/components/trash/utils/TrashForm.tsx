@@ -32,7 +32,7 @@ export const TrashForm = memo(({ trashDateList }: { trashDateList?: trashType })
                     ) :
                     regiTrashDate(trashData)
             }
-            setTrashData((_prevTrashData) => initTrashData);
+            setTrashData(initTrashData);
         }}>
             <div className="formBlock">
                 <label className="formLabel">曜日</label>

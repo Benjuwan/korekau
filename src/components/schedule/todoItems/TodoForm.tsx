@@ -39,7 +39,7 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
     }
 
     const resetStates: () => void = () => {
-        setTodoItems((_prevTodoItems) => initTodoItems);
+        setTodoItems(initTodoItems);
         setTimeout(() => scrollTop()); // buttonのクリックイベントでスクロールトップしないので回避策として疑似的な遅延処理
     }
 

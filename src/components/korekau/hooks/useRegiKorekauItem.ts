@@ -22,10 +22,10 @@ export const useRegiKorekauItem = () => {
         }
 
         if (shallowCopyKorekauItems.itemName.length > 0) {
-            setKorekauLists((_prevKorekauLists) => [...korekauLists, newKorekauItems]);
+            setKorekauLists([...korekauLists, newKorekauItems]);
             /* ---------------- localStorage 関連の処理（登録）---------------- */
             checkJSONByteSize(JSON.stringify([...korekauLists, newKorekauItems])); // localStorage のストレージ上限チェック
-            setLocalstorage((_prevLocalStorage) => [...korekauLists, newKorekauItems]);
+            setLocalstorage([...korekauLists, newKorekauItems]);
             localStorage.setItem(localstorageLabelKorekauItems, JSON.stringify([...korekauLists, newKorekauItems]));
         }
     }

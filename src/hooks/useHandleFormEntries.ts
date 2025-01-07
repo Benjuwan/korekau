@@ -35,7 +35,7 @@ export const useHandleFormEntries = () => {
             ...targetFormEntries,
             [type]: value
         }
-        setEntries((_prevEntries) => newEntries);
+        setEntries(newEntries);
     }
 
     /* 買うものリスト機能において別途追加する関数 */

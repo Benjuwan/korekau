@@ -11,7 +11,7 @@ export const ExportJsonData = memo(() => {
         const fileData: string = JSON.stringify(korekauLists);
         const blob: Blob = new Blob([fileData], { type: 'application/json' });
         const url: string = URL.createObjectURL(blob);
-        setLink((_prevLink) => url);
+        setLink(url);
     }
 
     return (

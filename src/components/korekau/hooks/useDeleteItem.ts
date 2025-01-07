@@ -16,15 +16,15 @@ export const useDeleteItem = () => {
         const targetIndex: number = getTargetIndexForCtrlItems(korekauItem);
         const shallowCopy: korekauItemsType[] = [...korekauLists];
         shallowCopy.splice(targetIndex, 1);
-        setKorekauLists((_prevKorekauLists) => shallowCopy);
+        setKorekauLists(shallowCopy);
         /* ---------------- localStorage 関連の処理（更新）---------------- */
         if (korekauLists.length <= 1) {
             localStorage.removeItem(localstorageLabelKorekauItems);
-            setLocalstorage((_prevLocalstorage) => []);
+            setLocalstorage([]);
             return;
         }
 
-        setLocalstorage((_prevLocalStorage) => shallowCopy);
+        setLocalstorage(shallowCopy);
         localStorage.setItem(localstorageLabelKorekauItems, JSON.stringify([...shallowCopy]));
     }
 

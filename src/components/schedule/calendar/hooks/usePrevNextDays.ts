@@ -2,13 +2,13 @@ import { calendarItemType } from "../ts/calendarItemType";
 import { useGetCalndarItem } from "./useGetCalendarItem";
 
 export const usePrevNextDays = () => {
+    const { getCalendarItem } = useGetCalndarItem();
+
     const prevNextDays = (
         year: number,
         month: number,
         dayDateBox: calendarItemType[],
     ) => {
-        const { getCalendarItem } = useGetCalndarItem();
-
         const targetPrevDays: calendarItemType[] = [];
         const targetNextDays: calendarItemType[] = [];
         [...dayDateBox].forEach((day, i) => {

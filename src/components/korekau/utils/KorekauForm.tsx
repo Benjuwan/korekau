@@ -39,7 +39,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                 regiKorekauItem(korekauItem),
                 korekauFormClosed()
             )
-        setKorekauItem((_prevKorekauitem) => initKorekauItem);
+        setKorekauItem(initKorekauItem);
         setTimeout(() => scrollTop()); // input[type="submit"]のクリックイベントでスクロールトップしないので回避策として疑似的な遅延処理
     }
 

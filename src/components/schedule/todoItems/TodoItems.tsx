@@ -37,7 +37,7 @@ export const TodoItems = ({ todoItem }: { todoItem: todoItemType }) => {
 
         const exceptUpdateTodoMemos: todoItemType[] = [...todoMemo].filter(todoMemoItem => todoMemoItem.uuid !== todoItem.uuid);
 
-        setTodoMemo((_prevTodoList) => [...exceptUpdateTodoMemos, updateTodoList]);
+        setTodoMemo([...exceptUpdateTodoMemos, updateTodoList]);
     }
 
     return (

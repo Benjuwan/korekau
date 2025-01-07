@@ -12,7 +12,7 @@ export const FilteredTrashDayList = memo(() => {
 
     useEffect(() => {
         const theDayofToday: number = new Date().getDay();
-        let isSat: boolean = theDayofToday + 1 === 7;
+        const isSat: boolean = theDayofToday + 1 === 7;
 
         const filteredLists: trashType[] = [...trashDateLists].filter(trashDateList => {
             if (isSat) {
@@ -23,7 +23,7 @@ export const FilteredTrashDayList = memo(() => {
             }
         });
 
-        setFilteredTrashDayLists((_prevFilteredTrashDayLists) => filteredLists);
+        setFilteredTrashDayLists(filteredLists);
     }, [trashDateLists]);
 
     return (

@@ -16,7 +16,7 @@ export const TrashDateLists = memo(() => {
         const sortedTrashDate: trashType[] = trashDateLists.sort((aheadList, behindList) => {
             return aheadList.day - behindList.day;
         });
-        setTrashDateSortedLists((_prevTrashDateSortedLists) => sortedTrashDate);
+        setTrashDateSortedLists(sortedTrashDate);
     }, [trashDateLists]);
 
     return (
