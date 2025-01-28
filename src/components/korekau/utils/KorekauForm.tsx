@@ -17,7 +17,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
         itemCategory: KorekauItemList ? KorekauItemList.itemCategory : 'food_drink',
         itemPriority: KorekauItemList ? KorekauItemList.itemPriority : false,
         itemMemo: '',
-        itemImg: ''
+        itemImg: KorekauItemList ? KorekauItemList.itemImg : ''
     }
     const [korekauItem, setKorekauItem] = useState<korekauItemsType>(initKorekauItem);
 

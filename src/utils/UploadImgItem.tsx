@@ -14,7 +14,7 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
     const handleItemImgSrc: (value: string) => void = (value: string) => {
         const newKorekauItem: korekauItemsType = {
             ...korekauItem,
-            itemImg: value
+            itemImg: korekauItem ? korekauItem.itemImg : value
         }
         setKorekauItem(newKorekauItem);
     }
