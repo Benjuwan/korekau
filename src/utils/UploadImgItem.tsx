@@ -1,4 +1,4 @@
-import { ChangeEvent, memo, useEffect } from "react";
+import { memo, SyntheticEvent, useEffect } from "react";
 import { korekauItemsType } from "../components/korekau/ts/korekau";
 import { useAtom } from "jotai";
 import { korekauAtom } from "../ts/korekau-atom";
@@ -14,7 +14,7 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
     const handleItemImgSrc: (value: string) => void = (value: string) => {
         const newKorekauItem: korekauItemsType = {
             ...korekauItem,
-            itemImg: korekauItem ? korekauItem.itemImg : value
+            itemImg: value
         }
         setKorekauItem(newKorekauItem);
     }
@@ -23,7 +23,9 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
 
     const fileAccept: string[] = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp']; // input[type="file"] で指定可能な mineType
 
-    const uploadImgView: (fileElm: HTMLInputElement) => void = (fileElm: HTMLInputElement) => {
+    const uploadImgView: (fileElmEve: SyntheticEvent<HTMLInputElement>) => void = (fileElmEve: SyntheticEvent<HTMLInputElement>) => {
+        const fileElm: HTMLInputElement = fileElmEve.currentTarget;
+
         // 画像アップロードの取り消しを行った場合は画像を画面から削除  
         if (fileElm.files?.length === 0) {
             handleItemImgSrc('');
@@ -78,7 +80,7 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
             <input
                 type="file"
                 accept={`${[...fileAccept]}`}
-                onChange={(fileElm: ChangeEvent<HTMLInputElement>) => uploadImgView(fileElm.currentTarget)}
+                onChange={uploadImgView}
                 id="itemImgSrc"
             />
             {korekauItem.itemImg && <img src={korekauItem.itemImg} />}

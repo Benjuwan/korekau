@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ChangeEvent, memo, useState } from "react";
+import { ChangeEvent, memo, useRef, useState } from "react";
 import { trashType } from "../ts/trash";
 import { useRegiTrashDate } from "../hooks/useRegiTrashDate";
 import { useUpdateTrashDate } from "../hooks/useUpdateTrashDate";
@@ -8,9 +8,12 @@ import { useTargetElsRemoveClass } from "../../../hooks/useTargetElsRemoveClass"
 import { useHandleFormEntries } from "../../../hooks/useHandleFormEntries";
 
 export const TrashForm = memo(({ trashDateList }: { trashDateList?: trashType }) => {
+    const selectRef = useRef<HTMLSelectElement | null>(null);
+    const dayValue: number = selectRef.current !== null ? parseInt(selectRef.current?.value) : 1;
+
     const initTrashData: trashType = {
         uuid: trashDateList ? trashDateList.uuid : '001',
-        day: trashDateList ? trashDateList.day : 1,
+        day: trashDateList ? trashDateList.day : dayValue,
         trashDate: trashDateList ? trashDateList.trashDate : ''
     }
     const [trashData, setTrashData] = useState<trashType>(initTrashData);
@@ -36,7 +39,7 @@ export const TrashForm = memo(({ trashDateList }: { trashDateList?: trashType })
         }}>
             <div className="formBlock">
                 <label className="formLabel">曜日</label>
-                <select name="daySelect" id="day" onChange={(e: ChangeEvent<HTMLSelectElement>) => handleFormEntries<trashType>(e, trashData, setTrashData)}>
+                <select name="daySelect" id="day" ref={selectRef} onChange={(e: ChangeEvent<HTMLSelectElement>) => handleFormEntries<trashType>(e, trashData, setTrashData)}>
                     <option value="1">（月）</option>
                     <option value="2">（火）</option>
                     <option value="3">（水）</option>
