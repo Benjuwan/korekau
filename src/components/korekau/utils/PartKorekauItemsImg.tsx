@@ -6,7 +6,7 @@ export const PartKorekauItemsImg = memo(({ korekauList }: { korekauList: korekau
     return (
         <KorekauDetails>
             <summary><span className="material-symbols-outlined">mms</span>参照画像</summary>
-            <figure className="itemThumbnail"><img src={korekauList.itemImg} alt={`${korekauList.itemName}の画像`} /></figure>
+            <figure className="itemThumbnail"><img src={korekauList.itemImg} alt={`${korekauList.itemName}の参照画像`} /></figure>
         </KorekauDetails>
     );
 });
