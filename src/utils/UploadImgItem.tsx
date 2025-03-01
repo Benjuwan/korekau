@@ -1,17 +1,33 @@
-import { memo, SyntheticEvent, useEffect } from "react";
+import { memo, SyntheticEvent, useMemo, useRef, useState } from "react";
 import { korekauItemsType } from "../components/korekau/ts/korekau";
-import { useAtom } from "jotai";
-import { korekauAtom } from "../ts/korekau-atom";
 
 type UploadImgItemType = {
     korekauItem: korekauItemsType;
     setKorekauItem: React.Dispatch<React.SetStateAction<korekauItemsType>>;
+    KorekauItemList?: korekauItemsType;
 }
 
 export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
-    const { korekauItem, setKorekauItem } = props;
+    const { korekauItem, setKorekauItem, KorekauItemList } = props;
+
+    const [resetImgSrc, setResetImgSrc] = useState<boolean>(false);
+
+    const itemImgSrc: string | undefined = useMemo(() => {
+        if (typeof KorekauItemList !== 'undefined' && korekauItem.itemImg?.length === 0) {
+            return KorekauItemList.itemImg;
+        }
+        return korekauItem.itemImg;
+    }, [korekauItem, KorekauItemList]);
+
+    const inputImgSrcRef = useRef<HTMLInputElement | null>(null);
+    if (inputImgSrcRef.current !== null) {
+        inputImgSrcRef.current.value = ''; // input[type="file"] の中身をリセット（初期化）
+    }
+
+    const fileAccept: string[] = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp']; // input[type="file"] で指定可能な mineType
 
     const handleItemImgSrc: (value: string) => void = (value: string) => {
+        setResetImgSrc(false);
         const newKorekauItem: korekauItemsType = {
             ...korekauItem,
             itemImg: value
@@ -19,9 +35,14 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
         setKorekauItem(newKorekauItem);
     }
 
-    const [korekauLists] = useAtom(korekauAtom);
-
-    const fileAccept: string[] = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp']; // input[type="file"] で指定可能な mineType
+    const resetItemImgSrc: () => void = () => {
+        setResetImgSrc(true);
+        const deleteImgSrcKorekauItem: korekauItemsType = {
+            ...korekauItem,
+            itemImg: ''
+        }
+        setKorekauItem(deleteImgSrcKorekauItem);
+    }
 
     const uploadImgView: (fileElmEve: SyntheticEvent<HTMLInputElement>) => void = (fileElmEve: SyntheticEvent<HTMLInputElement>) => {
         const fileElm: HTMLInputElement = fileElmEve.currentTarget;
@@ -42,7 +63,6 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
         }
 
         const files = fileElm.files ?? fileElm.files;
-
         // FileList のままだと forEach が使えないので配列に変換する
         const fileArray: File[] | null = Array.from(files as FileList);
         fileArray.forEach((file) => {
@@ -60,30 +80,21 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
         });
     };
 
-    /* input[type="file"] の中身をリセット（初期化）*/
-    const resetInputTypeFileData: () => void = () => {
-        const inputFile: HTMLInputElement | null = document.querySelector('.korekauSection input[type="file"]');
-        const fileElmFileProp: FileList | null | undefined = inputFile?.files;
-
-        if (
-            (fileElmFileProp && fileElmFileProp.length > 0) &&
-            inputFile?.value
-        ) {
-            inputFile.value = ''; // input[type="file"] の中身をリセット（初期化）
-        }
-    }
-
-    useEffect(() => resetInputTypeFileData(), [korekauLists]);
-
     return (
         <>
             <input
                 type="file"
+                ref={inputImgSrcRef}
                 accept={`${[...fileAccept]}`}
                 onChange={uploadImgView}
                 id="itemImgSrc"
             />
-            {korekauItem.itemImg && <img src={korekauItem.itemImg} />}
+            {(itemImgSrc && !resetImgSrc) &&
+                <>
+                    <button type="button" onClick={resetItemImgSrc}>参照画像をリストから削除</button>
+                    <img src={itemImgSrc} alt={`${korekauItem.itemName}の参照画像`} />
+                </>
+            }
         </>
     );
 });

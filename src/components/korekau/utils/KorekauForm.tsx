@@ -17,7 +17,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
         itemCategory: KorekauItemList ? KorekauItemList.itemCategory : 'food_drink',
         itemPriority: KorekauItemList ? KorekauItemList.itemPriority : false,
         itemMemo: '',
-        itemImg: KorekauItemList ? KorekauItemList.itemImg : ''
+        itemImg: ''
     }
     const [korekauItem, setKorekauItem] = useState<korekauItemsType>(initKorekauItem);
 
@@ -71,7 +71,8 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                     <label className="formLabel">商品画像（※1MB以下）</label>
                     <UploadImgItem props={{
                         korekauItem: korekauItem,
-                        setKorekauItem: setKorekauItem
+                        setKorekauItem: setKorekauItem,
+                        KorekauItemList: KorekauItemList
                     }} />
                 </div>
             </div>
@@ -113,7 +114,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
             <div className={KorekauItemList ? 'formFlexBox' : undefined}>
                 <input type="submit"
                     value={KorekauItemList ? '再登録' : '登録'}
-                    disabled={(korekauItem.itemName.length <= 0 && Number(korekauItem.itemNumber) <= 0)} />
+                    disabled={korekauItem.itemName.length === 0 || Number(korekauItem.itemNumber) === 0} />
                 {KorekauItemList &&
                     <input type="button" className="editerCloseBtn"
                         value={'戻る'}
