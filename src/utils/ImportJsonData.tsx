@@ -38,7 +38,7 @@ export const ImportJsonData = memo(() => {
 
     return (
         <label htmlFor="ImportJsonDate">
-            <span className="dataLabel">買うものリストの読み込み</span>
+            <span className="dataLabel block border-l border-[.25rem] border-[#f0b20e] pl-[.5em] mb-[.5em]">買うものリストの読み込み</span>
             <input
                 type="file"
                 accept={fileAccept}
