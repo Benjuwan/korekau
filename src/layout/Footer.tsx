@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { memo, useEffect, useState } from "react";
 
 export const Footer = memo(() => {
@@ -9,23 +8,8 @@ export const Footer = memo(() => {
     }, []);
 
     return (
-        <FooterElm>
-            <p>&copy; {currYear} KoreKau benjuwan</p>
-        </FooterElm>
+        <footer className="text-center leading-[2]">
+            <p className="text-[0.75rem]">&copy; {currYear} KoreKau benjuwan</p>
+        </footer>
     );
 });
-
-const FooterElm = styled.footer`
-text-align: center;
-line-height: 2;
-
-    & p {
-        font-size: 1.2rem;
-    }
-
-@media screen and (min-width: 1025px) {
-    & p {
-        font-size: 12px;
-    }
-}
-`

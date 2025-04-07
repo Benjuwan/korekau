@@ -5,4 +5,4 @@ export type todoItemType = {
     startTime?: string;
     finishTime?: string;
     edit: boolean;
-}
+};

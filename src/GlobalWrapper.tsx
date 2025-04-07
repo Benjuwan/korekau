@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { memo } from "react";
 import { Header } from "./layout/Header";
 import { Footer } from "./layout/Footer";
@@ -8,19 +7,10 @@ export const GlobalWrapper = memo(() => {
     return (
         <>
             <Header />
-            <GlobalWrapperElm>
+            <main className="w-[clamp(1.875rem,100%,3.75rem)] mt-[2.5em] mx-auto lg:w-[clamp(300px,100%,960px)]">
                 <SwiperLibs />
-            </GlobalWrapperElm>
+            </main>
             <Footer />
         </>
     );
 });
-
-const GlobalWrapperElm = styled.main`
-width: clamp(30rem, 100%, 60rem);
-margin: 2.5em auto 0;
-
-@media screen and (min-width: 1025px) {
-    width: clamp(300px, 100%, 960px);
-}
-`

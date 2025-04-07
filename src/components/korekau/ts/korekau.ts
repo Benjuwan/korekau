@@ -8,4 +8,4 @@ export type korekauItemsType = {
     itemPriority: boolean;
     itemMemo?: string;
     itemImg?: string;
-}
+};

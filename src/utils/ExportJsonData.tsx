@@ -17,7 +17,7 @@ export const ExportJsonData = memo(() => {
     return (
         <div className="ExportJsonData">
             <p className="dataLabel">買うものリストの書き出し</p>
-            <a className={korekauLists.length > 0 ? 'abled' : 'disabled'} href={link} download={'korekauitems.json'} onClick={outputJsonData}>リストを書き出す</a>
+            <a className={`block text-center w-full py-[.25em] px-[.5em] no-underline text-white bg-[#f0b20e] border border-transparent rounded disabled:pointer-events-none disabled:bg-[#333] not-disabled:hover:text-[#f0b20e] not-disabled:hover:border-[#f0b20e] not-disabled:hover:bg-white ${korekauLists.length > 0 ? 'abled' : 'disabled'}`} href={link} download={'korekauitems.json'} onClick={outputJsonData}>リストを書き出す</a>
         </div>
     );
 });

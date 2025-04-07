@@ -3,4 +3,4 @@ export type CompareItemsType = {
     amount: string | number;
     price: string | number;
     result: string;
-}
+};
