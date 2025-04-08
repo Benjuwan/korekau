@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { memo } from "react";
 import { korekauItemsType } from "../ts/korekau";
 import { KorekauForm } from "./KorekauForm";
@@ -8,59 +7,21 @@ type itemEditerType = {
     classNameStr: string;
     category: string;
     korekauList: korekauItemsType;
-}
+};
 
 export const KorekauItemEditer = memo(({ props }: { props: itemEditerType }) => {
     const { classNameStr, category, korekauList } = props;
 
     return (
-        <KorekauItemEditerElm className={classNameStr}>
-            <div className="itembox flexBox">
+        <div className={classNameStr}>
+            <div className="p-[1em] shadow-[0_0_8px_rgba(0,0,0,.25)_inset] bg-white mb-[1em] rounded flex flex-row flex-wrap items-center gap-[1em]">
                 <KorekauItemIcons category={category} />
-                <p>{korekauList.itemName}<span>×{korekauList.itemNumber}</span>の内容を編集</p>
+                <p className="w-[80%] wrap-anywhere">{korekauList.itemName}<span className="mx-[1em] text-[#59b835]">×{korekauList.itemNumber}</span>の内容を編集</p>
                 {korekauList.itemMemo &&
-                    <p className="korekauMemo">【注釈メモ】<br />{korekauList.itemMemo}</p>
+                    <p className="korekauMemo w-full text-[0.875rem] leading-[1.8]">【注釈メモ】<br />{korekauList.itemMemo}</p>
                 }
             </div>
             <KorekauForm KorekauItemList={korekauList} />
-        </KorekauItemEditerElm>
+        </div>
     );
 });
-
-const KorekauItemEditerElm = styled.div`
-    & .itembox {
-        padding: 1em;
-        box-shadow: 0 0 8px rgba(0, 0, 0, .25) inset;
-        background-color: #fff;
-        margin-bottom: 1em;
-        border-radius: .4rem;
-
-        & p {
-            width: 80%;
-            overflow-wrap: anywhere; // 区切りがないとブラウザは一文として処理するので改行指定のスタイルを指定しておく
-
-            &.korekauMemo {
-                width: 100%;
-                font-size: 1.4rem;
-                line-height: 1.8;
-            }
-
-            & span {
-                margin: 0 1em;
-                color: #59b835;
-            }
-        }
-    }
-
-@media screen and (min-width: 1025px) {
-    border-radius: 4px;
-
-    & .itembox {
-        & p {
-            &.korekauMemo {
-                font-size: 14px;
-            }
-        }
-    }
-}
-`;

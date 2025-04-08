@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { memo } from "react";
 import { useAtom } from "jotai";
 import { trashDateLocalStorageAtom } from "../../../ts/trash-atom";
@@ -19,25 +18,5 @@ export const TrashDateListsAllReset = memo(() => {
         }
     }
 
-    return <TrashDateListsAllResetBtn type="button" onClick={handleAllReset}>設定中のゴミ出し日をリセット</TrashDateListsAllResetBtn>
+    return <button type="button" className="w-fit bg-[#cc3226] border border-transparent text-white cursor-pointer px-[1em] mb-[2.5em] rounded leading-[2.75rem] text-[0.875rem] transition duration-[.25s] hover:bg-transparent hover:text-[#cc3226] hover:border-[#cc3226]" onClick={handleAllReset}>設定中のゴミ出し日をリセット</button>
 });
-
-const TrashDateListsAllResetBtn = styled.button`
-appearance: none;
-width: fit-content;
-background-color: #cc3226;
-border: 1px solid transparent;
-color: #fff;
-cursor: pointer;
-padding: 0 1em;
-margin-bottom: 2.5em;
-border-radius: .4rem;
-line-height: 4.4rem;
-font-size: 1.4rem;
-
-@media screen and (min-width: 1025px) {
-    border-radius: 4px;
-    line-height: 44px;
-    font-size: 14px;
-}
-`;

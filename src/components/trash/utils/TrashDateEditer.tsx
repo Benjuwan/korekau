@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { memo } from "react";
 import { trashType } from "../ts/trash";
 import { TrashForm } from "./TrashForm";
@@ -13,32 +12,11 @@ export const TrashDateEditer = memo(({ props }: { props: trashDateType }) => {
     const { classNameStr, trashDateList } = props;
 
     return (
-        <TrashDateEditerElm className={classNameStr}>
-            <div className="itembox flexBox">
+        <div className={classNameStr}>
+            <div className="p-[1em] shadow-[0_0_8px_rgba(0,0,0,.25)_inset] bg-white mb-[1em] rounded">
                 <TrashDateDetails trashDateList={trashDateList} />の内容を編集
             </div>
             <TrashForm trashDateList={trashDateList} />
-        </TrashDateEditerElm>
+        </div>
     );
 });
-
-const TrashDateEditerElm = styled.div`
-    & .itembox {
-        padding: 1em;
-        box-shadow: 0 0 8px rgba(0, 0, 0, .25) inset;
-        background-color: #fff;
-        margin-bottom: 1em;
-        border-radius: .4rem;
-
-        & p {
-            display: inline-block;
-            overflow-wrap: anywhere; // 区切りがないとブラウザは一文として処理するので改行指定のスタイルを指定しておく
-            line-height: 1.6;
-            margin-right: 1em;
-        }
-        
-        @media screen and (min-width: 1025px) {
-            border-radius: 4px;
-        }
-    }
-`;

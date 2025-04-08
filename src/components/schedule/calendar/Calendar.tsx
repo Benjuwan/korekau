@@ -1,5 +1,4 @@
 import { SyntheticEvent, useEffect, useState } from "react";
-import calendarStyle from "./css/calendarStyle.module.css";
 import { calendarItemType } from "./ts/calendarItemType";
 import { useAtom } from "jotai";
 import { isDesktopViewAtom, todoMemoAtom, todoMemoLocalStorageAtom } from "../../../ts/calendar-atom";
@@ -72,20 +71,19 @@ export const Calendar = () => {
     }, [ctrlMonth]);
 
     return (
-        <section className={calendarStyle.wrapper}>
-            <h2>{ctrlYear}年{ctrlMonth}月</h2>
+        <section className="w-[clamp(20rem,100%,60rem)] mb-[5em]">
+            <h2 className="text-[1.25rem] mb-[.5em]">{ctrlYear}年{ctrlMonth}月</h2>
             {todoMemo.length > 0 &&
-                <button className={calendarStyle.resetBtn} type="button" onClick={resetAllSchedule}>予定を全削除</button>
+                <button className="rounded-[.5em] text-white border border-transparent text-[0.875rem] disabled:bg-[#dadada] disabled:text-[#333] trantion duration-[.25s] not-disabled:hover:cursor-pointer not-disabled:hover:opacity-[.75] bg-[#cc3226] mb-[1em]" type="button" onClick={resetAllSchedule}>予定を全削除</button>
             }
             <PrevNextMonthBtns
-                className={calendarStyle.btns}
                 ctrlYear={ctrlYear}
                 setCtrlYear={setCtrlYear}
                 ctrlMonth={ctrlMonth}
                 setCtrlMonth={setCtrlMonth}
             />
-            <button id={calendarStyle["jumpThisMonth"]} type="button" onClick={jumpThisMonth}>今月に移動</button>
-            <ul className={calendarStyle.calendar}
+            <button id="jumpThisMonth" className="rounded-[.5em] bg-[#333] text-white border border-transparent text-[0.875rem] disabled:bg-[#dadada] disabled:text-[#333] trantion duration-[.25s] not-disabled:hover:cursor-pointer not-disabled:hover:opacity-[.75] bg-[#59b835] mt-[1.5em] mx-0 mb-[.5em]" type="button" onClick={jumpThisMonth}>今月に移動</button>
+            <ul className="grid grid-cols-[repeat(7,1fr)] place-items-center place-content-start rounded lg:rounded-[.5rem]"
                 // Reactにおけるイベントハンドラでは、イベントオブジェクト（SyntheticEvent）が自動的に渡されるので以下の書き方でOK （handleSwipeCancel にわざわざ引数を指定しなくても良い）
                 onTouchMove={handleSwipeCancel}
             >
