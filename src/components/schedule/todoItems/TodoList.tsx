@@ -12,15 +12,9 @@ export const TodoList = ({ todoID }: { todoID: string }) => {
 
     /* モーダル表示関連（ToDoの詳細表示オン・オフ）*/
     const OnViewModalWindow: (viewerParentElm: HTMLElement) => void = (viewerParentElm: HTMLElement) => {
-        const modalWindow: Element | null = viewerParentElm.querySelector(`.${todoStyle.modalWindow}`);
-        modalWindow?.classList.add(`${todoStyle.modalWindowOnView}`);
+        const modalWindow: Element | null = viewerParentElm.querySelector('.modalWindow');
+        modalWindow?.classList.add('modalWindowOnView');
     }
-
-    // .modalWindowOnView {
-    //     cursor: default;
-    //     opacity: 1;
-    //     visibility: visible;
-    // }
 
     return (
         <>
@@ -31,16 +25,16 @@ export const TodoList = ({ todoID }: { todoID: string }) => {
                             {/* yyyy/MM/dd が一致した場合 */}
                             {todoItem.todoID === todoID ?
                                 <li
-                                    className="todoItem flex flex-row flex-wrap justify-center gap-[.5em] bg-[#fafafa] p-[.25em] shadow-[0_0_8px_rgba(0,0,0,.25)_inset] rounded hover:cursor-pointer hover:text-[#59b835] not-last-of-type:mb-[1em]"
+                                    className="todoItem flex flex-row flex-wrap justify-center gap-[.5em] bg-[#fafafa] p-[.25em] shadow-[0_0_8px_rgba(0,0,0,.25)_inset] rounded hover:cursor-pointer not-last-of-type:mb-[1em]"
                                     onClick={(liElm: SyntheticEvent<HTMLLIElement>) => {
                                         OnViewModalWindow(liElm.currentTarget);
                                         scrollTop();
                                     }}>
                                     {desktopView ?
-                                        <div className={todoStyle.editTargetContent}>
-                                            <p>{todoItem.todoContent}</p>
-                                            {todoItem.startTime && <span className="border-l border-l-[#333] border-l-[.25rem] pl-[.25em]">開始時刻：{todoItem.startTime}</span>}
-                                            {todoItem.finishTime && <span className="border-l border-l-[#333] border-l-[.25rem] pl-[.25em]">終了時刻：{todoItem.finishTime}</span>}
+                                        <div className="text-left hover:text-[#59b835] p-[.5em]">
+                                            <p className="text-center mb-[.5em] font-bold">{todoItem.todoContent}</p>
+                                            {todoItem.startTime && <span className="block text-[0.625rem] mb-[.5em]">開始時刻：{todoItem.startTime}</span>}
+                                            {todoItem.finishTime && <span className="block text-[0.625rem]">終了時刻：{todoItem.finishTime}</span>}
                                         </div> :
                                         <p className="isMobileNotice text-[clamp(0.5rem,calc(100vw/32),0.625rem)]">
                                             {todoItem.todoContent.length > 8 ?
