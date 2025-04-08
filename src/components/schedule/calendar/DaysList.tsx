@@ -52,7 +52,7 @@ export const DaysList = memo(({ days }: { days: calendarItemType[] }) => {
                         today.thisYear === day.year &&
                         today.thisMonth === day.month &&
                         today.today === day.day
-                    ) ? 'bg-[#e8ffea]' : 'bg-white'} ${day.dayDateNum === 0 ? 'bg-[#f5c0c0]' : 'bg-white'} ${day.dayDateNum === 6 ? 'bg-[#c0dff5]' : 'bg-white'}`}>
+                    ) ? 'bg-[#e8ffea]' : undefined} ${day.dayDateNum === 0 ? 'bg-[#f5c0c0]' : undefined} ${day.dayDateNum === 6 ? 'bg-[#c0dff5]' : undefined}`}>
                     <p className="leading-[2] wrap-anywhere">
                         {day.signalPrevNextMonth && <span>{day.month}/</span>}{day.day}
                     </p>

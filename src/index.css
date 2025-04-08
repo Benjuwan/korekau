@@ -53,6 +53,17 @@
         font-feature-settings: 'palt';
     }
 
+    .modalWindow {
+        opacity: 0;
+        visibility: hidden;
+
+        &.modalWindowOnView {
+            cursor: default;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
     .korekauDetailsSummary {
 
         /* Chrome、Safari */

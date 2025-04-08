@@ -73,7 +73,7 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
                     type="text"
                     value={todoItems.todoContent}
                     id="todoContent"
-                    className="text-[1rem] leading-[2] w-full pl-[.25em]"
+                    className="text-[1rem] leading-[2] border border-[#919191] bg-white rounded w-full pl-[.5em]"
                     onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} />
             </label>
             <div className="md:flex md:justify-start md:gap-[1em]">
@@ -81,21 +81,21 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
                     <input
                         type="time"
                         id="startTime"
-                        className="text-[1rem] leading-[2] w-full pl-[.25em] md:w-[70%] md:ml-[.5em]"
+                        className="text-[1rem] leading-[2] border border-[#919191] bg-white rounded w-full pl-[.25em] md:w-[70%] md:ml-[.5em]"
                         value={todoItems.startTime}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} /></label>
                 <label className="block mb-[1em] text-[clamp(0.625rem,100%, 0.875rem)] block my-[1em] mx-0 md:w-full">終了時刻
                     <input
                         type="time"
                         id="finishTime"
-                        className="text-[1rem] leading-[2] w-full pl-[.25em] md:w-[70%] md:ml-[.5em]"
+                        className="text-[1rem] leading-[2] border border-[#919191] bg-white rounded w-full pl-[.25em] md:w-[70%] md:ml-[.5em]"
                         value={todoItems.finishTime}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} /></label>
             </div>
             <button
                 type="button"
                 id="regiUpdateBtn"
-                className="text-[0.875rem] leading-[1.8] w-full"
+                className="text-[0.875rem] leading-[2] py-[1em] w-full bg-[#333] text-white rounded disabled:bg-[#919191] disabled:text-[#dadada] not-disabled:cursor-pointer not-disabled:hover:opacity-[.75]"
                 disabled={todoItems.todoContent.length <= 0}
                 onClick={handleRegiUpdateAction}>{!todoItems.edit ? '登録' : '再登録'}</button>
         </form>
