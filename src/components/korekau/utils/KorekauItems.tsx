@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { memo, useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { korekauAtom } from "../../../ts/korekau-atom";
@@ -31,11 +30,11 @@ export const KorekauItems = memo(({ category }: { category: string }) => {
     return (
         <>
             {filteredItems.length > 0 &&
-                <KorekauItemLists>
-                    <ul>
-                        <li className="headingElm flexBox">
+                <section>
+                    <ul className="mb-[5em]">
+                        <li className="flex flex-row flex-nowrap items-center gap-[1em] mb-[1em]">
                             <KorekauItemIcons category={category} />
-                            <h2 className="flexBox">
+                            <h2 className="flex flex-row flex-wrap items-center gap-[1em] w-full py-[.5em] px-[1em] shadow-[0_0_16px_rgba(160,160,160,0.25)_inset] tracking-[0.25em] rounded-[3.125rem] text-[1rem]">
                                 {category === 'food_drink' && '食料品'}
                                 {category === 'utils' && '日用品'}
                                 {category === 'family' && '家族'}
@@ -44,11 +43,11 @@ export const KorekauItems = memo(({ category }: { category: string }) => {
                             </h2>
                         </li>
                         {filteredItems.map(korekauList => (
-                            <li className={korekauList.itemPriority ? 'priority korekauList flexBox' : 'korekauList flexBox'} key={korekauList.uuid}>
-                                <div className="listItem flexBox">
-                                    <p>{korekauList.itemName}<span>×{korekauList.itemNumber}</span></p>
+                            <li className={`not-last-of-type:mb-[1em] flex flex-row flex-nowrap items-center p-[1em] bg-[#f2f2f2] rounded-[.5rem] text-[1rem] gap-[2%] relative ${korekauList.itemPriority ? 'flex flex-row flex-wrap items-center gap-[1em] bg-[#f3e0ab]' : 'flex flex-row flex-wrap items-center gap-[1em]'}`} key={korekauList.uuid}>
+                                <div className="w-[clamp(10rem,58%,35rem)] flex flex-row flex-wrap items-center gap-[1em]">
+                                    <p className="w-full wrap-anywhere">{korekauList.itemName}<span className="ml-[1em] text-[#59b835]">×{korekauList.itemNumber}</span></p>
                                 </div>
-                                <div className="ctrlZone flexBox">
+                                <div className="w-[40%] flex flex-row flex-wrap items-center justify-end gap-[1em]">
                                     <EditerViewer children={
                                         <KorekauItemEditer props={{
                                             classNameStr: 'itemEditer',
@@ -56,7 +55,7 @@ export const KorekauItems = memo(({ category }: { category: string }) => {
                                             korekauList: korekauList
                                         }} />
                                     } />
-                                    <button type="button" className="deleteBtn" onClick={() => deleteItem(korekauList)}><span className="material-symbols-outlined">delete</span></button>
+                                    <button type="button" className="deleteBtn cursor-pointer w-fit bg-[#cc3226] rounded hover:brightness-[1.25]" onClick={() => deleteItem(korekauList)}><span className="material-symbols-outlined align-middle text-white aspect-square rounded-full p-[.25em]">delete</span></button>
                                 </div>
                                 {korekauList.itemMemo &&
                                     <PartKorekauItemsMemo korekauList={korekauList} />
@@ -67,149 +66,8 @@ export const KorekauItems = memo(({ category }: { category: string }) => {
                             </li>
                         ))}
                     </ul>
-                </KorekauItemLists>
+                </section>
             }
         </>
     );
 });
-
-const KorekauItemLists = styled.section`
-    & .flexBox {
-        display: flex;
-        align-items: center;
-        flex-flow: row wrap;
-        gap: 1em;
-    }
-
-    & button {
-        appearance: none;
-        background-color: transparent;
-        border-radius: 0;
-        border: 0;
-        padding: 0;
-        cursor: pointer;
-    }
-
-    & ul {
-        list-style: none;
-        margin-bottom: 5em;
-        
-        & li {
-            &:not(:last-of-type){
-                margin-bottom: 1em;
-            }
-
-            span.material-symbols-outlined {
-                vertical-align: middle;
-                box-shadow: 0 0 8px rgba(0, 0, 0, .25) inset;
-                background-color: #fff;
-                aspect-ratio: 1 / 1;
-                border-radius: 50%;
-                padding: .25em;
-            }
-            
-            &.headingElm {
-                margin-bottom: 1em;
-                flex-wrap: nowrap;
-                
-                & h2 {
-                    width: 100%;
-                    padding: .5em 1em;
-                    box-shadow: 0 0 16px rgba(160, 160, 160, 0.25) inset;
-                    font-weight: normal;
-                    letter-spacing: 0.25em;
-                    border-radius: 5rem;
-                    font-size: 1.6rem;
-                }
-            }
-
-            &.korekauList {
-                padding: 1em;
-                background-color: #f2f2f2;
-                border-radius: .8rem;
-                font-size: 1.6rem;
-                gap: 2%;
-                position: relative; // PartKorekauItemsMemo.tsx 用の基準元 relative
-
-                &.priority {
-                    background-color: #f3e0ab;
-                }
-
-                & .listItem {
-                    width: clamp(16rem, 58%, 56rem);
-
-                    & p {
-                        width: 100%;
-                        overflow-wrap: anywhere; // 区切りがないとブラウザは一文として処理するので改行指定のスタイルを指定しておく
-
-                        & span {
-                            margin-left: 1em;
-                            color: #59b835;
-                        }
-                    }
-                }
-
-                & .ctrlZone {
-                    width: 40%;
-                    justify-content: flex-end;
-
-                    & button {
-                        width: fit-content;
-                        cursor: pointer;
-                        
-                        & span {
-                            color: #fff;
-                            border-radius: .4rem;
-                        }
-
-                        &:hover {
-                            &.deleteBtn {
-                                & span {
-                                    filter:brightness(1.25);
-                                }
-                            }
-                        }
-
-                        &.editBtn {
-                            & span {
-                                background-color: #59b835;
-                            }
-                        }
-
-                        &.deleteBtn {
-                            & span {
-                                background-color: #cc3226;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-@media screen and (min-width: 1025px) {
-    & ul {
-        & li {
-            &.headingElm {
-                & h2 {
-                    border-radius: 50px;
-                    font-size: 16px;
-                }
-            }
-
-            &.korekauList {
-                border-radius: 8px;
-                font-size: 16px;
-
-                & .ctrlZone {
-                    & button {
-                        & span {
-                            border-radius: 4px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-`;

@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { memo, useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { trashDateAtom } from "../../../ts/trash-atom";
@@ -20,9 +19,9 @@ export const TrashDateLists = memo(() => {
     }, [trashDateLists]);
 
     return (
-        <TrashDateList>
+        <ul className="text-[1rem]">
             {trashDateSortedLists.map(trashDateList => (
-                <li key={trashDateList.uuid}>
+                <li key={trashDateList.uuid} className="p-[1em] shadow-[0_0_8px_rgba(160,160,160,.5)_inset] rounded flex justify-between items-center gap-[1em] not-last-of-type:mb-[1em]">
                     <TrashDateDetails trashDateList={trashDateList} />
                     <EditerViewer children={
                         <TrashDateEditer props={{
@@ -32,40 +31,6 @@ export const TrashDateLists = memo(() => {
                     } />
                 </li>
             ))}
-        </TrashDateList>
+        </ul>
     );
 });
-
-const TrashDateList = styled.ul`
-list-style: none;
-font-size: 1.6rem;
-
-    & li {
-        padding: 1em;
-        box-shadow: 0 0 8px rgba(160, 160, 160, .5) inset;
-        border-radius: .4rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 1em;
-
-        &:not(:last-of-type){
-            margin-bottom: 1em;
-        }
-
-        & p {
-            overflow-wrap: anywhere; // 区切りがないとブラウザは一文として処理するので改行指定のスタイルを指定しておく
-            & span {
-                font-weight: bold;
-            }
-        }
-    }
-
-@media screen and (min-width: 1025px) {
-    font-size: 16px;
-
-    & li {
-        border-radius: 4px;
-    }
-}
-`

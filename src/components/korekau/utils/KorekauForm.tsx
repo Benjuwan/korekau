@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { ChangeEvent, memo, useState } from "react";
 import { korekauItemsType } from "../ts/korekau";
 import { UploadImgItem } from "../../../utils/UploadImgItem";
@@ -44,10 +43,13 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
     }
 
     return (
-        <KorekauFormElm action="" onSubmit={handleFormSubmit}>
-            <div className="formBlock">
-                <label className="formLabel">カテゴリー</label>
-                <select name="itemCategory" id="itemCategory"
+        <form action="" className="w-full rounded p-[1.5em] shadow-[0_0_8px_rgba(160,160,160,.5)_inset] my-[1em] mx-auto bg-white" onSubmit={handleFormSubmit}>
+            <div className="mb-[2em]">
+                <label className="leading-[2] border-l border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">カテゴリー</label>
+                <select
+                    name="itemCategory"
+                    id="itemCategory"
+                    className="text-[1rem] leading-[2] w-full rounded border border-[#c6c6c6]"
                     value={korekauItem.itemCategory}
                     onChange={
                         (e: ChangeEvent<HTMLSelectElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')
@@ -59,16 +61,18 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                     <option value="others">その他</option>
                 </select>
             </div>
-            <div className="formBlock">
-                <label className="formLabel">買うもの</label>
-                <input type="text" id="itemName"
+            <div className="mb-[2em]">
+                <label className="leading-[2] border-l border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">買うもの</label>
+                <input type="text"
+                    id="itemName"
+                    className="text-[1rem] leading-[2] w-full rounded border border-[#c6c6c6] pl-[.5em]"
                     value={korekauItem.itemName}
                     placeholder={KorekauItemList && `現在の内容：${KorekauItemList.itemName}`}
                     onInput={
                         (e: ChangeEvent<HTMLInputElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')
                     } />
                 <div className="UploadImgItem mt-[1em]">
-                    <label className="formLabel">商品画像（※1MB以下）</label>
+                    <label className="leading-[2] border-l border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">商品画像（※1MB以下）</label>
                     <UploadImgItem props={{
                         korekauItem: korekauItem,
                         setKorekauItem: setKorekauItem,
@@ -76,9 +80,12 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                     }} />
                 </div>
             </div>
-            <div className="formBlock">
-                <label className="formLabel">メモ</label>
-                <textarea name="itemMemo" id="itemMemo" rows={5}
+            <div className="mb-[2em]">
+                <label className="leading-[2] border-l border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">メモ</label>
+                <textarea name="itemMemo"
+                    rows={5}
+                    id="itemMemo"
+                    className="text-[1rem] leading-[2] w-full rounded border border-[#c6c6c6] pl-[.5em] placeholder:text-[#c2c2c2]"
                     value={korekauItem.itemMemo}
                     placeholder={KorekauItemList ? `現在の内容：${KorekauItemList.itemMemo}` : "例：最近の底値148円近辺なら買う"}
                     onInput={
@@ -86,11 +93,13 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                     }>
                 </textarea>
             </div>
-            <div className="formFlexBox">
-                <div className="formBlock">
-                    <label className="formLabel">個数</label>
+            <div className="flex items-start gap-[5em]">
+                <div className="mb-[2em]">
+                    <label className="leading-[2] border-l border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">個数</label>
                     {/* pattern="\d*"：\dは任意の数字を表し、*は0回以上の繰り返しを意味する（＝入力されるテキストが0個以上の数字で構成されることを許可）*/}
-                    <input type="text" id="itemNumber"
+                    <input type="text"
+                        id="itemNumber"
+                        className="text-[1rem] leading-[2] w-full rounded border border-[#c6c6c6] pl-[.5em]"
                         inputMode="numeric"
                         pattern="\d*"
                         value={korekauItem.itemNumber}
@@ -99,182 +108,34 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                             (e: ChangeEvent<HTMLInputElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')
                         } />
                 </div>
-                <div className="formBlock">
+                <div className="mb-[2em] w-[50%]">
                     {/* トグルボタンのスタイル及び機能の都合上ここは<p> */}
-                    <p className="formLabel">すぐ買う</p>
-                    <label className={`switch ${korekauItem.itemPriority && 'switchOn'}`}>
-                        <input type="checkbox" id="itemPriority"
+                    <p className="leading-[2] border-l border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">すぐ買う</p>
+                    <label className={`switch text-[0.8125rem] relative inline-block w-[3.375rem] h-[1.75rem] ${korekauItem.itemPriority && 'switchOn'}`}>
+                        <input type="checkbox"
+                            id="itemPriority"
+                            className="text-[1rem] leading-[2] opacity-[1] w-[0] h-[0] rounded border border-[#c6c6c6] pl-[.5em]"
                             onChange={
                                 (e: ChangeEvent<HTMLInputElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')
                             } />
-                        <span className="slider">&nbsp;</span>
+                        <span className="slider absolute cursor-pointer m-auto inset-[0] bg-white transition duration-[.25s] rounded-4xl border border-[#cccccc] before:content-[''] before:absolute before:w-[1.9em] before:h-[1.9em] before:rounded-[1rem] before:left-[1px] before:top-[0] before:bottom-[0] before:bg-white before:shadow-[0_2px_5px_#999999] before:transition before:duration-[.25s]">&nbsp;</span>
                     </label>
                 </div>
             </div>
-            <div className={KorekauItemList ? 'formFlexBox' : undefined}>
+            <div className={KorekauItemList ? 'flex items-start gap-[5em]' : undefined}>
                 <input type="submit"
+                    className="text-[1rem] leading-[2] w-[80%] rounded border border-[#c6c6c6] pl-[.5em] block bg-[#f0b20e] tracking-[0.5em] transition duration-[.25s] disabled:text-[#999] disabled:bg-[#dadada] not-disabled:hover:cursor-pointer not-disabled:hover:text-[#f0b20e] not-disabled:hover:border-[#f0b20e] not-disabled:hover:bg-white"
                     value={KorekauItemList ? '再登録' : '登録'}
                     disabled={korekauItem.itemName.length === 0 || Number(korekauItem.itemNumber) === 0} />
                 {KorekauItemList &&
-                    <input type="button" className="editerCloseBtn"
+                    <input type="button"
+                        className="editerCloseBtn block w-[20%] bg-[#5fdd54] cursor-pointer text-[1rem] text-white leading-[2] rounded border border-[#c6c6c6] pl-[.5em] transition duration-[.25s] hover:text-[#5fdd54] hover:border-[#5fdd54] hover:bg-white"
                         value={'戻る'}
                         onClick={
                             () => targetElsRemoveClass('editerView', 'OnView')
                         } />
                 }
             </div>
-        </KorekauFormElm>
+        </form>
     );
 });
-
-const KorekauFormElm = styled.form`
-width: 100%;
-border-radius: 4px;
-padding: 1.5em;
-box-shadow: 0 0 8px rgba(160, 160, 160, .5) inset;
-margin: 1em auto;
-background-color: #fff;
-
-    & select,
-    & input,
-    & textarea {
-        font-size: 16px;
-        line-height: 2;
-        width: 100%;
-        border-radius: 4px;
-        border: 1px solid #c6c6c6;
-    }
-
-    & textarea {
-    padding-left: .5em;
-        &::placeholder {
-            color: #c2c2c2;
-        }
-    }
-
-    & input {
-        padding-left: .5em;
-
-        &[type="submit"] {
-            display: block;
-            width: 100%;
-            background-color: #f0b20e;
-            letter-spacing: 0.5em;
-            transition: all .25s;
-            
-            &[disabled]{
-                color: #999;
-                background-color: #dadada; 
-            }
-            
-            &:not([disabled]):hover {
-                cursor: pointer;
-                color: #f0b20e;
-                border-color: #f0b20e;
-                background-color: #fff;
-            }
-        }
-    }
-    
-    & .editerCloseBtn {
-        display: block;
-        width: 20%;
-        background-color: #5fdd54;
-        cursor: pointer;
-
-        &:hover {
-            color: #5fdd54;
-            border-color: #5fdd54;
-            background-color: #fff;
-        }
-    }
-
-    & .formFlexBox {
-        display: flex;
-        align-items: flex-start;
-        gap: 5em;
-
-        & input {
-            &[type="submit"] {
-                width: 80%;
-            }
-        }
-    }
-
-    & .formBlock {
-        margin-bottom: 2em;
-
-        &:has(.switch){
-            width: 50%;
-        }
-        
-        & .formLabel {
-            line-height: 2;
-            border-left: 4px solid #f0b20e;
-            padding-left: .5em;
-            margin-bottom: .5em;
-        }
-
-        & .UploadImgItem {
-            margin-top: 1em;
-
-            & input {
-                border: 0;
-                padding: 0;
-                margin-bottom: .5em;
-            }
-        }
-
-        & .switch {
-            font-size: 13px;
-            position: relative;
-            display: inline-block;
-            width: 54px;
-            height: 28px;
-
-            &.switchOn {
-                & input {
-                    & + .slider {
-                        background-color: #5fdd54;
-                        border: 1px solid transparent;
-
-                        &::before {
-                            transform: translateX(2em);
-                        }
-                    }
-                }
-            }
-
-            & input {
-                opacity: 1;
-                width: 0;
-                height: 0;
-            }
-
-            & .slider {
-                position: absolute;
-                cursor: pointer;
-                margin: auto;
-                inset: 0;
-                background: #fff;
-                transition: all .25s;
-                border-radius: 30px;
-                border: 1px solid #ccc;
-
-                &::before {
-                    position: absolute;
-                    content: "";
-                    height: 1.9em;
-                    width: 1.9em;
-                    border-radius: 16px;
-                    left: 1.2px;
-                    top: 0;
-                    bottom: 0;
-                    background-color: white;
-                    box-shadow: 0 2px 5px #999999;
-                    transition: all .25s;
-                }
-            }
-        }
-    }
-`;

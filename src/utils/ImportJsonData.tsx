@@ -38,10 +38,11 @@ export const ImportJsonData = memo(() => {
 
     return (
         <label htmlFor="ImportJsonDate">
-            <span className="dataLabel block border-l border-[.25rem] border-[#f0b20e] pl-[.5em] mb-[.5em]">買うものリストの読み込み</span>
+            <span className="block border-l border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">買うものリストの読み込み</span>
             <input
                 type="file"
                 accept={fileAccept}
+                className="text-[0.875rem] file:cursor-pointer file:mr-4 file:rounded-sm file:border file:border-transparent file:bg-[#eaeaea] file:px-4 file:py-1 file:text-[#333] hover:file:border-[#333]"
                 onChange={(fileElm: ChangeEvent<HTMLInputElement>) => inputJsonData(fileElm.currentTarget)}
                 id="ImportJsonDate"
             />

@@ -1,19 +1,18 @@
 import { SyntheticEvent, memo } from "react";
-import todoStyle from "./css/todoStyle.module.css";
 import { useScrollTop } from "../../../hooks/useScrollTop";
 import { useViewTodoCtrl } from "./hooks/useViewTodoCtrl";
 
 export const TodoCtrlClosedBtn = memo(() => {
     const { scrollTop } = useScrollTop();
     const { viewTodoCtrl } = useViewTodoCtrl();
-    const handleOpenClosedBtnClicked: (btnEl: HTMLButtonElement) => void = (btnEl: HTMLButtonElement) => {
-        viewTodoCtrl(btnEl);
+    const handleOpenClosedBtnClicked: (btnEl: SyntheticEvent<HTMLButtonElement>) => void = (btnEl: SyntheticEvent<HTMLButtonElement>) => {
+        viewTodoCtrl(btnEl.currentTarget);
         scrollTop();
     }
 
     return (
-        <button className={`${todoStyle.closeBtn} todoCtrlClose`} onClick={(btnEl: SyntheticEvent<HTMLButtonElement>) => handleOpenClosedBtnClicked(btnEl.currentTarget)}>
-            <span className="material-symbols-outlined">close</span>
+        <button className="todoCtrlClose cursor-pointer aspect-square rounded-full w-[2.75rem] h-[2.75rem] grid place-content-center m-auto font-bold rounded-full mx-auto mb-[2.5em] py-[.5em] px-[1em]" onClick={handleOpenClosedBtnClicked}>
+            <span className="material-symbols-outlined text-[#767676] align-middle brightness-[3]">close</span>
         </button>
     );
 });

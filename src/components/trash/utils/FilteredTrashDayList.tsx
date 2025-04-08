@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { memo, useEffect, useState } from "react";
 import { trashType } from "../ts/trash";
 import { useAtom } from "jotai";
@@ -27,10 +26,10 @@ export const FilteredTrashDayList = memo(() => {
     }, [trashDateLists]);
 
     return (
-        <TrashLists>
+        <div className="w-[clamp(20rem,100%,60rem)] px-[1em] mt-0 mx-auto mb-[2.5em]">
             {filteredTrashDayLists.length > 0 &&
-                <div className="wrapper">
-                    <p className="notice"><span className="material-symbols-outlined">error</span>明日は以下のゴミ出しがあります。</p>
+                <div className="wrapper p-[1em] bg-white shadow-[0_0_8px_rgba(160,160,160,.5)_inset] rounded">
+                    <p className="leading-[1] text-[1rem] mb-[.5em]"><span className="material-symbols-outlined align-top mr-[.5em]">error</span>明日は以下のゴミ出しがあります。</p>
                     {filteredTrashDayLists.map(filteredTrashDayList => (
                         <div key={filteredTrashDayList.uuid}>
                             <TrashDateDetails trashDateList={filteredTrashDayList} />
@@ -38,55 +37,6 @@ export const FilteredTrashDayList = memo(() => {
                     ))}
                 </div>
             }
-        </TrashLists>
+        </div>
     );
 });
-
-const TrashLists = styled.div`
-width: clamp(30rem, 100%, 60rem);
-padding: 0 1em;
-margin: 0 auto 2.5em;
-
-    & .wrapper {
-        padding: 1em;
-        background-color: #fff;
-        box-shadow: 0 0 8px rgba(160, 160, 160, .5) inset;
-        border-radius: .4rem;
-        
-        & p {
-            &.notice {
-                line-height: 1;
-                font-size: 1.6rem;
-                margin-bottom: .5em;
-                
-                & span {
-                    font-size: 1.6rem;
-                    vertical-align: top;
-                    margin-right: .5em;
-                }
-            }
-
-            &:not(.notice) {
-                padding-left: 1em;
-                color: #cc3226;
-            }
-        }
-    }
-
-@media screen and (min-width: 1025px) {
-width: clamp(300px, 100%, 960px);
-
-    & .wrapper {
-        border-radius: 4px;
-
-        & p {
-            &.notice{
-                font-size: 16px;
-                & span {
-                    font-size: 16px;
-                }
-            }
-        }
-    }
-}
-`;

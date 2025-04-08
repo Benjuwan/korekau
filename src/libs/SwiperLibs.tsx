@@ -19,6 +19,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
+import "../global-swiper.css"; // 独自のスタイルシートを用意（※一番最後に読み込ませる）
 
 // import required modules【使いたい機能】
 import { Pagination } from "swiper/modules";

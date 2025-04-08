@@ -1,6 +1,4 @@
 import { memo, useEffect, useMemo } from "react";
-import todoStyle from "../todoItems/css/todoStyle.module.css";
-import calendarStyle from "./css/calendarStyle.module.css";
 import { useAtom } from "jotai";
 import { todoMemoAtom } from "../../../ts/calendar-atom";
 import { calendarItemType } from "./ts/calendarItemType";
@@ -45,24 +43,25 @@ export const DaysList = memo(({ days }: { days: calendarItemType[] }) => {
         <>
             {days.map(day => (
                 // カスタムデータ属性の指定は low-case でないと React から怒られる
-                <li key={`${day.year}/${day.month}/${day.day}`} data-daydate={day.dayDateNum} className={
-                    (
+                <li
+                    key={`${day.year}/${day.month}/${day.day}`}
+                    data-daydate={day.dayDateNum}
+                    // day.dayDateNum === 0 日曜日
+                    // day.dayDateNum === 6 土曜日
+                    className={`p-[.5em] self-stretch w-full border border-[#dadada] text-center ${(
                         today.thisYear === day.year &&
                         today.thisMonth === day.month &&
                         today.today === day.day
-                    ) ?
-                        `${calendarStyle.todaySignal} ${calendarStyle.calendarLists}` :
-                        `${calendarStyle.calendarLists}`
-                }>
-                    <p>
+                    ) ? 'bg-[#e8ffea]' : 'bg-white'} ${day.dayDateNum === 0 ? 'bg-[#f5c0c0]' : 'bg-white'} ${day.dayDateNum === 6 ? 'bg-[#c0dff5]' : 'bg-white'}`}>
+                    <p className="leading-[2] wrap-anywhere">
                         {day.signalPrevNextMonth && <span>{day.month}/</span>}{day.day}
                     </p>
                     {day.signalPrevNextMonth ? null :
-                        <div className={`${todoStyle.todoView}`}>
+                        <div className="todoView">
                             <TodoCtrlOpenBtn />
-                            <div className={`${todoStyle.todoCtrlElm}`}>
+                            <div className="todoCtrlElm w-screen h-full fixed top-[50%] left-[50%] pt-[2.5em] px-[1em] pb-[1em] transform-[translate(-50%,-50%)] bg-[rgba(255,_255,_255,_.5)] backdrop-blur-sm transition duration-[.25s] lg:p-[5em]">
                                 <TodoCtrlClosedBtn />
-                                <p className={todoStyle.today}>{day.month}/{day.day}（{day.dayDate}）</p>
+                                <p className="text-[1.5rem] pb-[1.5em]">{day.month}/{day.day}（{day.dayDate}）</p>
                                 <TodoForm props={{
                                     todoId: `${day.year}/${day.month}/${day.day}`
                                 }} />

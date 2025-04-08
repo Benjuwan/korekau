@@ -8,14 +8,6 @@ import { KorekauItems } from "./utils/KorekauItems";
 import { KorekauAllReset } from "./utils/KorekauAllReset";
 import { CtrlJsonDatas } from "../../utils/CtrlJsonDatas";
 
-const formAccordionStyle: object = {
-    'margin': '2.5em auto',
-    'padding': '1em',
-    'backgroundColor': '#f5f5f5',
-    'borderRadius': '4px',
-    'fontSize': '16px'
-}
-
 export const KorekauBased = memo(() => {
     const [korekauLists, setKorekauLists] = useAtom(korekauAtom);
 
@@ -33,7 +25,7 @@ export const KorekauBased = memo(() => {
 
     return (
         <section className="korekauSection">
-            <details style={formAccordionStyle}>
+            <details className="my-[2.5em] mx-auto p-[1em] bg-[#f5f5f5] rounded text-[1rem]">
                 <summary>買うものを新たに登録する</summary>
                 <KorekauForm />
             </details>
@@ -48,7 +40,7 @@ export const KorekauBased = memo(() => {
                     <CtrlJsonDatas both={true} />
                 </> :
                 <>
-                    <p style={{ 'textAlign': 'center' }}>買うものリストには現在何も登録されていません。</p>
+                    <p className="text-center">買うものリストには現在何も登録されていません。</p>
                     <CtrlJsonDatas />
                 </>
             }

@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { memo } from "react";
 import { korekauItemsType } from "../ts/korekau";
 import { useKorekauMemoView } from "../hooks/useKorekauMemoView";
@@ -7,70 +6,12 @@ export const PartKorekauItemsMemo = memo(({ korekauList }: { korekauList: koreka
     const { korekauMemoView } = useKorekauMemoView();
 
     return (
-        <KorekauMemo className="korekauMemo">
-            <button type="button" onClick={(btnEl: React.MouseEvent<HTMLButtonElement, MouseEvent>) => korekauMemoView(btnEl.currentTarget)}><span className="material-symbols-outlined">chat</span>注釈メモ</button>
-            <div className="korekauMemoContenet">
-                <button type="button" onClick={(btnEl: React.MouseEvent<HTMLButtonElement, MouseEvent>) => korekauMemoView(btnEl.currentTarget)}><span className="material-symbols-outlined">close</span></button>
+        <div className="korekauMemo my-[.5em] w-full">
+            <button type="button" className="text-[0.875rem] text-[#333]" onClick={(btnEl: React.MouseEvent<HTMLButtonElement, MouseEvent>) => korekauMemoView(btnEl.currentTarget)}><span className="material-symbols-outlined mr-[.5em] align-middle shadow-[0_0_8px_rgba(0,0,0,.25)_inset] rounded-full p-2 bg-white">chat</span>注釈メモ</button>
+            <div className="korekauMemoContenet absolute top-[0] left-[50%] z-[-1] transform-[translate(-50%,5em)] w-full h-fit max-h-[15rem] rounded-[.5rem] overflow-y-scroll p-[1rem] text-white bg-[rgba(80,80,80,.85)] opacity-[0] invisible transition duration-[.25s]">
+                <button type="button" className="block mb-[1em] text-[0.875rem] text-[#333]" onClick={(btnEl: React.MouseEvent<HTMLButtonElement, MouseEvent>) => korekauMemoView(btnEl.currentTarget)}><span className="material-symbols-outlined mr-[.5em] bg-white rounded-full p-1">close</span></button>
                 {korekauList.itemMemo}
             </div>
-        </KorekauMemo>
+        </div>
     );
 });
-
-const KorekauMemo = styled.div`
-margin: .5em 0;
-width: 100%;
-
-&.OnView {
-    & .korekauMemoContenet {
-        transform: translate(-50%, 3.6em);
-        opacity: 1;
-        visibility: visible;
-        z-index: 9;
-    }
-}
-
-    & button {
-        font-size: 1.4rem;
-        color: #333;
-
-        & span {
-            margin-right: .5em;
-        }
-    }
-
-    & .korekauMemoContenet {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        z-index: -1;
-        transform: translate(-50%, 5em);
-        width: 100%;
-        height: fit-content;
-        max-height: 24rem;
-        border-radius: .8rem;
-        overflow-y: scroll;
-        padding: 1em;
-        color: #fff;
-        background-color: rgba(80, 80, 80, .85);
-        opacity: 0;
-        visibility: hidden;
-        transition: all .25s;
-
-        & button {
-            display: block;
-            margin-bottom: 1em;
-        }
-    }
-
-@media screen and (min-width: 1025px) {
-    & button {
-        font-size: 14px;
-    }
-
-    & .korekauMemoContenet {
-        max-height: 240px;
-        border-radius: 8px;
-    }
-}
-`;

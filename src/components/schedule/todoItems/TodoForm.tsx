@@ -1,5 +1,4 @@
 import { ChangeEvent, SyntheticEvent, useState } from "react";
-import todoStyle from "./css/todoStyle.module.css";
 import { todoItemType } from "./ts/todoItemType";
 import { useUpdateTodoItem } from "./hooks/useUpdateTodoItem";
 import { useRegiTodoItem } from "./hooks/useRegiTodoItem";
@@ -11,7 +10,7 @@ import { useHandleFormEntries } from "../../../hooks/useHandleFormEntries";
 type TodoFormType = {
     todoItem?: todoItemType;
     todoId?: string;
-}
+};
 
 export const TodoForm = ({ props }: { props: TodoFormType }) => {
     const { todoItem, todoId } = props;
@@ -43,38 +42,62 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
         setTimeout(() => scrollTop()); // buttonのクリックイベントでスクロールトップしないので回避策として疑似的な遅延処理
     }
 
+    const handleRegiUpdateAction: (e: SyntheticEvent<HTMLButtonElement>) => void = (e: SyntheticEvent<HTMLButtonElement>) => {
+        if (!todoItems.edit) {
+            regiTodoItem(todoItems);
+            handleOpenClosedBtnClicked(e.currentTarget);
+        } else {
+            e.stopPropagation(); // 親要素のクリックイベント（OnViewModalWindow）発生を防止
+            updateTodoItem(todoItems);
+            closeModalWindow();
+        }
+        resetStates();
+    }
+
+    const handleFormSubmit: (e: SyntheticEvent<HTMLFormElement>) => void = (e: SyntheticEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!todoItems.edit) {
+            regiTodoItem(todoItems);
+            handleOpenClosedBtnClicked(e);
+        } else {
+            updateTodoItem(todoItems);
+        }
+        resetStates();
+    }
+
     return (
-        <form className={todoStyle.todoForm}
-            onSubmit={(formElm: ChangeEvent<HTMLFormElement>) => {
-                formElm.preventDefault();
-                if (!todoItems.edit) {
-                    regiTodoItem(todoItems);
-                    handleOpenClosedBtnClicked(formElm);
-                } else {
-                    updateTodoItem(todoItems);
-                }
-                resetStates();
-            }}>
-            <label>
-                <input type="text" value={todoItems.todoContent} id="todoContent" onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} />
+        <form className="text-[0.875rem] leading-[1.8] w-[56%] mx-auto mb-[1em] flex flex-col"
+            onSubmit={handleFormSubmit}>
+            <label className="block mb-[1em]">
+                <input
+                    type="text"
+                    value={todoItems.todoContent}
+                    id="todoContent"
+                    className="text-[1rem] leading-[2] w-full pl-[.25em]"
+                    onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} />
             </label>
-            <div className={todoStyle.timeSchedule}>
-                <label className={todoStyle.timeLabel}>開始時刻 <input id="startTime" type="time" value={todoItems.startTime} onChange={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} /></label>
-                <label className={todoStyle.timeLabel}>終了時刻 <input id="finishTime" type="time" value={todoItems.finishTime} onChange={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} /></label>
+            <div className="md:flex md:justify-start md:gap-[1em]">
+                <label className="block mb-[1em] text-[clamp(0.625rem,100%, 0.875rem)] block my-[1em] mx-0 md:w-full">開始時刻
+                    <input
+                        type="time"
+                        id="startTime"
+                        className="text-[1rem] leading-[2] w-full pl-[.25em] md:w-[70%] md:ml-[.5em]"
+                        value={todoItems.startTime}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} /></label>
+                <label className="block mb-[1em] text-[clamp(0.625rem,100%, 0.875rem)] block my-[1em] mx-0 md:w-full">終了時刻
+                    <input
+                        type="time"
+                        id="finishTime"
+                        className="text-[1rem] leading-[2] w-full pl-[.25em] md:w-[70%] md:ml-[.5em]"
+                        value={todoItems.finishTime}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} /></label>
             </div>
-            <button className={todoStyle.formBtns} id={todoStyle.regiUpdateBtn} type="button"
+            <button
+                type="button"
+                id="regiUpdateBtn"
+                className="text-[0.875rem] leading-[1.8] w-full"
                 disabled={todoItems.todoContent.length <= 0}
-                onClick={(btnEl: SyntheticEvent<HTMLButtonElement>) => {
-                    if (!todoItems.edit) {
-                        regiTodoItem(todoItems);
-                        handleOpenClosedBtnClicked(btnEl.currentTarget);
-                    } else {
-                        btnEl.stopPropagation(); // 親要素のクリックイベント（OnViewModalWindow）発生を防止
-                        updateTodoItem(todoItems);
-                        closeModalWindow();
-                    }
-                    resetStates();
-                }}>{!todoItems.edit ? '登録' : '再登録'}</button>
+                onClick={handleRegiUpdateAction}>{!todoItems.edit ? '登録' : '再登録'}</button>
         </form>
     );
 }

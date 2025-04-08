@@ -82,13 +82,12 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
 
     return (
         <>
-            <input
-                type="file"
+            <input type="file"
                 ref={inputImgSrcRef}
                 accept={`${[...fileAccept]}`}
                 onChange={uploadImgView}
                 id="itemImgSrc"
-                className="border-none p-0 mb-[.5em]"
+                className="mb-[.5em] w-full text-[0.875rem] file:cursor-pointer file:mr-4 file:rounded-sm file:border file:border-transparent file:bg-[#eaeaea] file:px-4 file:py-1 file:text-[#333] hover:file:border-[#333]"
             />
             {(itemImgSrc && !resetImgSrc) &&
                 <>

@@ -1,5 +1,4 @@
 import { SyntheticEvent } from "react";
-import todoStyle from "../css/todoStyle.module.css";
 
 export const useViewTodoCtrl = () => {
     const viewTodoCtrl: (ctrlHandlerElm: HTMLButtonElement | SyntheticEvent<HTMLFormElement>) => void = (
@@ -7,18 +6,18 @@ export const useViewTodoCtrl = () => {
     ) => {
         let parentTodoViewElm: HTMLDivElement | null = null;
         if (ctrlHandlerElm instanceof HTMLButtonElement) {
-            const btnCtrlHandlerElm = ctrlHandlerElm.closest(`.${todoStyle.todoView}`) as HTMLDivElement;
+            const btnCtrlHandlerElm = ctrlHandlerElm.closest(".todoView") as HTMLDivElement;
             parentTodoViewElm = btnCtrlHandlerElm;
         } else {
-            const formCtrlHandlerElm = ctrlHandlerElm.currentTarget.closest(`.${todoStyle.todoView}`) as HTMLDivElement;
+            const formCtrlHandlerElm = ctrlHandlerElm.currentTarget.closest(".todoView") as HTMLDivElement;
             parentTodoViewElm = formCtrlHandlerElm;
         }
 
-        if (parentTodoViewElm?.classList.contains(todoStyle.OnView)) {
-            parentTodoViewElm.classList.remove(todoStyle.OnView);
+        if (parentTodoViewElm?.classList.contains("OnView")) {
+            parentTodoViewElm.classList.remove("OnView");
             return;
         }
-        parentTodoViewElm?.classList.add(todoStyle.OnView);
+        parentTodoViewElm?.classList.add("OnView");
     }
 
     return { viewTodoCtrl }
