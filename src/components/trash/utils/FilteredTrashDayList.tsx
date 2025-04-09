@@ -29,7 +29,7 @@ export const FilteredTrashDayList = memo(() => {
         <div className="w-[clamp(20rem,100%,60rem)] px-[1em] mt-0 mx-auto mb-[2.5em]">
             {filteredTrashDayLists.length > 0 &&
                 <div className="wrapper p-[1em] bg-white shadow-[0_0_8px_rgba(160,160,160,.5)_inset] rounded">
-                    <p className="leading-[1] text-[1rem] mb-[.5em]"><span className="material-symbols-outlined align-top mr-[.5em]">error</span>明日は以下のゴミ出しがあります。</p>
+                    <p className="leading-[1] text-[1rem] mb-[.5em]"><span className="material-symbols-outlined align-middle scale-[.95] mr-[.5em]">error</span>明日は以下のゴミ出しがあります。</p>
                     {filteredTrashDayLists.map(filteredTrashDayList => (
                         <div key={filteredTrashDayList.uuid}>
                             <TrashDateDetails trashDateList={filteredTrashDayList} />

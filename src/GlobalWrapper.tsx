@@ -7,7 +7,7 @@ export const GlobalWrapper = memo(() => {
     return (
         <>
             <Header />
-            <main className="w-[clamp(20rem,100%,60rem)] mt-[2.5em] mx-auto">
+            <main className="w-[clamp(20rem,100%,60rem)] mx-auto">
                 <SwiperLibs />
             </main>
             <Footer />

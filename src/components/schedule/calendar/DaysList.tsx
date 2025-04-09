@@ -13,7 +13,7 @@ type todaySignal = {
     thisYear: number;
     thisMonth: number;
     today: number;
-}
+};
 
 export const DaysList = memo(({ days }: { days: calendarItemType[] }) => {
     const today: todaySignal = useMemo(() => {

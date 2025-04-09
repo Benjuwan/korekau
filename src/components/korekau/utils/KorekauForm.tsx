@@ -124,12 +124,12 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
             </div>
             <div className={KorekauItemList ? 'flex items-start gap-[5em]' : undefined}>
                 <input type="submit"
-                    className="text-[1rem] leading-[2] w-[80%] rounded border border-[#c6c6c6] pl-[.5em] block bg-[#f0b20e] tracking-[0.5em] transition duration-[.25s] disabled:text-[#999] disabled:bg-[#dadada] not-disabled:hover:cursor-pointer not-disabled:hover:text-[#f0b20e] not-disabled:hover:border-[#f0b20e] not-disabled:hover:bg-white"
+                    className="text-[1rem] leading-[2] w-[80%] rounded border border-[#c6c6c6] block bg-[#f0b20e] tracking-[0.5em] transition duration-[.25s] disabled:text-[#999] disabled:bg-[#dadada] not-disabled:hover:cursor-pointer not-disabled:hover:text-[#f0b20e] not-disabled:hover:border-[#f0b20e] not-disabled:hover:bg-white"
                     value={KorekauItemList ? '再登録' : '登録'}
                     disabled={korekauItem.itemName.length === 0 || Number(korekauItem.itemNumber) === 0} />
                 {KorekauItemList &&
                     <input type="button"
-                        className="editerCloseBtn block w-[20%] bg-[#5fdd54] cursor-pointer text-[1rem] text-white leading-[2] rounded border border-[#c6c6c6] pl-[.5em] transition duration-[.25s] hover:text-[#5fdd54] hover:border-[#5fdd54] hover:bg-white"
+                        className="editerCloseBtn block w-[20%] bg-[#5fdd54] cursor-pointer text-[1rem] text-white leading-[2] rounded border border-[#c6c6c6] transition duration-[.25s] hover:text-[#5fdd54] hover:border-[#5fdd54] hover:bg-white"
                         value={'戻る'}
                         onClick={
                             () => targetElsRemoveClass('editerView', 'OnView')
