@@ -3,7 +3,7 @@ import { trashType } from "../ts/trash";
 
 export const TrashDateDetails = memo(({ trashDateList }: { trashDateList: trashType }) => {
     return (
-        <p className="inline-block wrap-anywhere leading-[1.6] mr-[1em] leading-[1] text-[1rem] text-[#cc3226]">
+        <p className="inline-block wrap-anywhere leading-[1.6] mr-[1em] leading-[1.5] text-[1rem] text-[#cc3226]">
             {/* TrashForm.tsx の handleTrashData メソッドで（オブジェクト： newTrashData として登録する）value が強制的に string となるので強制的に数値型に変換して処理を進める */}
             <span>
                 {Number(trashDateList.day) === 1 && '（月）'}

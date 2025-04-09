@@ -74,7 +74,7 @@ export const Calendar = () => {
         <section className="w-[clamp(20rem,100%,60rem)] mb-[5em]">
             <h2 className="text-[1.25rem] mb-[.5em]">{ctrlYear}年{ctrlMonth}月</h2>
             {todoMemo.length > 0 &&
-                <button className="rounded-[.5em] text-white border border-transparent text-[0.875rem] py-[.5em] px-[1em] disabled:bg-[#dadada] disabled:text-[#333] trantion duration-[.25s] not-disabled:hover:cursor-pointer not-disabled:hover:bg-white hover:text-[#cc3226] hover:border-[#cc3226] bg-[#cc3226] mb-[1em]" type="button" onClick={resetAllSchedule}>予定を全削除</button>
+                <button className="rounded-[.5em] text-white border border-transparent text-[0.875rem] py-[.5em] px-[1em] bg-[#cc3226] mb-[1em] disabled:bg-[#dadada] disabled:text-[#333] trantion duration-[.25s] not-disabled:hover:cursor-pointer not-disabled:hover:bg-white hover:text-[#cc3226] hover:border-[#cc3226]" type="button" onClick={resetAllSchedule}>予定を全削除</button>
             }
             <PrevNextMonthBtns
                 ctrlYear={ctrlYear}
@@ -82,7 +82,7 @@ export const Calendar = () => {
                 ctrlMonth={ctrlMonth}
                 setCtrlMonth={setCtrlMonth}
             />
-            <button id="jumpThisMonth" className="rounded-[.5em] bg-[#59b835] mt-[1.5em] mx-0 mb-[.5em] py-[.5em] px-[1em] text-white border border-transparent text-[0.875rem] disabled:bg-[#dadada] disabled:text-[#333] trantion duration-[.25s] not-disabled:hover:cursor-pointer not-disabled:hover:opacity-[.75]" type="button" onClick={jumpThisMonth}>今月に移動</button>
+            <button id="jumpThisMonth" className="rounded-[.5em] bg-[#59b835] mt-[1.5em] mx-0 mb-[.5em] py-[.5em] px-[1em] text-white border border-transparent text-[0.875rem] disabled:bg-[#dadada] disabled:text-[#333] trantion duration-[.25s] not-disabled:hover:cursor-pointer  not-disabled:hover:bg-white not-disabled:hover:text-[#59b835] not-disabled:hover:border-[#59b835]" type="button" onClick={jumpThisMonth}>今月に移動</button>
             <ul className="grid grid-cols-[repeat(7,1fr)] place-items-center place-content-start rounded lg:rounded-[.5rem]"
                 // Reactにおけるイベントハンドラでは、イベントオブジェクト（SyntheticEvent）が自動的に渡されるので以下の書き方でOK （handleSwipeCancel にわざわざ引数を指定しなくても良い）
                 onTouchMove={handleSwipeCancel}
