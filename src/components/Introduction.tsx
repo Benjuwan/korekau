@@ -11,7 +11,7 @@ export const Introduction = memo(() => {
             <div className="my-[2.5em] p-[1em] bg-[#ffe2e0] shadow-[0_0_8px_rgba(160,160,160,.5)_inset] rounded">
                 <p className="flex items-center border-b border-b-[#333] pb-[.5em] mb-[.5em]"><span className="material-symbols-outlined text-[#cc3226] mr-[.25em]">error</span>注意事項</p>
                 <p>KoreKau（コレカウ） は localStorage という技術を用いてユーザーのデバイス（で使用しているブラウザ：Safari, Chrome など）に情報を保存しています。仕様上、セキュリティリスクが生じる可能性がありますので、<b className="text-[#cc3226]">個人情報やパスワードをはじめ、家族や他人のセンシティブ情報は絶対に登録しない</b>でください。</p>
-                <p>localStorage の仕様上、1週間ほど過ぎると登録内容はリセット（全削除）されます。登録してから1週間経っても買わないならそれは不要なものだったと捉えて「要らないものを買わずに済んで節約になったね♪」と前向きに考えて（やって）ください。</p>
+                <p>localStorage の仕様上、1週間ほど（アクセスせずに）過ぎると登録内容はリセット（全削除）されます。登録してから1週間経っても買わないならそれは不要なものだったと捉えて「要らないものを買わずに済んで節約になったね♪」と前向きに考えて（やって）ください。</p>
             </div>
             <div className="my-[2.5em] p-[1em] bg-[#d2e4fc] shadow-[0_0_8px_rgba(160,160,160,.5)_inset] rounded">
                 <p className="flex items-center border-b border-b-[#333] pb-[.5em] mb-[.5em]"><span className="material-symbols-outlined text-[#1d6cd4] mr-[.25em]">error</span>プライベートモード以外でご利用ください</p>

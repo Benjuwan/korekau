@@ -12,7 +12,7 @@ type todaySignal = {
     thisYear: number;
     thisMonth: number;
     today: number;
-}
+};
 
 export const Calendar = () => {
     const { getMonthDays } = useGetMonthDays();
