@@ -66,29 +66,29 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
     }
 
     return (
-        <form className="text-[0.875rem] leading-[1.8] w-[56%] mx-auto mb-[1em] flex flex-col"
+        <form className="text-[0.875rem] leading-[1.8] w-full max-w-[32rem] mx-auto mb-[1em] flex flex-col"
             onSubmit={handleFormSubmit}>
-            <label className="block mb-[1em]">
+            <label className="block w-full mb-[1em] md:mb-0">
                 <input
                     type="text"
                     value={todoItems.todoContent}
                     id="todoContent"
-                    className="text-[1rem] leading-[2] border border-[#919191] bg-white rounded w-full pl-[.5em]"
+                    className="text-[1rem] leading-[1.5] border border-[#919191] bg-white rounded w-full pl-[.5em]"
                     onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} />
             </label>
-            <div className="md:flex md:justify-start md:gap-[1em]">
-                <label className="block mb-[1em] text-[clamp(0.625rem,100%, 0.875rem)] block my-[1em] mx-0 md:w-full">開始時刻
+            <div className="flex justify-start gap-[1em]">
+                <label className="block w-full text-left mb-[1em] text-[clamp(0.625rem,100%,0.875rem)] my-[1em]">開始時刻
                     <input
                         type="time"
                         id="startTime"
-                        className="text-[1rem] leading-[2] border border-[#919191] bg-white rounded w-full pl-[.25em] md:w-[70%] md:ml-[.5em]"
+                        className="appearance-none block text-[1rem] leading-[2] border border-[#919191] bg-white rounded w-full pl-[.25em]"
                         value={todoItems.startTime}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} /></label>
-                <label className="block mb-[1em] text-[clamp(0.625rem,100%, 0.875rem)] block my-[1em] mx-0 md:w-full">終了時刻
+                <label className="block w-full text-left mb-[1em] text-[clamp(0.625rem,100%,0.875rem)] my-[1em]">終了時刻
                     <input
                         type="time"
                         id="finishTime"
-                        className="text-[1rem] leading-[2] border border-[#919191] bg-white rounded w-full pl-[.25em] md:w-[70%] md:ml-[.5em]"
+                        className="appearance-none block text-[1rem] leading-[2] border border-[#919191] bg-white rounded w-full pl-[.25em]"
                         value={todoItems.finishTime}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} /></label>
             </div>
