@@ -48,10 +48,10 @@ export const PrevNextMonthBtns: FC<btnsPropsType> = (props) => {
 
     return (
         <div className="flex justify-between">
-            <button type="button" className="cursor-pointer py-[.5em] px-[1em] bg-[#333] text-white rounded" onClick={prevCalendarView}><span className="material-symbols-outlined align-middle">
+            <button type="button" className="cursor-pointer py-[.5em] px-[1em] bg-[#333] text-white rounded active:opacity-[.75]" onClick={prevCalendarView}><span className="material-symbols-outlined align-middle">
                 navigate_before
             </span></button>
-            <button type="button" className="cursor-pointer py-[.5em] px-[1em] bg-[#333] text-white rounded" onClick={nextCalendarView}><span className="material-symbols-outlined align-middle">
+            <button type="button" className="cursor-pointer py-[.5em] px-[1em] bg-[#333] text-white rounded active:opacity-[.75]" onClick={nextCalendarView}><span className="material-symbols-outlined align-middle">
                 navigate_next
             </span></button>
         </div>

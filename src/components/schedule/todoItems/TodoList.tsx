@@ -16,6 +16,11 @@ export const TodoList = ({ todoID }: { todoID: string }) => {
         modalWindow?.classList.add('modalWindowOnView');
     }
 
+    const handleModalViewer: (e: SyntheticEvent<HTMLLIElement>) => void = (e: SyntheticEvent<HTMLLIElement>) => {
+        OnViewModalWindow(e.currentTarget);
+        scrollTop();
+    }
+
     return (
         <>
             {todoMemo.length > 0 &&
@@ -26,10 +31,7 @@ export const TodoList = ({ todoID }: { todoID: string }) => {
                             {todoItem.todoID === todoID ?
                                 <li
                                     className="todoItem flex flex-row flex-wrap justify-center gap-[.5em] bg-[#fafafa] p-[.25em] shadow-[0_0_8px_rgba(0,0,0,.25)_inset] rounded hover:cursor-pointer not-last-of-type:mb-[1em]"
-                                    onClick={(liElm: SyntheticEvent<HTMLLIElement>) => {
-                                        OnViewModalWindow(liElm.currentTarget);
-                                        scrollTop();
-                                    }}>
+                                    onClick={handleModalViewer}>
                                     {desktopView ?
                                         <div className="text-left hover:text-[#59b835] p-[.5em]">
                                             <p className="text-center mb-[.5em] font-bold">{todoItem.todoContent}</p>
