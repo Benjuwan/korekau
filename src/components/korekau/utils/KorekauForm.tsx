@@ -124,7 +124,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
             </div>
             <div className={KorekauItemList ? 'flex items-start gap-[5em]' : undefined}>
                 <input type="submit"
-                    className="text-[1rem] leading-[2] w-[80%] rounded border border-[#c6c6c6] block bg-[#f0b20e] tracking-[0.5em] transition duration-[.25s] disabled:text-[#999] disabled:bg-[#dadada] not-disabled:hover:cursor-pointer not-disabled:hover:text-[#f0b20e] not-disabled:hover:border-[#f0b20e] not-disabled:hover:bg-white"
+                    className={`text-[1rem] leading-[2] rounded border border-[#c6c6c6] block bg-[#f0b20e] tracking-[0.5em] transition duration-[.25s] disabled:text-[#999] disabled:bg-[#dadada] not-disabled:hover:cursor-pointer not-disabled:hover:text-[#f0b20e] not-disabled:hover:border-[#f0b20e] not-disabled:hover:bg-white ${KorekauItemList ? 'w-[80%]' : 'w-full'}`}
                     value={KorekauItemList ? '再登録' : '登録'}
                     disabled={korekauItem.itemName.length === 0 || Number(korekauItem.itemNumber) === 0} />
                 {KorekauItemList &&
