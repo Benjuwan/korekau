@@ -21,7 +21,7 @@ export const Introduction = memo(() => {
                 <h3 className="text-center px-[.5em] w-fit my-[5em] mx-auto border-b border-b-[#999] relative text-[1.25rem] before:content-[''] before:w-[25%] before:h-[1px] before:bg-[#999] before:absolute before:top-[120%] before:left-[50%] before:transform-[translateX(-50%)] lg:text-[32px]">コレカウでできること</h3>
                 <dl className="lg:flex lg:flex-row lg:flex-wrap lg:gap-[5%]">
                     <div className="mb-[5em] lg:w-[47.5%]">
-                        <dt className="text-[1.5rem]"><h4 className="text-[#f0b20e] border-l border-l-[#f0b20e] border-l-[.25rem] pl-[.5em] mb-[.5em]">1. 買うものリスト</h4></dt>
+                        <dt className="text-[1.5rem]"><h4 className="text-[#f0b20e] border-l-[#f0b20e] border-l-[.25rem] pl-[.5em] mb-[.5em]">1. 買うものリスト</h4></dt>
                         <dd>
                             <div className="bg-[#f5f5f5] rounded p-[1em] mb-[2.5em]">
                                 <h5 className="font-bold border-b border-b-[#dadada] pb-[.5em] mb-[.5em]">買うものを管理（追加・編集）</h5>
@@ -44,7 +44,7 @@ export const Introduction = memo(() => {
                         </dd>
                     </div>
                     <div className="mb-[5em] lg:w-[47.5%]">
-                        <dt className="text-[1.5rem]"><h4 className="text-[#f0b20e] border-l border-l-[#f0b20e] border-l-[.25rem] pl-[.5em] mb-[.5em]">2. 商品価格の比較</h4></dt>
+                        <dt className="text-[1.5rem]"><h4 className="text-[#f0b20e] border-l-[#f0b20e] border-l-[.25rem] pl-[.5em] mb-[.5em]">2. 商品価格の比較</h4></dt>
                         <dd>
                             <div className="bg-[#f5f5f5] rounded p-[1em] mb-[2.5em]">
                                 <h5 className="font-bold border-b border-b-[#dadada] pb-[.5em] mb-[.5em]">どれがコスパの良い商品かチェック</h5>
@@ -54,7 +54,7 @@ export const Introduction = memo(() => {
                         </dd>
                     </div>
                     <div className="mb-[5em] lg:w-[47.5%]">
-                        <dt className="text-[1.5rem]"><h4 className="text-[#f0b20e] border-l border-l-[#f0b20e] border-l-[.25rem] pl-[.5em] mb-[.5em]">3. カレンダー</h4></dt>
+                        <dt className="text-[1.5rem]"><h4 className="text-[#f0b20e] border-l-[#f0b20e] border-l-[.25rem] pl-[.5em] mb-[.5em]">3. カレンダー</h4></dt>
                         <dd>
                             <div className="bg-[#f5f5f5] rounded p-[1em] mb-[2.5em]">
                                 <h5 className="font-bold border-b border-b-[#dadada] pb-[.5em] mb-[.5em]">簡易なスケジュール管理</h5>
@@ -63,7 +63,7 @@ export const Introduction = memo(() => {
                         </dd>
                     </div>
                     <div className="mb-[5em] lg:flex lg:flex-row lg:flex-wrap lg:gap-[5%] lg:w-[47.5%]">
-                        <dt className="text-[1.5rem]"><h4 className="text-[#f0b20e] border-l border-l-[#f0b20e] border-l-[.25rem] pl-[.5em] mb-[.5em]">4. ゴミ出し日</h4></dt>
+                        <dt className="text-[1.5rem]"><h4 className="text-[#f0b20e] border-l-[#f0b20e] border-l-[.25rem] pl-[.5em] mb-[.5em]">4. ゴミ出し日</h4></dt>
                         <dd>
                             <div className="bg-[#f5f5f5] rounded p-[1em] mb-[2.5em]">
                                 <h5 className="font-bold border-b border-b-[#dadada] pb-[.5em] mb-[.5em]">設定したゴミ出し日の前日を表示</h5>

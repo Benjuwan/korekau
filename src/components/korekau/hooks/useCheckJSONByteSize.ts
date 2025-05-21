@@ -1,8 +1,3 @@
-/**
- * Uncaught DOMException: Failed to execute 'setItem' on 'Storage': Setting the value of '*' exceeded the quota.
- * localStorage が容量上限に達した場合のエラーハンドリングのカスタムフック
-*/
-
 export const useCheckJSONByteSize = () => {
     const checkJSONByteSize = (jsonStr: string, limitByte?: number) => {
         const isSmartPhone_Tablet: boolean = window.matchMedia("(max-width: 700px)").matches;
