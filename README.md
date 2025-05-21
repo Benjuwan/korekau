@@ -12,7 +12,7 @@ KoreKau（コレカウ）は、シンプルな買い物リスト管理アプリ�
 ## 技術構成
 - @tailwindcss/vite@4.1.7
 - @types/react-dom@19.1.5
-- @types/react@19.1.4
+- @types/react@19.1.5
 - @types/uuid@10.0.0
 - @typescript-eslint/eslint-plugin@8.32.1
 - @typescript-eslint/parser@8.32.1
