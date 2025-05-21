@@ -16,7 +16,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
         itemCategory: KorekauItemList ? KorekauItemList.itemCategory : 'food_drink',
         itemPriority: KorekauItemList ? KorekauItemList.itemPriority : false,
         itemMemo: '',
-        itemImg: ''
+        itemImg: KorekauItemList ? KorekauItemList.itemImg : ''
     }
     const [korekauItem, setKorekauItem] = useState<korekauItemsType>(initKorekauItem);
 
@@ -29,15 +29,15 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
 
     const handleFormSubmit: (formElm: ChangeEvent<HTMLFormElement>) => void = (formElm: ChangeEvent<HTMLFormElement>) => {
         formElm.preventDefault();
-        KorekauItemList ?
-            (
-                updateKorekauItems(korekauItem),
-                targetElsRemoveClass('editerView', 'OnView')
-            ) :
-            (
-                regiKorekauItem(korekauItem),
-                korekauFormClosed()
-            )
+
+        if (KorekauItemList) {
+            updateKorekauItems(korekauItem);
+            targetElsRemoveClass('editerView', 'OnView');
+        } else {
+            regiKorekauItem(korekauItem);
+            korekauFormClosed();
+        }
+
         setKorekauItem(initKorekauItem);
         setTimeout(() => scrollTop()); // input[type="submit"]のクリックイベントでスクロールトップしないので回避策として疑似的な遅延処理
     }
@@ -45,7 +45,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
     return (
         <form action="" className="w-full rounded p-[1.5em] shadow-[0_0_8px_rgba(160,160,160,.5)_inset] my-[1em] mx-auto bg-white" onSubmit={handleFormSubmit}>
             <div className="mb-[2em]">
-                <label className="leading-[2] border-l border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">カテゴリー</label>
+                <label className="leading-[2] border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">カテゴリー</label>
                 <select
                     name="itemCategory"
                     id="itemCategory"
@@ -62,7 +62,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                 </select>
             </div>
             <div className="mb-[2em]">
-                <label className="leading-[2] border-l border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">買うもの</label>
+                <label className="leading-[2] border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">買うもの</label>
                 <input type="text"
                     id="itemName"
                     className="text-[1rem] leading-[2] w-full rounded border border-[#c6c6c6] pl-[.5em]"
@@ -72,7 +72,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                         (e: ChangeEvent<HTMLInputElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')
                     } />
                 <div className="UploadImgItem mt-[1em]">
-                    <label className="leading-[2] border-l border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">商品画像（※1MB以下）</label>
+                    <label className="leading-[2] border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">商品画像（※1MB以下）</label>
                     <UploadImgItem props={{
                         korekauItem: korekauItem,
                         setKorekauItem: setKorekauItem,
@@ -81,7 +81,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                 </div>
             </div>
             <div className="mb-[2em]">
-                <label className="leading-[2] border-l border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">メモ</label>
+                <label className="leading-[2] border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">メモ</label>
                 <textarea name="itemMemo"
                     rows={5}
                     id="itemMemo"
@@ -95,7 +95,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
             </div>
             <div className="flex items-start gap-[5em]">
                 <div className="mb-[2em]">
-                    <label className="leading-[2] border-l border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">個数</label>
+                    <label className="leading-[2] border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">個数</label>
                     {/* pattern="\d*"：\dは任意の数字を表し、*は0回以上の繰り返しを意味する（＝入力されるテキストが0個以上の数字で構成されることを許可）*/}
                     <input type="text"
                         id="itemNumber"
@@ -110,7 +110,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                 </div>
                 <div className="mb-[2em] w-[50%]">
                     {/* トグルボタンのスタイル及び機能の都合上ここは<p> */}
-                    <p className="leading-[2] border-l border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">すぐ買う</p>
+                    <p className="leading-[2] border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">すぐ買う</p>
                     <label className={`switch text-[0.8125rem] relative inline-block w-[3.375rem] h-[1.75rem] ${korekauItem.itemPriority && 'switchOn'}`}>
                         <input type="checkbox"
                             id="itemPriority"

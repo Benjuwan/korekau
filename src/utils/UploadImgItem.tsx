@@ -5,7 +5,7 @@ type UploadImgItemType = {
     korekauItem: korekauItemsType;
     setKorekauItem: React.Dispatch<React.SetStateAction<korekauItemsType>>;
     KorekauItemList?: korekauItemsType;
-}
+};
 
 export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
     const { korekauItem, setKorekauItem, KorekauItemList } = props;
