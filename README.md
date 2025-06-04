@@ -10,22 +10,22 @@ KoreKau（コレカウ）は、シンプルな買い物リスト管理アプリ�
 <img width="45%" alt="summary" src="https://github.com/Benjuwan/korekau/assets/90702379/2ec5095e-93d9-45f5-b406-8704ad472ff9">
 
 ## 技術構成
-- @tailwindcss/vite@4.1.7
+- @tailwindcss/vite@4.1.8
 - @types/react-dom@19.1.5
-- @types/react@19.1.5
+- @types/react@19.1.6
 - @types/uuid@10.0.0
-- @typescript-eslint/eslint-plugin@8.32.1
-- @typescript-eslint/parser@8.32.1
-- @vitejs/plugin-react@4.4.1
+- @typescript-eslint/eslint-plugin@8.33.1
+- @typescript-eslint/parser@8.33.1
+- @vitejs/plugin-react@4.5.1
 - eslint-plugin-react-hooks@5.2.0
 - eslint-plugin-react-refresh@0.4.20
 - eslint-plugin-react@7.37.5
-- eslint@9.27.0
-- jotai@2.12.4
+- eslint@9.28.0
+- jotai@2.12.5
 - react-dom@19.1.0
 - react@19.1.0
-- swiper@11.2.7
-- tailwindcss@4.1.7
+- swiper@11.2.8
+- tailwindcss@4.1.8
 - typescript@5.8.3
 - uuid@11.1.0
 - vite@6.3.5
