@@ -40,7 +40,14 @@ export const TrashForm = memo(({ trashDateList }: { trashDateList?: trashType })
         <form action="" className="rounded p-[1.5em] shadow-[0_0_8px_rgba(160,160,160,.5)_inset] mt-[.5em] mx-auto mb-[5em] bg-white" onSubmit={handleFormSubmit}>
             <div className="mb-[2em]">
                 <label className="leading-[2] border-l-[.25rem] border-l-[#676767] pl-[.5em] mb-[.5em]">曜日</label>
-                <select name="daySelect" id="day" className="text-[1rem] leading-[2] w-full rounded border border-[#c6c6c6]" ref={selectRef} onChange={(e: ChangeEvent<HTMLSelectElement>) => handleFormEntries<trashType>(e, trashData, setTrashData)}>
+                <select
+                    name="daySelect"
+                    id="day"
+                    className="text-[1rem] leading-[2] w-full rounded border border-[#c6c6c6]"
+                    ref={selectRef}
+                    onChange={(e: ChangeEvent<HTMLSelectElement>) => handleFormEntries<trashType>(e, trashData, setTrashData)}
+                    defaultValue={trashData.day} // 既存内容がある場合、以前選択した曜日が selected される
+                >
                     <option value="1">（月）</option>
                     <option value="2">（火）</option>
                     <option value="3">（水）</option>
