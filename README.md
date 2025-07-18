@@ -5,7 +5,7 @@ KoreKau（コレカウ）は、シンプルな買い物リスト管理アプリ�
 
 - アイコンソース元：[Material Symbols](https://fonts.google.com/icons)
 
-***
+---
 
 <img width="45%" alt="summary" src="https://github.com/Benjuwan/korekau/assets/90702379/2ec5095e-93d9-45f5-b406-8704ad472ff9">
 
@@ -14,17 +14,17 @@ KoreKau（コレカウ）は、シンプルな買い物リスト管理アプリ�
 - @types/react-dom@19.1.6
 - @types/react@19.1.8
 - @types/uuid@10.0.0
-- @typescript-eslint/eslint-plugin@8.35.0
-- @typescript-eslint/parser@8.35.0
-- @vitejs/plugin-react@4.6.0
+- @typescript-eslint/eslint-plugin@8.37.0
+- @typescript-eslint/parser@8.37.0
+- @vitejs/plugin-react@4.7.0
 - eslint-plugin-react-hooks@5.2.0
 - eslint-plugin-react-refresh@0.4.20
 - eslint-plugin-react@7.37.5
-- eslint@9.29.0
+- eslint@9.31.0
 - jotai@2.12.5
 - react-dom@19.1.0
 - react@19.1.0
-- swiper@11.2.8
+- swiper@11.2.10
 - tailwindcss@4.1.11
 - typescript@5.8.3
 - uuid@11.1.0
@@ -54,21 +54,21 @@ KoreKau（コレカウ）は、シンプルな買い物リスト管理アプリ�
 
     <div style="display:flex; gap:2em;"><img width="45%" alt="korekau01" src="https://github.com/Benjuwan/korekau/assets/90702379/0454820e-0da5-4b70-8127-d229013f63d5"><img width="45%" alt="korekau02" src="https://github.com/Benjuwan/korekau/assets/90702379/e3fcacb8-2457-4965-8322-3bc36a6ce75f"></div>
 
-***
+---
 
 - 2.商品価格の比較（どれがコスパの良い商品かチェック）<br />
 `［容量・個数］`に対象商品の単位を、`［価格］`に当該商品の価格を入力して`［計算］`を押すと結果が下部に表示されます。<br />例えば、洗剤を買おうとして通常版と大容量お得版の比較を行うとします。【通常版：468g / 98円】と【大容量お得版：789g / 186円】では、どちらが本当にコスパが良いかを把握できます。
 
 <img width="363" alt="compareitems01" src="https://github.com/Benjuwan/korekau/assets/90702379/5a8cd4ff-e899-4aad-b695-4fa41b1cd593">
 
-***
+---
 
 - 3.カレンダー（簡易なスケジュール管理）<br />
 各日付にある`［+アイコン］`を押して表示される登録フォームから当該日のスケジュール（予定内容と開始・終了時間）を設定できます。
 
 <img width="1143" alt="calendar" src="https://github.com/Benjuwan/korekau/assets/90702379/5d038b70-fd89-4012-aa16-268b1e49d973">
 
-***
+---
 
 - 4.ゴミ出し日（設定したゴミ出し日の前日を表示）<br />
 自治体や地域によっては家庭ごみを出せる曜日とゴミの種別が決まっているところもあります。【曜日】と【ゴミの種別】を設定することで、その前日にコレカウ画面上部に表示が出てきます。

@@ -38,8 +38,9 @@ export const Calendar = () => {
         }
         setCtrlToday(today);
 
-        if (window.matchMedia("(min-width: 1025px)").matches) setDesktopView(true);
-
+        if (window.matchMedia("(min-width: 1025px)").matches) {
+            setDesktopView(true);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

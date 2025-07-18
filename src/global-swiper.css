@@ -1,7 +1,7 @@
 /* swiper のスタイリングに関しては、@layer による優先度が低い影響から独自スタイルを設定したスタイルシートを用意 */
 .SwiperLibsWrapper {
     & .swiper-pagination {
-        top: -1.5em;
+        top: 0;
         height: fit-content;
 
         & .swiperPaginationChildrenWrapper {
@@ -34,7 +34,7 @@
     }
 
     & .swiper-wrapper {
-        padding-top: 2.5em;
+        padding-top: 4em;
     }
 }
 

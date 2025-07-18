@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 import { isDesktopViewAtom } from '../ts/calendar-atom';
 import { Introduction } from '../components/Introduction';
@@ -25,8 +25,8 @@ import "../global-swiper.css"; // 独自のスタイルシートを用意（※�
 import { Pagination } from "swiper/modules";
 
 export const SwiperLibs = memo(() => {
-    const [isDesktopView, setDesktopView] = useAtom(isDesktopViewAtom);
-
+    const [, setDesktopView] = useAtom(isDesktopViewAtom);
+    const [activeContentHeight, setActiveContentHeight] = useState<number>(0);
     const { scrollTop } = useScrollTop();
 
     const navListsLable = ['コレカウとは？', '買うものリスト', '商品価格の比較', 'カレンダー', 'ゴミ出し日'];
@@ -51,10 +51,25 @@ export const SwiperLibs = memo(() => {
 
         swiperPagination.appendChild(swiperPaginationChildren);
 
-        if (window.matchMedia("(min-width: 960px)").matches) setDesktopView(true);
-
+        if (window.matchMedia("(min-width: 960px)").matches) {
+            setDesktopView(true);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const checkActiveContentHeight: () => void = () => {
+        const swiperSlideActive: HTMLElement | null = document.querySelector('.swiper-slide-active');
+        if (swiperSlideActive == null) {
+            return;
+        }
+
+        const contentHeight: number | undefined = swiperSlideActive.firstElementChild?.clientHeight;
+        if (typeof contentHeight === 'undefined') {
+            return;
+        }
+
+        setActiveContentHeight(contentHeight);
+    }
 
     return (
         <div className='SwiperLibsWrapper px-[1em]'>
@@ -64,12 +79,16 @@ export const SwiperLibs = memo(() => {
                 spaceBetween={56}
                 speed={1000}
                 className="useSwiper"
-                style={isDesktopView ? undefined : { 'overflow': 'unset' }} // スマホ・タブレットの時（960px 以下）は overflow:hidden を解除
                 modules={[Pagination]}
                 pagination={{ renderBullet, clickable: true }}
-                onSlideChange={() => scrollTop()}
+                onSlideChange={scrollTop}
+                onSlideChangeTransitionEnd={checkActiveContentHeight} // スワイプイベント終了時にコンテンツの高さを取得
             >
-                <SwiperSlide><Introduction /></SwiperSlide>
+                <SwiperSlide
+                    className='mb-[2.5em]'
+                    // 他のコンテンツの高さをある程度最適化するために、最も情報量が多い（＝ height が高い） Introduction コンテンツの高さを調整する
+                    style={{ 'height': `${activeContentHeight}px` }}
+                ><Introduction /></SwiperSlide>
                 <SwiperSlide><KorekauBased /></SwiperSlide>
                 <SwiperSlide><CompareBased /></SwiperSlide>
                 <SwiperSlide><Calendar /></SwiperSlide>
