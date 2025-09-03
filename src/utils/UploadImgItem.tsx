@@ -91,7 +91,7 @@ export const UploadImgItem = memo(({ props }: { props: UploadImgItemType }) => {
             />
             {(itemImgSrc && !resetImgSrc) &&
                 <>
-                    <button type="button" onClick={resetItemImgSrc}>参照画像をリストから削除</button>
+                    <button type="button" onClick={resetItemImgSrc} className="mb-[.5em] text-[#cf1b1b] border-2 border-[transparent] p-[.25em] rounded cursor-pointer active:border-2 active:border-[#cf1b1b] hover:border-2 hover:border-[#cf1b1b]">参照画像をリストから削除</button>
                     <img src={itemImgSrc} alt={`${korekauItem.itemName}の参照画像`} />
                 </>
             }

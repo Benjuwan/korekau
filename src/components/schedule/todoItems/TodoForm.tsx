@@ -96,7 +96,10 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
                 type="button"
                 id="regiUpdateBtn"
                 className="text-[0.875rem] leading-[2] py-[1em] w-full bg-[#333] text-white rounded disabled:bg-[#919191] disabled:text-[#dadada] not-disabled:cursor-pointer not-disabled:hover:opacity-[.75]"
-                disabled={todoItems.todoContent.length <= 0}
+                disabled={
+                    todoItems.todoContent.length <= 0 ||
+                    (todoItems.startTime?.length === 0 || todoItems.finishTime?.length === 0)
+                }
                 onClick={handleRegiUpdateAction}>{!todoItems.edit ? '登録' : '再登録'}</button>
         </form>
     );
