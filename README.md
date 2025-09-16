@@ -10,25 +10,25 @@ KoreKau（コレカウ）は、シンプルな買い物リスト管理アプリ�
 <img width="45%" alt="summary" src="https://github.com/Benjuwan/korekau/assets/90702379/2ec5095e-93d9-45f5-b406-8704ad472ff9">
 
 ## 技術構成
-- @tailwindcss/vite@4.1.12
+- @tailwindcss/vite@4.1.13
 - @types/react-dom@19.1.9
-- @types/react@19.1.12
+- @types/react@19.1.13
 - @types/uuid@10.0.0
-- @typescript-eslint/eslint-plugin@8.42.0
-- @typescript-eslint/parser@8.42.0
+- @typescript-eslint/eslint-plugin@8.44.0
+- @typescript-eslint/parser@8.44.0
 - @vitejs/plugin-react@4.7.0
 - eslint-plugin-react-hooks@5.2.0
 - eslint-plugin-react-refresh@0.4.20
 - eslint-plugin-react@7.37.5
-- eslint@9.34.0
-- jotai@2.13.1
+- eslint@9.35.0
+- jotai@2.14.0
 - react-dom@19.1.1
 - react@19.1.1
-- swiper@11.2.10
-- tailwindcss@4.1.12
+- swiper@12.0.1
+- tailwindcss@4.1.13
 - typescript@5.9.2
 - uuid@11.1.0
-- vite@6.3.5
+- vite@6.3.6
 
 ## 概要
 `localStorage`を使って登録データ（買うものリスト、カレンダーのスケジュール、ゴミ出し日）の保存を行っています。<br />そのため **（一度もアクセスせずに）1週間ほど過ぎると登録内容はリセット（全削除）** されます。<br />
