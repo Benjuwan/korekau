@@ -15,14 +15,22 @@ export const useUpdateKorekauItems = () => {
     const updateKorekauItems: (korekauItem: korekauItemsType) => void = (korekauItem: korekauItemsType) => {
         const updateKorekauItem: korekauItemsType = { ...korekauItem }
 
-        const exceptRemoveKorekauItem: korekauItemsType[] = [...korekauLists].filter(todoItem => todoItem.uuid !== updateKorekauItem.uuid); // 今回更新（削除）対象の korekauItem 以外を返す
+        // 置換対象アイテムのインデックス番号を取得
+        const targetIndex: number[] = [...korekauLists].map((korekauItem, i) => {
+            if (korekauItem.uuid === updateKorekauItem.uuid) {
+                return i;
+            }
+        }).filter((korekauItem): korekauItem is number => typeof korekauItem !== 'undefined');
+
+        // `with`メソッドを用いて非破壊的に更新要素の置換処理を実施（置換対象アイテムのインデックス位置で置換）
+        const updateKorekauLists: korekauItemsType[] = korekauLists.with(targetIndex[0], updateKorekauItem);
 
         if (updateKorekauItem.itemName.length > 0) {
-            setKorekauLists([...exceptRemoveKorekauItem, updateKorekauItem]);
+            setKorekauLists(updateKorekauLists);
             /* ---------------- localStorage 関連の処理（更新）---------------- */
-            checkJSONByteSize(JSON.stringify([...exceptRemoveKorekauItem, updateKorekauItem])); // localStorage のストレージ上限チェック
-            setLocalstorage([...exceptRemoveKorekauItem, updateKorekauItem]);
-            localStorage.setItem(localstorageLabelKorekauItems, JSON.stringify([...exceptRemoveKorekauItem, updateKorekauItem]));
+            checkJSONByteSize(JSON.stringify(updateKorekauLists)); // localStorage のストレージ上限チェック
+            setLocalstorage(updateKorekauLists);
+            localStorage.setItem(localstorageLabelKorekauItems, JSON.stringify(updateKorekauLists));
         }
     }
 
