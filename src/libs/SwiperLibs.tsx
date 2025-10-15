@@ -25,7 +25,7 @@ import "../global-swiper.css"; // 独自のスタイルシートを用意（※�
 import { Pagination } from "swiper/modules";
 
 export const SwiperLibs = memo(() => {
-    const [, setDesktopView] = useAtom(isDesktopViewAtom);
+    const [isDesktopView, setDesktopView] = useAtom(isDesktopViewAtom);
     const [activeContentHeight, setActiveContentHeight] = useState<number>(0);
     const { scrollTop } = useScrollTop();
 
@@ -68,7 +68,7 @@ export const SwiperLibs = memo(() => {
             return;
         }
 
-        setActiveContentHeight(contentHeight);
+        setActiveContentHeight(Math.ceil(contentHeight));
     }
 
     return (
@@ -89,7 +89,11 @@ export const SwiperLibs = memo(() => {
                     // 他のコンテンツの高さをある程度最適化するために、最も情報量が多い（＝ height が高い） Introduction コンテンツの高さを調整する
                     style={{ 'height': `${activeContentHeight}px` }}
                 ><Introduction /></SwiperSlide>
-                <SwiperSlide><KorekauBased /></SwiperSlide>
+                <SwiperSlide style={{
+                    // スマホ・タブレット閲覧時（960px以下）のみ編集フォームを操作できるようにするためコンテンツの高さを調整（2倍高く）する
+                    'height': isDesktopView ?
+                        'auto' : `${Math.ceil(activeContentHeight * 2)}px`
+                }}><KorekauBased /></SwiperSlide>
                 <SwiperSlide><CompareBased /></SwiperSlide>
                 <SwiperSlide><Calendar /></SwiperSlide>
                 <SwiperSlide><TrashBased /></SwiperSlide>
