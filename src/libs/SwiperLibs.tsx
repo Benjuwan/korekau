@@ -25,7 +25,7 @@ import "../global-swiper.css"; // 独自のスタイルシートを用意（※�
 import { Pagination } from "swiper/modules";
 
 export const SwiperLibs = memo(() => {
-    const [isDesktopView, setDesktopView] = useAtom(isDesktopViewAtom);
+    const [, setDesktopView] = useAtom(isDesktopViewAtom);
     const [activeContentHeight, setActiveContentHeight] = useState<number>(0);
     const { scrollTop } = useScrollTop();
 
@@ -63,7 +63,7 @@ export const SwiperLibs = memo(() => {
             return;
         }
 
-        const contentHeight: number | undefined = swiperSlideActive.firstElementChild?.clientHeight;
+        const contentHeight: number | undefined = swiperSlideActive.querySelector('section')?.clientHeight;
         if (typeof contentHeight === 'undefined') {
             return;
         }
@@ -84,16 +84,15 @@ export const SwiperLibs = memo(() => {
                 onSlideChange={scrollTop}
                 onSlideChangeTransitionEnd={checkActiveContentHeight} // スワイプイベント終了時にコンテンツの高さを取得
             >
-                <SwiperSlide
-                    className='mb-[2.5em]'
-                    // 他のコンテンツの高さをある程度最適化するために、最も情報量が多い（＝ height が高い） Introduction コンテンツの高さを調整する
-                    style={{ 'height': `${activeContentHeight}px` }}
-                ><Introduction /></SwiperSlide>
-                <SwiperSlide style={{
-                    // スマホ・タブレット閲覧時（960px以下）のみ編集フォームを操作できるようにするためコンテンツの高さを調整（2倍高く）する
-                    'height': isDesktopView ?
-                        'auto' : `${Math.ceil(activeContentHeight * 2)}px`
-                }}><KorekauBased /></SwiperSlide>
+                <SwiperSlide>
+                    <div className='mb-[2.5em]'
+                        // 他のコンテンツの高さを最適化するために、最も情報量が多い（＝ height が高い） Introduction コンテンツの高さを調整する
+                        style={{ 'height': `${activeContentHeight}px` }}
+                    >
+                        <Introduction />
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide><KorekauBased /></SwiperSlide>
                 <SwiperSlide><CompareBased /></SwiperSlide>
                 <SwiperSlide><Calendar /></SwiperSlide>
                 <SwiperSlide><TrashBased /></SwiperSlide>

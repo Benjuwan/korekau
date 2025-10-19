@@ -20,7 +20,7 @@ KoreKau（コレカウ）は、シンプルな買い物リスト管理アプリ�
 - eslint-plugin-react-hooks@7.0.0
 - eslint-plugin-react-refresh@0.4.24
 - eslint-plugin-react@7.37.5
-- eslint@9.37.0
+- eslint@9.38.0
 - jotai@2.15.0
 - react-dom@19.2.0
 - react@19.2.0
