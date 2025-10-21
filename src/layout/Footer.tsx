@@ -8,7 +8,7 @@ export const Footer = memo(() => {
     }, []);
 
     return (
-        <footer className="text-center leading-[2]">
+        <footer className="text-center leading-loose">
             <p className="text-[0.75rem]">&copy; {currYear} KoreKau benjuwan</p>
         </footer>
     );

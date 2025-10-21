@@ -10,7 +10,7 @@ export const EditerViewer = memo(({ children }: { children: ReactNode }) => {
     }
 
     return (
-        <div className="editerView leading-[1]">
+        <div className="editerView leading-none">
             <button type="button" className="editBtn w-fit cursor-pointer hover:brightness-[1.25]" onClick={(btnElm: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 editerView(btnElm.currentTarget);
                 scrollTop();

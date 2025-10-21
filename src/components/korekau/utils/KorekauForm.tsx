@@ -45,11 +45,11 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
     return (
         <form action="" className="w-full rounded p-[1.5em] shadow-[0_0_8px_rgba(160,160,160,.5)_inset] my-[1em] mx-auto bg-white" onSubmit={handleFormSubmit}>
             <div className="mb-[2em]">
-                <label className="leading-[2] border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">カテゴリー</label>
+                <label className="leading-loose border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">カテゴリー</label>
                 <select
                     name="itemCategory"
                     id="itemCategory"
-                    className="text-[1rem] leading-[2] w-full rounded border border-[#c6c6c6]"
+                    className="text-[1rem] leading-loose w-full rounded border border-[#c6c6c6]"
                     value={korekauItem.itemCategory}
                     onChange={
                         (e: ChangeEvent<HTMLSelectElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')
@@ -62,17 +62,17 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                 </select>
             </div>
             <div className="mb-[2em]">
-                <label className="leading-[2] border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">買うもの</label>
+                <label className="leading-loose border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">買うもの</label>
                 <input type="text"
                     id="itemName"
-                    className="text-[1rem] leading-[2] w-full rounded border border-[#c6c6c6] pl-[.5em]"
+                    className="text-[1rem] leading-loose w-full rounded border border-[#c6c6c6] pl-[.5em]"
                     value={korekauItem.itemName}
                     placeholder={KorekauItemList && `現在の内容：${KorekauItemList.itemName}`}
                     onInput={
                         (e: ChangeEvent<HTMLInputElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')
                     } />
                 <div className="UploadImgItem mt-[1em]">
-                    <label className="leading-[2] border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">商品画像（※1MB以下）</label>
+                    <label className="leading-loose border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">商品画像（※1MB以下）</label>
                     <UploadImgItem props={{
                         korekauItem: korekauItem,
                         setKorekauItem: setKorekauItem,
@@ -81,11 +81,11 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                 </div>
             </div>
             <div className="mb-[2em]">
-                <label className="leading-[2] border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">メモ</label>
+                <label className="leading-loose border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">メモ</label>
                 <textarea name="itemMemo"
                     rows={5}
                     id="itemMemo"
-                    className="text-[1rem] leading-[2] w-full rounded border border-[#c6c6c6] pl-[.5em] placeholder:text-[#c2c2c2]"
+                    className="text-[1rem] leading-loose w-full rounded border border-[#c6c6c6] pl-[.5em] placeholder:text-[#c2c2c2]"
                     value={korekauItem.itemMemo}
                     placeholder={KorekauItemList ? `現在の内容：${KorekauItemList.itemMemo}` : "例：最近の底値148円近辺なら買う"}
                     onInput={
@@ -95,11 +95,11 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
             </div>
             <div className="flex items-start gap-[5em]">
                 <div className="mb-[2em]">
-                    <label className="leading-[2] border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">個数</label>
+                    <label className="leading-loose border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">個数</label>
                     {/* pattern="\d*"：\dは任意の数字を表し、*は0回以上の繰り返しを意味する（＝入力されるテキストが0個以上の数字で構成されることを許可）*/}
                     <input type="text"
                         id="itemNumber"
-                        className="text-[1rem] leading-[2] w-full rounded border border-[#c6c6c6] pl-[.5em]"
+                        className="text-[1rem] leading-loose w-full rounded border border-[#c6c6c6] pl-[.5em]"
                         inputMode="numeric"
                         pattern="\d*"
                         value={korekauItem.itemNumber}
@@ -110,26 +110,26 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                 </div>
                 <div className="mb-[2em] w-[50%]">
                     {/* トグルボタンのスタイル及び機能の都合上ここは<p> */}
-                    <p className="leading-[2] border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">すぐ買う</p>
-                    <label className={`switch text-[0.8125rem] relative inline-block w-[3.375rem] h-[1.75rem] ${korekauItem.itemPriority && 'switchOn'}`}>
+                    <p className="leading-loose border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">すぐ買う</p>
+                    <label className={`switch text-[0.8125rem] relative inline-block w-13.5 h-7 ${korekauItem.itemPriority && 'switchOn'}`}>
                         <input type="checkbox"
                             id="itemPriority"
-                            className="text-[1rem] leading-[2] opacity-[1] w-[0] h-[0] rounded border border-[#c6c6c6] pl-[.5em]"
+                            className="text-[1rem] leading-loose opacity-[1] w-0 h-0 rounded border border-[#c6c6c6] pl-[.5em]"
                             onChange={
                                 (e: ChangeEvent<HTMLInputElement>) => handleFormEntries<korekauItemsType>(e, korekauItem, setKorekauItem, 'korekau')
                             } />
-                        <span className="slider absolute cursor-pointer m-auto inset-[0] bg-white transition duration-[.25s] rounded-4xl border border-[#cccccc] before:content-[''] before:absolute before:w-[1.9em] before:h-[1.9em] before:rounded-[1rem] before:left-[1px] before:top-[0] before:bottom-[0] before:bg-white before:shadow-[0_2px_5px_#999999] before:transition before:duration-[.25s]">&nbsp;</span>
+                        <span className="slider absolute cursor-pointer m-auto inset-0 bg-white transition duration-[.25s] rounded-4xl border border-[#cccccc] before:content-[''] before:absolute before:w-[1.9em] before:h-[1.9em] before:rounded-2xl before:left-px before:top-0 before:bottom-0 before:bg-white before:shadow-[0_2px_5px_#999999] before:transition before:duration-[.25s]">&nbsp;</span>
                     </label>
                 </div>
             </div>
             <div className={KorekauItemList ? 'flex items-start gap-[5em]' : undefined}>
                 <input type="submit"
-                    className={`text-[1rem] leading-[2] rounded border border-[#c6c6c6] block bg-[#f0b20e] tracking-[0.5em] transition duration-[.25s] disabled:text-[#999] disabled:bg-[#dadada] not-disabled:hover:cursor-pointer not-disabled:hover:text-[#f0b20e] not-disabled:hover:border-[#f0b20e] not-disabled:hover:bg-white ${KorekauItemList ? 'w-[80%]' : 'w-full'}`}
+                    className={`text-[1rem] leading-loose rounded border border-[#c6c6c6] block bg-[#f0b20e] tracking-[0.5em] transition duration-[.25s] disabled:text-[#999] disabled:bg-[#dadada] not-disabled:hover:cursor-pointer not-disabled:hover:text-[#f0b20e] not-disabled:hover:border-[#f0b20e] not-disabled:hover:bg-white ${KorekauItemList ? 'w-[80%]' : 'w-full'}`}
                     value={KorekauItemList ? '再登録' : '登録'}
                     disabled={korekauItem.itemName.length === 0 || Number(korekauItem.itemNumber) === 0} />
                 {KorekauItemList &&
                     <input type="button"
-                        className="editerCloseBtn block w-[20%] bg-[#5fdd54] cursor-pointer text-[1rem] text-white leading-[2] rounded border border-[#c6c6c6] transition duration-[.25s] hover:text-[#5fdd54] hover:border-[#5fdd54] hover:bg-white"
+                        className="editerCloseBtn block w-[20%] bg-[#5fdd54] cursor-pointer text-[1rem] text-white leading-loose rounded border border-[#c6c6c6] transition duration-[.25s] hover:text-[#5fdd54] hover:border-[#5fdd54] hover:bg-white"
                         value={'戻る'}
                         onClick={
                             () => targetElsRemoveClass('editerView', 'OnView')

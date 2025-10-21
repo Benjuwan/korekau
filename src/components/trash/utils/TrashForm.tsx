@@ -39,11 +39,11 @@ export const TrashForm = memo(({ trashDateList }: { trashDateList?: trashType })
     return (
         <form action="" className="rounded p-[1.5em] shadow-[0_0_8px_rgba(160,160,160,.5)_inset] mt-[.5em] mx-auto mb-[5em] bg-white" onSubmit={handleFormSubmit}>
             <div className="mb-[2em]">
-                <label className="leading-[2] border-l-[.25rem] border-l-[#676767] pl-[.5em] mb-[.5em]">曜日</label>
+                <label className="leading-loose border-l-[.25rem] border-l-[#676767] pl-[.5em] mb-[.5em]">曜日</label>
                 <select
                     name="daySelect"
                     id="day"
-                    className="text-[1rem] leading-[2] w-full rounded border border-[#c6c6c6]"
+                    className="text-[1rem] leading-loose w-full rounded border border-[#c6c6c6]"
                     ref={selectRef}
                     onChange={(e: ChangeEvent<HTMLSelectElement>) => handleFormEntries<trashType>(e, trashData, setTrashData)}
                     defaultValue={trashData.day} // 既存内容がある場合、以前選択した曜日が selected される
@@ -58,11 +58,11 @@ export const TrashForm = memo(({ trashDateList }: { trashDateList?: trashType })
                 </select>
             </div>
             <div className="mb-[2em]">
-                <label className="leading-[2] border-l-[.25rem] border-l-[#676767] pl-[.5em] mb-[.5em]">出せるゴミの種別・内容</label>
-                <input type="text" value={trashData.trashDate} id="trashDate" className="text-[1rem] leading-[2] w-full rounded border border-[#c6c6c6] pl-[.5em]" onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<trashType>(e, trashData, setTrashData)} placeholder="例：燃えるゴミ" />
+                <label className="leading-loose border-l-[.25rem] border-l-[#676767] pl-[.5em] mb-[.5em]">出せるゴミの種別・内容</label>
+                <input type="text" value={trashData.trashDate} id="trashDate" className="text-[1rem] leading-loose w-full rounded border border-[#c6c6c6] pl-[.5em]" onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<trashType>(e, trashData, setTrashData)} placeholder="例：燃えるゴミ" />
             </div>
             <div className={trashDateList ? 'ctrlBtns flex justify-between gap-[5%]' : undefined}>
-                <input type="submit" className="text-[1rem] leading-[2] rounded border border-[#c6c6c6] pl-[.5em] block w-full text-white bg-[#676767] tracking-[0.5em] transiton duration-[.25s] disabled:text-[#999] disabled:bg-[#393939] not-disabled:hover:cursor-pointer not-disabled:hover:text-[#676767] not-disabled:hover:border-[#676767] not-disabled:hover:bg-white" disabled={trashData.trashDate.length <= 0} value={trashDateList ? '再登録' : '登録'} />
+                <input type="submit" className="text-[1rem] leading-loose rounded border border-[#c6c6c6] pl-[.5em] block w-full text-white bg-[#676767] tracking-[0.5em] transiton duration-[.25s] disabled:text-[#999] disabled:bg-[#393939] not-disabled:hover:cursor-pointer not-disabled:hover:text-[#676767] not-disabled:hover:border-[#676767] not-disabled:hover:bg-white" disabled={trashData.trashDate.length <= 0} value={trashDateList ? '再登録' : '登録'} />
                 {trashDateList &&
                     <button type="button" className="editerCloseBtn bg-[#59b835] w-[20%] rounded transition duration-[.25s] hover:text-white" onClick={() => targetElsRemoveClass('editerView', 'OnView')}>戻る</button>
                 }

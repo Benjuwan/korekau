@@ -18,5 +18,5 @@ export const KorekauAllReset = memo(() => {
         }
     }
 
-    return <button type="button" className="w-fit bg-[#cc3226] border border-transparent text-white cursor-pointer px-[1em] mb-[2.5em] rounded leading-[2.75rem] text-[0.875rem] transition duration-[.25s] hover:bg-transparent hover:text-[#cc3226] hover:border-[#cc3226]" onClick={handleAllReset}>リストを全削除</button>
+    return <button type="button" className="w-fit bg-[#cc3226] border border-transparent text-white cursor-pointer px-[1em] mb-[2.5em] rounded leading-11 text-[0.875rem] transition duration-[.25s] hover:bg-transparent hover:text-[#cc3226] hover:border-[#cc3226]" onClick={handleAllReset}>リストを全削除</button>
 });

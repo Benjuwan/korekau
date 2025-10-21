@@ -1,12 +1,14 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 import { useAtom } from 'jotai';
 import { isDesktopViewAtom } from '../ts/calendar-atom';
+import { korekauAtom } from '../ts/korekau-atom';
 import { Introduction } from '../components/Introduction';
 import { KorekauBased } from '../components/korekau/KorekauBased';
 import { Calendar } from '../components/schedule/calendar/Calendar';
 import { TrashBased } from '../components/trash/TrashBased';
 import { CompareBased } from '../components/compareItems/CompareBased';
 import { useScrollTop } from '../hooks/useScrollTop';
+import { useCheckActiveContentHeight } from '../hooks/useCheckActiveContentHeight';
 
 /**
  * reactでのswiperは【使いたいCSSと機能】を必要に応じて記述して（読み込んで使って）いくスタイル 
@@ -26,8 +28,15 @@ import { Pagination } from "swiper/modules";
 
 export const SwiperLibs = memo(() => {
     const [, setDesktopView] = useAtom(isDesktopViewAtom);
-    const [activeContentHeight, setActiveContentHeight] = useState<number>(0);
+    const [korekau] = useAtom(korekauAtom);
+
     const { scrollTop } = useScrollTop();
+    const { activeContentHeight, checkActiveContentHeight, forKorekau_adjustActiveContentHeight } = useCheckActiveContentHeight();
+
+    const korekauSwiperHeight = useMemo(() => {
+        return forKorekau_adjustActiveContentHeight('korekauSwiper');
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeContentHeight, korekau]);
 
     const navListsLable = ['コレカウとは？', '買うものリスト', '商品価格の比較', 'カレンダー', 'ゴミ出し日'];
     const renderBullet = (index: number) => {
@@ -57,20 +66,6 @@ export const SwiperLibs = memo(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const checkActiveContentHeight: () => void = () => {
-        const swiperSlideActive: HTMLElement | null = document.querySelector('.swiper-slide-active');
-        if (swiperSlideActive == null) {
-            return;
-        }
-
-        const contentHeight: number | undefined = swiperSlideActive.querySelector('section')?.clientHeight;
-        if (typeof contentHeight === 'undefined') {
-            return;
-        }
-
-        setActiveContentHeight(Math.ceil(contentHeight));
-    }
-
     return (
         <div className='SwiperLibsWrapper px-[1em]'>
             <Swiper
@@ -84,15 +79,20 @@ export const SwiperLibs = memo(() => {
                 onSlideChange={scrollTop}
                 onSlideChangeTransitionEnd={checkActiveContentHeight} // スワイプイベント終了時にコンテンツの高さを取得
             >
-                <SwiperSlide>
-                    <div className='mb-[2.5em]'
-                        // 他のコンテンツの高さを最適化するために、最も情報量が多い（＝ height が高い） Introduction コンテンツの高さを調整する
-                        style={{ 'height': `${activeContentHeight}px` }}
-                    >
-                        <Introduction />
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide><KorekauBased /></SwiperSlide>
+                <SwiperSlide className='mb-[2.5em]'
+                    // 他のSwiperコンテンツの高さを最適化するために当該コンテンツの高さを調整する
+                    style={{ 'height': activeContentHeight === 'auto' ? activeContentHeight : `${activeContentHeight}px` }}
+                ><Introduction /></SwiperSlide>
+                <SwiperSlide
+                    className='korekauSwiper'
+                    // 編集フォームの見切れ防止のために当該コンテンツの高さを調整する関数（`forKorekau_adjustActiveContentHeight`）
+                    style={{
+                        'height': activeContentHeight === 'auto' ? activeContentHeight :
+                            korekauSwiperHeight === 'auto' ? korekauSwiperHeight :
+                                `${korekauSwiperHeight}px`,
+                        'minHeight': '880px' // 最低でも880pxが必要なので予防策として指定
+                    }}
+                ><KorekauBased /></SwiperSlide>
                 <SwiperSlide><CompareBased /></SwiperSlide>
                 <SwiperSlide><Calendar /></SwiperSlide>
                 <SwiperSlide><TrashBased /></SwiperSlide>

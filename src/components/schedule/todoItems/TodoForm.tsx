@@ -73,7 +73,7 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
                     type="text"
                     value={todoItems.todoContent}
                     id="todoContent"
-                    className="text-[1rem] leading-[1.5] border border-[#919191] bg-white rounded w-full pl-[.5em]"
+                    className="text-[1rem] leading-normal border border-[#919191] bg-white rounded w-full pl-[.5em]"
                     onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} />
             </label>
             <div className="flex justify-start gap-[1em]">
@@ -81,21 +81,21 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
                     <input
                         type="time"
                         id="startTime"
-                        className="appearance-none block text-[1rem] leading-[2] border border-[#919191] bg-white rounded w-full pl-[.25em]"
+                        className="appearance-none block text-[1rem] leading-loose border border-[#919191] bg-white rounded w-full pl-[.25em]"
                         value={todoItems.startTime}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} /></label>
                 <label className="block w-full text-left mb-[1em] text-[clamp(0.625rem,100%,0.875rem)] my-[1em]">終了時刻
                     <input
                         type="time"
                         id="finishTime"
-                        className="appearance-none block text-[1rem] leading-[2] border border-[#919191] bg-white rounded w-full pl-[.25em]"
+                        className="appearance-none block text-[1rem] leading-loose border border-[#919191] bg-white rounded w-full pl-[.25em]"
                         value={todoItems.finishTime}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} /></label>
             </div>
             <button
                 type="button"
                 id="regiUpdateBtn"
-                className="text-[0.875rem] leading-[2] py-[1em] w-full bg-[#333] text-white rounded disabled:bg-[#919191] disabled:text-[#dadada] not-disabled:cursor-pointer not-disabled:hover:opacity-[.75]"
+                className="text-[0.875rem] leading-loose py-[1em] w-full bg-[#333] text-white rounded disabled:bg-[#919191] disabled:text-[#dadada] not-disabled:cursor-pointer not-disabled:hover:opacity-[.75]"
                 disabled={
                     todoItems.todoContent.length <= 0 ||
                     (todoItems.startTime?.length === 0 || todoItems.finishTime?.length === 0)
