@@ -42,11 +42,11 @@ export const CompareForm = memo(({ props }: { props: CompareFormType }) => {
             entryCompareItem();
             setCompareItem(initCompareItem);
         }}>
-            <label htmlFor="amount" className="flex flex-row flex-wrap w-full align-center gap-[2%] mb-[1em] leading-[2]">
+            <label htmlFor="amount" className="flex flex-row flex-wrap w-full align-center gap-[2%] mb-[1em] leading-loose">
                 <span className="inline-block w-[30%] border-l-[.25rem] border-l-[#333] pl-[.5em]">容量・個数</span>
                 <input type="text" inputMode="numeric" pattern="\d*" value={compareItem.amount} id="amount" className="text-[1rem] rounded w-[68%] border border-[#333] pl-[.5em]" min={0} onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<CompareItemsType>(e, compareItem, setCompareItem, "compare")} />
             </label>
-            <label htmlFor="price" className="flex w-full align-center gap-[2%] mb-[1em] leading-[2]">
+            <label htmlFor="price" className="flex w-full align-center gap-[2%] mb-[1em] leading-loose">
                 <span className="inline-block w-[30%] border-l-[.25rem] border-l-[#333] pl-[.5em]">価格</span>
                 <input type="text" inputMode="numeric" pattern="\d*" value={compareItem.price} id="price" className="text-[1rem] rounded w-[68%] border border-[#333] pl-[.5em]" min={0} onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<CompareItemsType>(e, compareItem, setCompareItem, "compare")} />
             </label>

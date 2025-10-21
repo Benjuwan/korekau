@@ -53,13 +53,13 @@ export const DaysList = memo(({ days }: { days: calendarItemType[] }) => {
                         today.thisMonth === day.month &&
                         today.today === day.day
                     ) ? 'bg-[#e8ffea]' : undefined} ${day.dayDateNum === 0 ? 'bg-[#f5c0c0]' : undefined} ${day.dayDateNum === 6 ? 'bg-[#c0dff5]' : undefined}`}>
-                    <p className="leading-[2] wrap-anywhere">
+                    <p className="leading-loose wrap-anywhere">
                         {day.signalPrevNextMonth && <span>{day.month}/</span>}{day.day}
                     </p>
                     {day.signalPrevNextMonth ? null :
                         <div className="todoView">
                             <TodoCtrlOpenBtn />
-                            <div className="todoCtrlElm w-screen h-full fixed top-[50%] left-[50%] pt-[2.5em] px-[1em] pb-[1em] transform-[translate(-50%,-50%)] bg-[rgba(255,_255,_255,_.5)] backdrop-blur-sm transition duration-[.25s] lg:p-[5em]">
+                            <div className="todoCtrlElm w-screen h-full fixed top-[50%] left-[50%] pt-[2.5em] px-[1em] pb-[1em] transform-[translate(-50%,-50%)] bg-[rgba(255,255,255,.5)] backdrop-blur-sm transition duration-[.25s] lg:p-[5em]">
                                 <TodoCtrlClosedBtn />
                                 <p className="text-[1.5rem] pb-[1.5em]">{day.month}/{day.day}（{day.dayDate}）</p>
                                 <TodoForm props={{

@@ -4,7 +4,7 @@ import rogo from "../assets/rogo.svg";
 
 export const Introduction = memo(() => {
     return (
-        <section className="px-[1em] leading-[2] text-[1rem]">
+        <section className="px-[1em] leading-loose text-[1rem]">
             <h2 className="mb-[2.5em]"><figure className="rogoThumbnail text-center my-[1em]"><img className="w-[clamp(15rem,100%,25rem)] m-auto" src={rogo} alt="KoreKau（シンプルな買い物リスト管理アプリ）のロゴ" /></figure></h2>
             <p>KoreKau（コレカウ）は、シンプルな買い物リスト管理アプリです。買うものリストの管理（追加・編集）に加えて、家事に関するちょっとしたフォローができるよう「商品価格の比較」や「簡易なスケジュール管理」、「ゴミ出し前日のお知らせ表示」などが行えるようになっています。KoreKau（コレカウ）を日常的に使っていただくことで少しでも家事の負担を軽減できれば幸いです。</p>
             <p>画面上部の［ツールバー］から［項目］を選択（タップ）またはスワイプで当該項目を表示して各機能を利用いただけます。</p>
@@ -18,7 +18,7 @@ export const Introduction = memo(() => {
                 <p>プライベート（ブラウザの閲覧履歴を残さない）モードでは仕様上機能しません（登録情報を保存できません）。</p>
             </div>
             <section>
-                <h3 className="text-center px-[.5em] w-fit my-[5em] mx-auto border-b border-b-[#999] relative text-[1.25rem] before:content-[''] before:w-[25%] before:h-[1px] before:bg-[#999] before:absolute before:top-[120%] before:left-[50%] before:transform-[translateX(-50%)] lg:text-[32px]">コレカウでできること</h3>
+                <h3 className="text-center px-[.5em] w-fit my-[5em] mx-auto border-b border-b-[#999] relative text-[1.25rem] before:content-[''] before:w-[25%] before:h-px before:bg-[#999] before:absolute before:top-[120%] before:left-[50%] before:transform-[translateX(-50%)] lg:text-[32px]">コレカウでできること</h3>
                 <dl className="lg:flex lg:flex-row lg:flex-wrap lg:gap-[5%]">
                     <div className="mb-[5em] lg:w-[47.5%]">
                         <dt className="text-[1.5rem]"><h4 className="text-[#f0b20e] border-l-[#f0b20e] border-l-[.25rem] pl-[.5em] mb-[.5em]">1. 買うものリスト</h4></dt>
