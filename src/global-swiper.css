@@ -42,8 +42,6 @@
 @media screen and (min-width: 700px) {
     .SwiperLibsWrapper {
         & .swiper-pagination {
-            top: -1em;
-
             & .swiperPaginationChildrenWrapper {
                 gap: .5em;
 
@@ -58,8 +56,6 @@
 @media screen and (min-width: 1025px) {
     .SwiperLibsWrapper {
         & .swiper-pagination {
-            top: 0;
-
             & .swiperPaginationChildrenWrapper {
                 gap: 1em;
             }
