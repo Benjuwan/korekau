@@ -43,7 +43,7 @@ export const KorekauItems = memo(({ category }: { category: string }) => {
                             </h2>
                         </li>
                         {filteredItems.map(korekauList => (
-                            <li className={`not-last-of-type:mb-[1em] flex flex-row flex-nowrap items-center p-[1em] bg-[#f2f2f2] rounded-[.5rem] text-[1rem] gap-[2%] relative ${korekauList.itemPriority ? 'flex flex-row flex-wrap items-center gap-[1em] bg-[#f3e0ab]' : 'flex flex-row flex-wrap items-center gap-[1em]'}`} key={korekauList.uuid}>
+                            <li className={`not-last-of-type:mb-[1em] flex flex-row flex-nowrap items-center p-[1em] bg-[#f2f2f2] rounded-lg text-[1rem] gap-[2%] relative ${korekauList.itemPriority ? 'flex flex-row flex-wrap items-center gap-[1em] bg-[#f3e0ab]' : 'flex flex-row flex-wrap items-center gap-[1em]'}`} key={korekauList.uuid}>
                                 <div className="w-[clamp(10rem,58%,35rem)] flex flex-row flex-wrap items-center gap-[1em]">
                                     <p className="w-full wrap-anywhere">{korekauList.itemName}<span className="ml-[1em] text-[#59b835]">×{korekauList.itemNumber}</span></p>
                                 </div>
