@@ -43,7 +43,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
     }
 
     return (
-        <form action="" className="w-full rounded p-[1.5em] shadow-[0_0_8px_rgba(160,160,160,.5)_inset] my-[1em] mx-auto bg-white" onSubmit={handleFormSubmit}>
+        <form action="" className="w-full rounded p-[1.5em] shadow-[0_0_8px_rgba(160,160,160,.5)_inset] my-[1em] mx-auto bg-white h-screen overflow-y-auto" onSubmit={handleFormSubmit}>
             <div className="mb-[2em]">
                 <label className="leading-loose border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">カテゴリー</label>
                 <select
