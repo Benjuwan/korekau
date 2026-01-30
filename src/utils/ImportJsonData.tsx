@@ -1,4 +1,4 @@
-import { ChangeEvent, memo } from "react";
+import { SyntheticEvent, memo } from "react";
 import { korekauItemsType } from "../components/korekau/ts/korekau";
 import { useAtom } from "jotai";
 import { korekauAtom, korekauItemsLocalStorageAtom } from "../ts/korekau-atom";
@@ -67,12 +67,12 @@ export const ImportJsonData = memo(() => {
 
     return (
         <label htmlFor="ImportJsonDate">
-            <span className="block border-l-[.25rem] border-l-[#f0b20e] pl-[.5em] mb-[.5em]">買うものリストの読み込み</span>
+            <span className="block border-l-4 border-l-[#f0b20e] pl-[.5em] mb-[.5em]">買うものリストの読み込み</span>
             <input
                 type="file"
                 accept={fileAccept}
                 className="text-[0.875rem] file:cursor-pointer file:mr-4 file:rounded-sm file:border file:border-transparent file:bg-[#eaeaea] file:px-4 file:py-1 file:text-[#333] hover:file:border-[#333]"
-                onChange={(fileElm: ChangeEvent<HTMLInputElement>) => inputJsonData(fileElm.currentTarget)}
+                onChange={(fileElm: SyntheticEvent<HTMLInputElement>) => inputJsonData(fileElm.currentTarget)}
                 id="ImportJsonDate"
             />
         </label>
