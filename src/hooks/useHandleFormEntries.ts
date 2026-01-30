@@ -1,7 +1,7 @@
-import { ChangeEvent } from "react";
+import { SyntheticEvent } from "react";
 
 type handleFormEntriesType = <T>(
-    targetElm: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    targetElm: SyntheticEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
     targetFormEntries: T,
     setEntries: React.Dispatch<React.SetStateAction<T>>,
     addSpecificFeatures?: string
@@ -10,7 +10,7 @@ type handleFormEntriesType = <T>(
 export const useHandleFormEntries = () => {
     /* <T>：ジェネリクスで任意の型を指定 */
     const handleFormEntries: handleFormEntriesType = function <T>(
-        targetElm: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+        targetElm: SyntheticEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
         targetFormEntries: T,
         setEntries: React.Dispatch<React.SetStateAction<T>>,
         addSpecificFeatures?: string
@@ -39,9 +39,9 @@ export const useHandleFormEntries = () => {
     }
 
     /* 買うものリスト機能において別途追加する関数 */
-    const _korekauSpecificFeature: (type: string, targetElm: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => boolean | undefined = (
+    const _korekauSpecificFeature: (type: string, targetElm: SyntheticEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => boolean | undefined = (
         type: string,
-        targetElm: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+        targetElm: SyntheticEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
     ) => {
         /* 「すぐ買う」項目かつ input 要素かどうかを判定 */
         if (type === 'itemPriority' && targetElm.currentTarget instanceof HTMLInputElement) {

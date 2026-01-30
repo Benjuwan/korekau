@@ -54,7 +54,7 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
         resetStates();
     }
 
-    const handleFormSubmit: (e: SyntheticEvent<HTMLFormElement>) => void = (e: SyntheticEvent<HTMLFormElement>) => {
+    const handleFormSubmit: (e: ChangeEvent<HTMLFormElement>) => void = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!todoItems.edit) {
             regiTodoItem(todoItems);
@@ -66,7 +66,7 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
     }
 
     return (
-        <form className="text-[0.875rem] leading-[1.8] w-full max-w-[32rem] mx-auto mb-[1em] flex flex-col"
+        <form className="text-[0.875rem] leading-[1.8] w-full max-w-lg mx-auto mb-[1em] flex flex-col"
             onSubmit={handleFormSubmit}>
             <label className="block w-full mb-[1em] md:mb-0">
                 <input
@@ -74,7 +74,7 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
                     value={todoItems.todoContent}
                     id="todoContent"
                     className="text-[1rem] leading-normal border border-[#919191] bg-white rounded w-full pl-[.5em]"
-                    onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} />
+                    onInput={(e: SyntheticEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} />
             </label>
             <div className="flex justify-start gap-[1em]">
                 <label className="block w-full text-left mb-[1em] text-[clamp(0.625rem,100%,0.875rem)] my-[1em]">開始時刻
@@ -83,14 +83,14 @@ export const TodoForm = ({ props }: { props: TodoFormType }) => {
                         id="startTime"
                         className="appearance-none block text-[1rem] leading-loose border border-[#919191] bg-white rounded w-full pl-[.25em]"
                         value={todoItems.startTime}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} /></label>
+                        onChange={(e: SyntheticEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} /></label>
                 <label className="block w-full text-left mb-[1em] text-[clamp(0.625rem,100%,0.875rem)] my-[1em]">終了時刻
                     <input
                         type="time"
                         id="finishTime"
                         className="appearance-none block text-[1rem] leading-loose border border-[#919191] bg-white rounded w-full pl-[.25em]"
                         value={todoItems.finishTime}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} /></label>
+                        onChange={(e: SyntheticEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} /></label>
             </div>
             <button
                 type="button"
