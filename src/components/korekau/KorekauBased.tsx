@@ -20,8 +20,7 @@ export const KorekauBased = memo(() => {
             const SaveLocalStorageDateItems: korekauItemsType[] = JSON.parse(getLocalStorageItems);
             setKorekauLists([...SaveLocalStorageDateItems]);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [localstorageLabelKorekauItems, setKorekauLists]);
 
     return (
         <section className="korekauSection">

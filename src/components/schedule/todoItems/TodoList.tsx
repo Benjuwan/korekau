@@ -24,7 +24,7 @@ export const TodoList = ({ todoID }: { todoID: string }) => {
     return (
         <>
             {todoMemo.length > 0 &&
-                <ul className="text-[0.875rem] leading-[1.8] mt-[1em] max-h-[10rem] overflow-y-auto">
+                <ul className="text-[0.875rem] leading-[1.8] mt-[1em] max-h-40 overflow-y-auto">
                     {todoMemo.map(todoItem => (
                         <Fragment key={todoItem.uuid}>
                             {/* yyyy/MM/dd が一致した場合 */}

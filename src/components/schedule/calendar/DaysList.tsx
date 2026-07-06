@@ -59,7 +59,7 @@ export const DaysList = memo(({ days }: { days: calendarItemType[] }) => {
                     {day.signalPrevNextMonth ? null :
                         <div className="todoView">
                             <TodoCtrlOpenBtn />
-                            <div className="todoCtrlElm w-screen h-full fixed top-[50%] left-[50%] pt-[2.5em] px-[1em] pb-[1em] transform-[translate(-50%,-50%)] bg-[rgba(255,255,255,.5)] backdrop-blur-sm transition duration-[.25s] lg:p-[5em]">
+                            <div className="todoCtrlElm w-screen h-full fixed z-2 top-[50%] left-[50%] pt-[2.5em] px-[1em] pb-[1em] transform-[translate(-50%,-50%)] bg-[rgba(255,255,255,.5)] backdrop-blur-sm transition duration-[.25s] lg:p-[5em]">
                                 <TodoCtrlClosedBtn />
                                 <p className="text-[1.5rem] pb-[1.5em]">{day.month}/{day.day}（{day.dayDate}）</p>
                                 <TodoForm props={{
