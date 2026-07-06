@@ -1,38 +1,12 @@
-import { memo, useEffect } from "react";
-import { trashType } from "./ts/trash";
-import { useAtom } from "jotai";
-import { trashDateAtom } from "../../ts/trash-atom";
+import { memo } from "react";
 import { TrashForm } from "./utils/TrashForm";
-import { TrashDateLists } from "./utils/TrashDateLists";
-import { TrashDateListsAllReset } from "./utils/TrashDateListsAllReset";
-import { localstorageLabel_TrashDate } from "../../ts/trash-localstorageLabel";
+import { TrashDataItems } from "./utils/TrashDataItems";
 
 export const TrashBased = memo(() => {
-    const [trashDateLists, setTrashDateLists] = useAtom(trashDateAtom);
-
-    const localstorageLabelTrashDate: string = localstorageLabel_TrashDate;
-
-    useEffect(() => {
-        /* localStorage にデータがあればその内容を子コンポーネント（KorekauItems）に渡す */
-        const getLocalStorageItems: string | null = localStorage.getItem(localstorageLabelTrashDate);
-        if (getLocalStorageItems !== null) {
-            const SaveLocalStorageDateItems: trashType[] = JSON.parse(getLocalStorageItems);
-            setTrashDateLists([...SaveLocalStorageDateItems]);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     return (
         <section>
             <TrashForm />
-            {trashDateLists.length > 0 ?
-                <>
-                    <TrashDateListsAllReset />
-                    <p>現在設定されているゴミ出し日は以下です。</p>
-                    <TrashDateLists />
-                </> :
-                <p style={{ 'textAlign': 'center' }}>ゴミ出し日はまだ設定されていません。</p>
-            }
+            <TrashDataItems />
         </section>
     );
 });
