@@ -44,8 +44,8 @@ export const ContentViewer = memo(() => {
 
     return (
         <>
-            <nav className="bg-[rgba(255,255,255,.5)] w-full backdrop-blur-xl shadow-[0_0_4px_rgba(0,0,0,.25)] rounded-[1.5em_0_0_0] overflow-x-scroll fixed bottom-0 left-1/2 -translate-x-1/2 z-1 lg:bg-[#fff6df] lg:max-w-232 lg:shadow-none lg:rounded lg:bottom-auto lg:top-[6em]">
-                <div className="flex justify-between gap-4 p-4 py-6 w-[150vw] lg:w-auto lg:py-4">
+            <nav className="bg-[rgba(255,255,255,.5)] w-full backdrop-blur-xl shadow-[0_0_4px_rgba(0,0,0,.25)] rounded-[1.5em_0_0_0] overflow-x-scroll fixed bottom-0 left-1/2 -translate-x-1/2 z-1 lg:bg-[#fff6df] lg:max-w-232 lg:shadow-none lg:rounded lg:bottom-auto lg:top-[6em] lg:overflow-x-auto">
+                <div className="flex justify-between gap-4 p-4 py-6 w-[130vw] lg:w-auto lg:py-4">
                     {navListsLabel.map((label, i) => (
                         <button
                             key={i}
