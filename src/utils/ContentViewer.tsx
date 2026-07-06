@@ -44,16 +44,18 @@ export const ContentViewer = memo(() => {
 
     return (
         <>
-            <nav className="flex flex-wrap gap-4 mb-8 p-4 bg-[#fff6df] rounded sticky top-8">
-                {navListsLabel.map((label, i) => (
-                    <button
-                        key={i}
-                        type="button"
-                        className={`text-[calc(100vw/44)] block pb-[1.5rm] tracking-[0.25em] py-[0.5em] px-[1em] rounded-full border border-transparent md:text-sm ${currViewContentLabelName === label.valueName ? 'text-white bg-[#1e6cd4]' : 'bg-[#dadada] text-[#767676] hover:cursor-pointer hover:text-[#1e6cd4] hover:border-[#1e6cd4] hover:bg-white active:cursor-pointer active:text-[#1e6cd4] active:border-[#1e6cd4] active:bg-white duration-250'}`}
-                        value={label.valueName}
-                        onClick={() => handleViewContentLabelName(label.valueName)}
-                    >{label.labelName}</button>
-                ))}
+            <nav className="bg-[rgba(255,255,255,.5)] w-full backdrop-blur-xl shadow-[0_0_4px_rgba(0,0,0,.25)] rounded-[1.5em_0_0_0] overflow-x-scroll fixed bottom-0 left-1/2 -translate-x-1/2 z-1 lg:bg-[#fff6df] lg:max-w-232 lg:shadow-none lg:rounded lg:bottom-auto lg:top-[6em]">
+                <div className="flex justify-between gap-4 p-4 py-6 w-[150vw] lg:w-auto lg:py-4">
+                    {navListsLabel.map((label, i) => (
+                        <button
+                            key={i}
+                            type="button"
+                            className={`text-[calc(100vw/44)] block pb-[1.5rm] tracking-[0.25em] py-[0.5em] px-[1em] rounded-full border border-transparent md:text-sm ${currViewContentLabelName === label.valueName ? 'text-white bg-[#1e6cd4]' : 'bg-[#dadada] text-[#767676] hover:cursor-pointer hover:text-[#1e6cd4] hover:border-[#1e6cd4] hover:bg-white active:cursor-pointer active:text-[#1e6cd4] active:border-[#1e6cd4] active:bg-white duration-250'}`}
+                            value={label.valueName}
+                            onClick={() => handleViewContentLabelName(label.valueName)}
+                        >{label.labelName}</button>
+                    ))}
+                </div>
             </nav>
             <section>
                 <div className='mb-[2.5em]'>
