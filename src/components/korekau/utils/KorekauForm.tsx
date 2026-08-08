@@ -93,7 +93,7 @@ export const KorekauForm = memo(({ KorekauItemList }: { KorekauItemList?: koreka
                     }>
                 </textarea>
             </div>
-            <div className="flex items-start gap-[5em]">
+            <div className="flex items-start gap-[3em]">
                 <div className="mb-[2em]">
                     <label className="leading-loose border-l-4 border-l-[#f0b20e] pl-[.5em] mb-[.5em]">個数</label>
                     {/* pattern="\d*"：\dは任意の数字を表し、*は0回以上の繰り返しを意味する（＝入力されるテキストが0個以上の数字で構成されることを許可）*/}
