@@ -41,7 +41,7 @@ export const TodoItems = ({ todoItem }: { todoItem: todoItemType }) => {
     }
 
     return (
-        <div className="modalWindow fixed w-screen h-full m-auto pt-[2.5em] px-[1em] pb-[1em] top-[50%] left-[50%] transform-[translate(-50%,-50%)] bg-[rgba(255,255,255,.5)] backdrop-blur-sm transition-[opacity] transition-[visibility] duration-[.25s] overflow-y-auto overscroll-contain">
+        <div className="modalWindow fixed w-screen h-full m-auto pt-[2.5em] px-[1em] pb-[1em] top-[50%] left-[50%] transform-[translate(-50%,-50%)] bg-[rgba(255,255,255,.5)] backdrop-blur-sm transition-[opacity] transition-[visibility] duration-[.25s] overflow-y-auto overscroll-contain z-1">
             <div className="flex flex-row flex-wrap justify-center gap-[1em] max-w-[35rem] m-auto bg-white shadow-[0_0_4px_rgba(0,0,0,.5)_inset] rounded p-[1em]">
                 {todoItem.edit ?
                     <>
